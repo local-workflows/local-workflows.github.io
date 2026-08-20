@@ -1,0 +1,970 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(1)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(1) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(6) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(1) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Built-in plugins | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Built-in plugins" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<meta name="twitter:description" property="og:description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<link rel="canonical" href="https://local-workflows.github.io/plugins/built-in.html" />
+<meta property="og:url" content="https://local-workflows.github.io/plugins/built-in.html" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Built-in plugins" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar.","headline":"Built-in plugins","url":"https://local-workflows.github.io/plugins/built-in.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems.html" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why.html" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install.html" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/copilot.html" class="nav-list-link">GitHub Copilot setup</a></li><li class="nav-list-item"><a href="/getting-started/first-tasks.html" class="nav-list-link">Your first tasks.yml</a></li><li class="nav-list-item"><a href="/getting-started/first-workflow.html" class="nav-list-link">Your first local workflow</a></li><li class="nav-list-item"><a href="/getting-started/first-spec.html" class="nav-list-link">Your first spec</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Features submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/" class="nav-list-link">Features</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/kiro.html" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/kiro-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/spec-kit.html" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/spec-kit-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/features/sdd/custom-style.html" class="nav-list-link">Writing your own style</a></li><li class="nav-list-item"><a href="/features/sdd/config.html" class="nav-list-link">config.yml</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Workflows submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/workflows/" class="nav-list-link">Workflows</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/workflows/writing-a-workflow.html" class="nav-list-link">Writing a new workflow</a></li></ul></li><li class="nav-list-item"><a href="/features/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/features/package-json/" class="nav-list-link">package.json scripts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Plugins submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/plugins/" class="nav-list-link">Plugins</a><ul class="nav-list"><li class="nav-list-item"><a href="/plugins/built-in.html" class="nav-list-link">Built-in plugins</a></li><li class="nav-list-item"><a href="/plugins/writing-a-plugin.html" class="nav-list-link">Writing a plugin</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="VSCode submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/vscode/" class="nav-list-link">VSCode</a><ul class="nav-list"><li class="nav-list-item"><a href="/vscode/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Cheat sheets submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/cheat-sheets/" class="nav-list-link">Cheat sheets</a><ul class="nav-list"><li class="nav-list-item"><a href="/cheat-sheets/sdd.html" class="nav-list-link">SDD cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workspaces.html" class="nav-list-link">Workspace cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workflows.html" class="nav-list-link">Workflow cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/plugins.html" class="nav-list-link">Plugin cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/package-json.html" class="nav-list-link">Scripts cheat sheet</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/reference/authoring.html" class="nav-list-link">Authoring</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting.html" class="nav-list-link">Troubleshooting</a></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/plugins/">Plugins</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Built-in plugins</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="built-in-plugins">
+  
+  
+    <a href="#built-in-plugins" class="anchor-heading" aria-labelledby="built-in-plugins"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Built-in plugins
+  
+  
+</h1>
+    
+
+<p>Four plugins are compiled into the extension. They need no <code class="language-plaintext highlighter-rouge">plugins/</code>
+folder, no manifest of yours, and no install — <code class="language-plaintext highlighter-rouge">uses: pwsh@1</code> works in a
+fresh workspace.</p>
+
+<p class="note">They are the only plugins that are <strong>not sandboxed</strong>. See
+<a href="/plugins/writing-a-plugin.html#the-sandbox">the sandbox</a>
+for why.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#shell1" id="markdown-toc-shell1"><code class="language-plaintext highlighter-rouge">shell@1</code></a></li>
+  <li><a href="#pwsh1" id="markdown-toc-pwsh1"><code class="language-plaintext highlighter-rouge">pwsh@1</code></a></li>
+  <li><a href="#file1" id="markdown-toc-file1"><code class="language-plaintext highlighter-rouge">file@1</code></a></li>
+  <li><a href="#ai1" id="markdown-toc-ai1"><code class="language-plaintext highlighter-rouge">ai@1</code></a>    <ol>
+      <li><a href="#mcpservers--reading-systems-there-is-no-plugin-for" id="markdown-toc-mcpservers--reading-systems-there-is-no-plugin-for"><code class="language-plaintext highlighter-rouge">mcpServers:</code> — reading systems there is no plugin for</a></li>
+      <li><a href="#what-the-agent-can-see" id="markdown-toc-what-the-agent-can-see">What the agent can see</a></li>
+      <li><a href="#when-to-use-mcpservers-instead-of-writing-a-plugin" id="markdown-toc-when-to-use-mcpservers-instead-of-writing-a-plugin">When to use <code class="language-plaintext highlighter-rouge">mcpServers:</code> instead of writing a plugin</a></li>
+      <li><a href="#it-enforces-no-gate" id="markdown-toc-it-enforces-no-gate">It enforces no gate</a></li>
+      <li><a href="#args-this-build-has-never-heard-of" id="markdown-toc-args-this-build-has-never-heard-of">Args this build has never heard of</a></li>
+      <li><a href="#one-plugin-every-vendor" id="markdown-toc-one-plugin-every-vendor">One plugin, every vendor</a></li>
+    </ol>
+  </li>
+  <li><a href="#why-these-four-and-no-more" id="markdown-toc-why-these-four-and-no-more">Why these four and no more</a></li>
+</ol><hr />
+<h2 id="shell1">
+  
+  
+    <a href="#shell1" class="anchor-heading" aria-labelledby="shell1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">shell@1</code>
+  
+  
+</h2>
+    
+
+<p>Runs a command line through the OS shell. This is what a <code class="language-plaintext highlighter-rouge">run:</code> task
+desugars to, so you rarely write it out — but it is a plugin like any
+other, and its outputs are captured the same way.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">script</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td>The command line to run.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">shell</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pwsh</code> | <code class="language-plaintext highlighter-rouge">cmd</code> | <code class="language-plaintext highlighter-rouge">bash</code></td>
+      <td>Which shell runs it. Absent means whatever the OS provides by default — <code class="language-plaintext highlighter-rouge">cmd</code> on Windows, <code class="language-plaintext highlighter-rouge">bash</code> elsewhere.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Outputs:</strong> <code class="language-plaintext highlighter-rouge">stdout</code>, <code class="language-plaintext highlighter-rouge">stderr</code>, <code class="language-plaintext highlighter-rouge">exitCode</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">list</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">shell@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">script</span><span class="pi">:</span> <span class="s">git status --short</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="s">STATUS</span>
+</code></pre></div></div>
+
+<p class="gotcha"><code class="language-plaintext highlighter-rouge">pwsh</code> must be named explicitly. A <code class="language-plaintext highlighter-rouge">$env:NAME</code> script with no <code class="language-plaintext highlighter-rouge">shell:</code>
+runs in <code class="language-plaintext highlighter-rouge">cmd</code> on Windows and comes back empty.</p><hr />
+<h2 id="pwsh1">
+  
+  
+    <a href="#pwsh1" class="anchor-heading" aria-labelledby="pwsh1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">pwsh@1</code>
+  
+  
+</h2>
+    
+
+<p>Runs an inline PowerShell script, or a <code class="language-plaintext highlighter-rouge">.ps1</code> file. PowerShell 7+.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">script</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Inline PowerShell. Mutually exclusive with <code class="language-plaintext highlighter-rouge">file</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">file</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Path to a <code class="language-plaintext highlighter-rouge">.ps1</code>, relative to the task’s working directory.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">additionalArgs</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Arguments appended when running <code class="language-plaintext highlighter-rouge">file</code>, e.g. <code class="language-plaintext highlighter-rouge">-Name "World"</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">shell</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pwsh</code></td>
+      <td>The only value accepted. A task that wants <code class="language-plaintext highlighter-rouge">cmd</code> wants a <code class="language-plaintext highlighter-rouge">run:</code> task.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">errorActionPreference</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>default <code class="language-plaintext highlighter-rouge">stop</code></td>
+      <td>Prepended as <code class="language-plaintext highlighter-rouge">$ErrorActionPreference</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">progressPreference</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>default <code class="language-plaintext highlighter-rouge">silentlyContinue</code></td>
+      <td>Prepended as <code class="language-plaintext highlighter-rouge">$ProgressPreference</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">failOnStderr</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>default <code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>Fail the task if anything reaches stderr, even on a zero exit.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ignoreExitCode</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>default <code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>Report a non-zero exit without failing the task.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><code class="language-plaintext highlighter-rouge">errorActionPreference</code> and <code class="language-plaintext highlighter-rouge">progressPreference</code> both accept <code class="language-plaintext highlighter-rouge">default</code>,
+<code class="language-plaintext highlighter-rouge">stop</code>, <code class="language-plaintext highlighter-rouge">continue</code> and <code class="language-plaintext highlighter-rouge">silentlyContinue</code>.</p>
+
+<p><strong>Outputs:</strong> <code class="language-plaintext highlighter-rouge">stdout</code>, <code class="language-plaintext highlighter-rouge">stderr</code>, <code class="language-plaintext highlighter-rouge">exitCode</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">package</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">pwsh@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">file</span><span class="pi">:</span> <span class="s">./scripts/package.ps1</span>
+      <span class="na">additionalArgs</span><span class="pi">:</span> <span class="s">-Configuration Release</span>
+</code></pre></div></div>
+
+<p class="warning"><code class="language-plaintext highlighter-rouge">errorActionPreference</code> defaults to <code class="language-plaintext highlighter-rouge">stop</code> on purpose, and it is the
+single most load-bearing line this plugin emits. Without it a failing
+cmdlet is <em>non-terminating</em>: it writes to stderr, leaves <code class="language-plaintext highlighter-rouge">$LASTEXITCODE</code>
+alone, and the task reports <strong>success</strong>.</p>
+
+<p>It governs cmdlets only. A native command exiting non-zero is unaffected,
+so <code class="language-plaintext highlighter-rouge">git diff --quiet</code> and friends still work as questions rather than
+failures.</p>
+
+<p><code class="language-plaintext highlighter-rouge">progressPreference</code> defaults to <code class="language-plaintext highlighter-rouge">silentlyContinue</code> so progress bars do
+not spray control characters into the log.</p>
+
+<p>The script is staged as a UTF-8 <code class="language-plaintext highlighter-rouge">.ps1</code> and invoked, rather than passed to
+<code class="language-plaintext highlighter-rouge">pwsh -Command</code>. So it is not capped by the command-line length limit,
+quotes survive intact, and it is not visible to anything that can list
+processes.</p>
+
+<p><code class="language-plaintext highlighter-rouge">shell: cmd</code> is rejected — a staged <code class="language-plaintext highlighter-rouge">.ps1</code> is not something <code class="language-plaintext highlighter-rouge">cmd.exe</code> can
+run. A task that wants <code class="language-plaintext highlighter-rouge">cmd</code> wants a <code class="language-plaintext highlighter-rouge">run:</code> task, which already has
+<code class="language-plaintext highlighter-rouge">shell:</code>.</p><hr />
+<h2 id="file1">
+  
+  
+    <a href="#file1" class="anchor-heading" aria-labelledby="file1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">file@1</code>
+  
+  
+</h2>
+    
+
+<p>Reads a file into a run variable, or writes one from a value — the
+<em>executes</em> half of “AI proposes, a human approves, a plugin executes”.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">operation</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong> — <code class="language-plaintext highlighter-rouge">read</code> | <code class="language-plaintext highlighter-rouge">write</code> | <code class="language-plaintext highlighter-rouge">mkdir</code></td>
+      <td>What to do with the path.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">path</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td>Relative to the workspace unless absolute.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">content</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>What to write. Required when writing, ignored when reading.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">createDirectories</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>default <code class="language-plaintext highlighter-rouge">true</code></td>
+      <td>Create parent folders when writing rather than failing on a missing one.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Outputs:</strong> <code class="language-plaintext highlighter-rouge">content</code>, <code class="language-plaintext highlighter-rouge">path</code>, <code class="language-plaintext highlighter-rouge">lines</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">read-notes</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">file@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">operation</span><span class="pi">:</span> <span class="s">read</span>
+      <span class="na">path</span><span class="pi">:</span> <span class="s">RELEASE_NOTES.md</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="s">NOTES</span>
+
+  <span class="na">write-notes</span><span class="pi">:</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">read-notes</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">file@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">operation</span><span class="pi">:</span> <span class="s">write</span>
+      <span class="na">path</span><span class="pi">:</span> <span class="s">dist/notes.md</span>
+      <span class="na">content</span><span class="pi">:</span> <span class="s">${{ run.context.NOTES.content }}</span>
+</code></pre></div></div><hr />
+<h2 id="ai1">
+  
+  
+    <a href="#ai1" class="anchor-heading" aria-labelledby="ai1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">ai@1</code>
+  
+  
+</h2>
+    
+
+<p>Runs an agent session on whichever provider the task names. It reads,
+writes and works in the repo.</p>
+
+<p class="warning">Put a <a href="/features/workflows/">gate</a> on a later task if
+you want to review before anything downstream runs. This plugin changes
+your working tree.</p>
+
+<p>It needs whatever its provider needs. <code class="language-plaintext highlighter-rouge">ghcp</code> — GitHub Copilot, and the
+only provider that ships today — needs the Copilot CLI installed and a
+credential. This is the only bundled plugin that needs anything at all.</p>
+
+<p class="note">Both prerequisites, and every way they fail:
+<a href="/getting-started/copilot.html">GitHub Copilot setup</a>.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">prompt</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td>What to ask the agent to do.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">provider</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>default <code class="language-plaintext highlighter-rouge">ghcp</code></td>
+      <td>Which agent runtime the session runs on. The vendor is named here and nowhere else.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">model</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Which model runs the session. Usually set once in a <code class="language-plaintext highlighter-rouge">plugins:</code> entry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">context</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td> </td>
+      <td>Named documents laid into the session before the prompt, keyed by name — usually file args.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">attachments</code></td>
+      <td><code class="language-plaintext highlighter-rouge">array</code></td>
+      <td> </td>
+      <td>Files the session may open, as <code class="language-plaintext highlighter-rouge">[{ path, name }]</code>. Paths may sit outside the working directory.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">detach</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td> </td>
+      <td>Return the session id without waiting for the turn — for a conversation a person will join in the editor.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">target</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>The file this session is expected to produce. The path is told to the agent, and the task fails if the session ends without it.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">title</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>A short human title, sent as the prompt’s first line, so the chat history names the session.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Outputs:</strong> <code class="language-plaintext highlighter-rouge">summary</code>, <code class="language-plaintext highlighter-rouge">files</code>.</p>
+
+<p>That table is short because it is only what the <em>engine</em> does with a
+session: the message it sends, the documents it composes in, the file it
+verifies afterwards, whether the task waits. Everything a session can be
+<strong>told</strong> — its tools, its servers, its standing instructions — is the
+provider’s own vocabulary and is written under the provider’s own names.
+See <a href="#args-this-build-has-never-heard-of">Args this build has never heard of</a>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">plugins</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">provider</span><span class="pi">:</span> <span class="s">ghcp</span>
+      <span class="na">model</span><span class="pi">:</span> <span class="s">claude-sonnet-4.5</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">draft</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">title</span><span class="pi">:</span> <span class="s">Draft the release notes</span>
+      <span class="na">prompt</span><span class="pi">:</span> <span class="s">Summarise the commits since the last tag.</span>
+      <span class="na">context</span><span class="pi">:</span>
+        <span class="na">changelog</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">file</span><span class="pi">:</span> <span class="nv">CHANGELOG.md</span> <span class="pi">}</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="s">DRAFT</span>
+</code></pre></div></div>
+
+<p class="tip"><code class="language-plaintext highlighter-rouge">context</code> pastes a document’s <em>content</em> into the session. <code class="language-plaintext highlighter-rouge">attachments</code>
+only tells the agent a file exists and lets it open it. Reach for
+<code class="language-plaintext highlighter-rouge">context</code> when the agent must read something, <code class="language-plaintext highlighter-rouge">attachments</code> when it might
+want to.</p>
+<h3 id="mcpservers--reading-systems-there-is-no-plugin-for">
+  
+  
+    <a href="#mcpservers--reading-systems-there-is-no-plugin-for" class="anchor-heading" aria-labelledby="mcpservers--reading-systems-there-is-no-plugin-for"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">mcpServers:</code> — reading systems there is no plugin for
+  
+  
+</h3>
+    
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">pull-context</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">mcpServers</span><span class="pi">:</span>
+        <span class="na">ado</span><span class="pi">:</span>
+          <span class="na">command</span><span class="pi">:</span> <span class="s">npx</span>
+          <span class="na">args</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">-y"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">@azure-devops/mcp"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">contoso"</span><span class="pi">]</span>
+      <span class="na">availableTools</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">wit_get_work_item</span><span class="pi">]</span>
+      <span class="na">prompt</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">Read work item 4821 and write docs/context/AB-4821.md -</span>
+        <span class="s">whatever structure serves a developer picking it up cold.</span>
+</code></pre></div></div>
+
+<p>A remote server instead:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="na">mcpServers</span><span class="pi">:</span>
+        <span class="na">ado</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">http</span>
+          <span class="na">url</span><span class="pi">:</span> <span class="s">https://mcp.dev.azure.com/contoso</span>
+</code></pre></div></div>
+
+<p class="warning"><code class="language-plaintext highlighter-rouge">mcpServers</code> and <code class="language-plaintext highlighter-rouge">availableTools</code> are not <code class="language-plaintext highlighter-rouge">ai@1</code> args — they are the
+runtime’s own, reaching it because the plugin passes on what it does not
+declare. Nothing here checks their shape: a server with neither a
+<code class="language-plaintext highlighter-rouge">command</code> nor a <code class="language-plaintext highlighter-rouge">url</code> fails wherever the runtime notices, not before the
+session opens.</p>
+
+<p><strong>Name the tools in <code class="language-plaintext highlighter-rouge">availableTools:</code>.</strong> Above 30 tools the runtime
+defers MCP definitions behind its tool-search tool rather than loading
+them all — so a large server does not cost a context window, but
+discovering a tool still costs a round trip. Naming it skips even that:
+one definition, one call, no search. It sets the session’s whole tool
+list, though, so a task that must also write files has to name those too.</p>
+
+<p class="warning"><strong>Never inline a credential.</strong> <code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code>
+resolves before the declaration is handed over, so a server’s <code class="language-plaintext highlighter-rouge">env:</code> can
+name a variable without the value ever being in the file.</p>
+
+<p><strong>A server signed in once stays signed in.</strong> A remote server that
+authenticates over OAuth has nobody to ask during a run — no window
+belongs to the task. Tokens are kept where the runtime keeps them rather
+than discarded with the session, so one interactive sign-in holds for
+every task after it.</p>
+
+<p><strong>The runtime’s own configuration is read too.</strong> Servers a task declares
+win, but a machine that has already been set up is not asked to say so
+twice. Note this is the <em>runtime’s</em> config, not the editor’s — a server
+in <code class="language-plaintext highlighter-rouge">.vscode/mcp.json</code> belongs to Copilot Chat, which is a different
+process with its own settings.</p>
+<h3 id="what-the-agent-can-see">
+  
+  
+    <a href="#what-the-agent-can-see" class="anchor-heading" aria-labelledby="what-the-agent-can-see"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What the agent can see
+  
+  
+</h3>
+    
+
+<p>The session’s working directory is the task’s <code class="language-plaintext highlighter-rouge">cwd:</code>, and every folder
+open in the explorer is readable alongside it. In a multi-root workspace
+that matters: the change is in one service and the reason for it is in
+its sibling, and an agent confined to one folder can only guess at the
+other. The <code class="language-plaintext highlighter-rouge">.code-workspace</code> file itself is included when there is one.</p>
+<h3 id="when-to-use-mcpservers-instead-of-writing-a-plugin">
+  
+  
+    <a href="#when-to-use-mcpservers-instead-of-writing-a-plugin" class="anchor-heading" aria-labelledby="when-to-use-mcpservers-instead-of-writing-a-plugin"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When to use <code class="language-plaintext highlighter-rouge">mcpServers:</code> instead of writing a plugin
+  
+  
+</h3>
+    
+
+<p>Both read a system like Azure DevOps, and they are not competing:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Reach for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>The same read every run, feeding a durable artefact</td>
+      <td><strong>a plugin</strong></td>
+    </tr>
+    <tr>
+      <td>Exploratory — you don’t know what you’re looking for yet</td>
+      <td><strong><code class="language-plaintext highlighter-rouge">mcpServers:</code></strong></td>
+    </tr>
+    <tr>
+      <td>Attachments — a <code class="language-plaintext highlighter-rouge">.docx</code> spec, a screenshot</td>
+      <td><strong><code class="language-plaintext highlighter-rouge">mcpServers:</code></strong>, clearly</td>
+    </tr>
+    <tr>
+      <td>It must run headless (schedule, CI, no Copilot sign-in)</td>
+      <td><strong>a plugin</strong></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The deciding difference is not token cost — a session pinned to one tool
+is cheap. It is that a plugin runs without a model at all, fails with a
+message naming the variable, and returns the same thing twice.</p>
+<h3 id="it-enforces-no-gate">
+  
+  
+    <a href="#it-enforces-no-gate" class="anchor-heading" aria-labelledby="it-enforces-no-gate"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> It enforces no gate
+  
+  
+</h3>
+    
+
+<p>Not one. The place a human decides anything is a <code class="language-plaintext highlighter-rouge">trigger: manual</code> task
+<strong>you</strong> put in the file — the same mechanism every other task uses.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">draft</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">prompt</span><span class="pi">:</span> <span class="s">Write docs/specs/caching/requirements.md from the notes in docs/.</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="s">SPEC</span>
+
+  <span class="na">implement</span><span class="pi">:</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">draft</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">pwsh@1</span>
+    <span class="na">trigger</span><span class="pi">:</span> <span class="s">manual</span>          <span class="c1"># &lt;- your call, not the plugin's</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">file</span><span class="pi">:</span> <span class="s">./scripts/implement.ps1</span>
+</code></pre></div></div>
+
+<p>A permission card per tool was considered and rejected: nobody reads the
+fifth one, and a run recording “approved” against an unread card is worse
+than a run recording nothing. Use <code class="language-plaintext highlighter-rouge">availableTools</code>/<code class="language-plaintext highlighter-rouge">excludedTools</code> to set policy once
+instead.</p>
+
+<p><strong>A permission the agent does ask for is answered in the conversation.</strong>
+The task registers no handler, so nothing decides on your behalf — the
+request stays pending in the session, and you open it from the run panel
+and answer it there, in context. That is also why a task can sit waiting:
+a session nobody opens is a session nobody has answered.</p>
+<h3 id="args-this-build-has-never-heard-of">
+  
+  
+    <a href="#args-this-build-has-never-heard-of" class="anchor-heading" aria-labelledby="args-this-build-has-never-heard-of"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Args this build has never heard of
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">ai@1</code> passes an arg it does not declare straight to the provider. The
+runtime behind it has its own session options and gains more every
+release, and restating each one here would mean a new build to expose a
+switch somebody else already shipped.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">prompt</span><span class="pi">:</span> <span class="s">Draft the release notes.</span>
+      <span class="na">contextTier</span><span class="pi">:</span> <span class="s">long_context</span>      <span class="c1"># &lt;- not ours; the runtime's</span>
+</code></pre></div></div>
+
+<p class="warning">The declared args are still checked for type. An arg that is neither
+declared nor understood by the provider is simply ignored by it — so a
+misspelling fails quietly here rather than being named, which is the
+price of the reach.</p>
+
+<p>Reviewing is easier after the fact anyway. A 500-line spec cannot be read
+in a gate card; it can be read in your editor, which is where <code class="language-plaintext highlighter-rouge">files</code>
+tells you to look.</p>
+<h3 id="one-plugin-every-vendor">
+  
+  
+    <a href="#one-plugin-every-vendor" class="anchor-heading" aria-labelledby="one-plugin-every-vendor"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> One plugin, every vendor
+  
+  
+</h3>
+    
+
+<p>The vendor is <code class="language-plaintext highlighter-rouge">provider:</code>, not the plugin’s name. A second vendor is a
+second value, not a second <code class="language-plaintext highlighter-rouge">plugin.json</code> repeating this whole arg list to
+change one line — and a file that runs two of them declares two
+<code class="language-plaintext highlighter-rouge">plugins:</code> entries over the same <code class="language-plaintext highlighter-rouge">ai@1</code>.</p>
+
+<p>There is deliberately no read-only preset. It would have to mean
+something specific per vendor, and a safety setting whose meaning changes
+with <code class="language-plaintext highlighter-rouge">provider:</code> is worse than none — so a session that must not touch
+the repository says exactly that in <code class="language-plaintext highlighter-rouge">excludedTools:</code>, and the gate below it is
+what the workflow actually rests on.</p><hr />
+<h2 id="why-these-four-and-no-more">
+  
+  
+    <a href="#why-these-four-and-no-more" class="anchor-heading" aria-labelledby="why-these-four-and-no-more"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why these four and no more
+  
+  
+</h2>
+    
+
+<p>There is no marketplace, nothing is downloaded, and nothing is signed.
+These four are what the engine needs to be useful on its own: a shell, a
+better shell, the filesystem, and an agent.</p>
+
+<p>Anything past that is
+<a href="/plugins/writing-a-plugin.html">a plugin you write</a> —
+which is a folder, a manifest, and a JavaScript file, with no build step
+and no dependency on this extension.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

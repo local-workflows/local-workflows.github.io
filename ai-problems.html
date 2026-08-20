@@ -1,0 +1,571 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    
+    .site-nav > ul.nav-list:first-child > li:not(:nth-child(2)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(2) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(2) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>AI problems and solutions | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="AI problems and solutions" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The problems developers actually hit when working with AI models — messy context, vague prompts, inconsistent quality, unreviewed actions — and the working practices that solve them. Standalone; applies to any AI tool." />
+<meta name="twitter:description" property="og:description" content="The problems developers actually hit when working with AI models — messy context, vague prompts, inconsistent quality, unreviewed actions — and the working practices that solve them. Standalone; applies to any AI tool." />
+<link rel="canonical" href="https://local-workflows.github.io/ai-problems.html" />
+<meta property="og:url" content="https://local-workflows.github.io/ai-problems.html" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="AI problems and solutions" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"The problems developers actually hit when working with AI models — messy context, vague prompts, inconsistent quality, unreviewed actions — and the working practices that solve them. Standalone; applies to any AI tool.","headline":"AI problems and solutions","url":"https://local-workflows.github.io/ai-problems.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems.html" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why.html" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install.html" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/copilot.html" class="nav-list-link">GitHub Copilot setup</a></li><li class="nav-list-item"><a href="/getting-started/first-tasks.html" class="nav-list-link">Your first tasks.yml</a></li><li class="nav-list-item"><a href="/getting-started/first-workflow.html" class="nav-list-link">Your first local workflow</a></li><li class="nav-list-item"><a href="/getting-started/first-spec.html" class="nav-list-link">Your first spec</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Features submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/" class="nav-list-link">Features</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/kiro.html" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/kiro-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/spec-kit.html" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/spec-kit-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/features/sdd/custom-style.html" class="nav-list-link">Writing your own style</a></li><li class="nav-list-item"><a href="/features/sdd/config.html" class="nav-list-link">config.yml</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Workflows submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/workflows/" class="nav-list-link">Workflows</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/workflows/writing-a-workflow.html" class="nav-list-link">Writing a new workflow</a></li></ul></li><li class="nav-list-item"><a href="/features/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/features/package-json/" class="nav-list-link">package.json scripts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Plugins submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/plugins/" class="nav-list-link">Plugins</a><ul class="nav-list"><li class="nav-list-item"><a href="/plugins/built-in.html" class="nav-list-link">Built-in plugins</a></li><li class="nav-list-item"><a href="/plugins/writing-a-plugin.html" class="nav-list-link">Writing a plugin</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="VSCode submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/vscode/" class="nav-list-link">VSCode</a><ul class="nav-list"><li class="nav-list-item"><a href="/vscode/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Cheat sheets submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/cheat-sheets/" class="nav-list-link">Cheat sheets</a><ul class="nav-list"><li class="nav-list-item"><a href="/cheat-sheets/sdd.html" class="nav-list-link">SDD cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workspaces.html" class="nav-list-link">Workspace cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workflows.html" class="nav-list-link">Workflow cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/plugins.html" class="nav-list-link">Plugin cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/package-json.html" class="nav-list-link">Scripts cheat sheet</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/reference/authoring.html" class="nav-list-link">Authoring</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting.html" class="nav-list-link">Troubleshooting</a></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="fs-9" id="ai-problems-and-solutions">
+  
+  
+    <a href="#ai-problems-and-solutions" class="anchor-heading" aria-labelledby="ai-problems-and-solutions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> AI problems and solutions
+  
+  
+</h1>
+    
+
+<p class="fs-6 fw-300">The problems below show up with every AI model and every AI tool.
+Most are workflow bugs, not model bugs — and even the ones rooted in
+model behavior are managed by workflow. Each has a working practice
+that addresses it, regardless of which model or vendor you use.</p><hr />
+<h2 id="1-one-session-five-jobs">
+  
+  
+    <a href="#1-one-session-five-jobs" class="anchor-heading" aria-labelledby="1-one-session-five-jobs"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. One session, five jobs
+  
+  
+</h2>
+    
+
+<p><strong>The problem.</strong> A session starts as “add the endpoint”. Then a test
+fails, a stack trace gets pasted, a rename question comes up along
+the way. Twenty minutes in, the answers are getting worse — and it is
+not the model. Every failed tool call, every dead end, every side
+discussion is still sitting in the context, and the model is
+reasoning over all of it. Context quality decays, so output quality
+decays with it.</p>
+
+<p><strong>The solution.</strong> Cut the work into the smallest unit that can stand
+alone, and give each unit its own session. When one unit’s output
+feeds the next, carry forward only the finished result — never the
+conversation that produced it. The failed attempts and the detours
+die with their session instead of polluting the next one.</p><hr />
+<h2 id="2-lazy-prompts">
+  
+  
+    <a href="#2-lazy-prompts" class="anchor-heading" aria-labelledby="2-lazy-prompts"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2. Lazy prompts
+  
+  
+</h2>
+    
+
+<p><strong>The problem.</strong> Writing a good prompt takes effort, and opening a
+fresh session takes effort, so developers do neither. They type a
+vague one-liner into the session that is already open and let the
+model guess the rest. The model fills the gaps with assumptions, and
+the output quality is a coin toss.</p>
+
+<p><strong>The solution.</strong> Write the good prompt once and save it. A prompt
+worth using twice is worth being a file — reused exactly, refined
+over time, never re-typed from memory. The effort is spent once,
+deliberately, instead of being skipped a hundred times.</p><hr />
+<h2 id="3-everyones-own-mega-prompt">
+  
+  
+    <a href="#3-everyones-own-mega-prompt" class="anchor-heading" aria-labelledby="3-everyones-own-mega-prompt"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3. Everyone’s own mega-prompt
+  
+  
+</h2>
+    
+
+<p><strong>The problem.</strong> Each developer on the team keeps their own version
+of “the prompt that works” — in a notes app, a chat history, or their
+head. Every version drifts differently, nobody reviews any of them,
+and the same task produces different quality depending on who ran it.</p>
+
+<p><strong>The solution.</strong> Prompts are shared, versioned artifacts. Keep them
+where the code lives, change them the way code changes — proposed,
+reviewed, merged. One prompt per task for the whole team, and an
+improvement made by one person reaches everyone.</p><hr />
+<h2 id="4-ai-doing-jobs-that-never-needed-ai">
+  
+  
+    <a href="#4-ai-doing-jobs-that-never-needed-ai" class="anchor-heading" aria-labelledby="4-ai-doing-jobs-that-never-needed-ai"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. AI doing jobs that never needed AI
+  
+  
+</h2>
+    
+
+<p><strong>The problem.</strong> “Create a PR” gets handed to a model as one job. But
+two different things hide inside it: writing the description — a job
+for a model — and creating the PR — a deterministic action a script
+does perfectly every time. Putting a model in front of a
+deterministic step adds no value; it only adds a way to fail.</p>
+
+<p><strong>The solution.</strong> Split every job into its AI part and its action
+part. The model produces the value — the description, the summary,
+the draft. A plain script performs the action. If a step has exactly
+one correct outcome, it is not a job for a model.</p><hr />
+<h2 id="5-no-gate-before-irreversible-actions">
+  
+  
+    <a href="#5-no-gate-before-irreversible-actions" class="anchor-heading" aria-labelledby="5-no-gate-before-irreversible-actions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5. No gate before irreversible actions
+  
+  
+</h2>
+    
+
+<p><strong>The problem.</strong> The model drafts something and the same automated
+flow ships it — the PR opens, the message sends, the release goes
+out. By the time a human sees the output, it is already public, and
+wrong output is now an incident instead of an edit.</p>
+
+<p><strong>The solution.</strong> A manual gate between generation and any
+irreversible action. The model may draft anything; a human reads the
+actual, final output — not a summary of it — before it fires.
+Reversible steps can flow; irreversible ones wait for a person.</p><hr />
+<h2 id="6-one-bad-inference-poisons-everything-after-it">
+  
+  
+    <a href="#6-one-bad-inference-poisons-everything-after-it" class="anchor-heading" aria-labelledby="6-one-bad-inference-poisons-everything-after-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6. One bad inference poisons everything after it
+  
+  
+</h2>
+    
+
+<p><strong>The problem.</strong> In a chained workflow, step two builds on step one’s
+output, step three on step two’s. One plausible-but-wrong inference
+early in the chain gets consumed by every step after it, and the
+error compounds silently. By the end, the whole result is built on a
+mistake nobody saw happen.</p>
+
+<p><strong>The solution.</strong> A checkpoint between steps. Each step consumes only
+an output a human has approved — never a raw, unreviewed one. A bad
+inference then costs you one step, caught at the gate, instead of the
+whole chain.</p><hr />
+<h2 id="7-quality-depends-on-who-is-driving-and-on-what-day">
+  
+  
+    <a href="#7-quality-depends-on-who-is-driving-and-on-what-day" class="anchor-heading" aria-labelledby="7-quality-depends-on-who-is-driving-and-on-what-day"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 7. Quality depends on who is driving, and on what day
+  
+  
+</h2>
+    
+
+<p><strong>The problem.</strong> The same task gives great output on Monday and
+garbage on Thursday, great output from one developer and garbage from
+another. Nothing about the model changed. What changed is the input:
+each person’s ad-hoc prompt, each session’s accumulated mess.</p>
+
+<p><strong>The solution.</strong> Fix the inputs and the quality follows. Same
+prompt — a saved one, not a re-typed one — plus same clean context,
+per task. Consistency in, consistency out; the model was never the
+variable.</p><hr />
+<h2 id="8-plausible-wrong-output-survives-a-tired-reviewer">
+  
+  
+    <a href="#8-plausible-wrong-output-survives-a-tired-reviewer" class="anchor-heading" aria-labelledby="8-plausible-wrong-output-survives-a-tired-reviewer"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 8. Plausible-wrong output survives a tired reviewer
+  
+  
+</h2>
+    
+
+<p><strong>The problem.</strong> AI output looks right. It is fluent, well-formatted,
+and confident — including when it is wrong. Hand a reviewer five
+hundred generated lines and they skim; the mistake that reads
+smoothly sails through. The better the model gets, the better the
+wrong output looks.</p>
+
+<p><strong>The solution.</strong> Keep each unit of output small enough to actually
+read. A reviewer can genuinely verify one small, focused output; no
+reviewer can genuinely verify a wall of generated text. Small units
+are not just better for the model’s context — they are the only
+output a human review can honestly certify.</p><hr />
+<h2 id="the-pattern-behind-all-eight">
+  
+  
+    <a href="#the-pattern-behind-all-eight" class="anchor-heading" aria-labelledby="the-pattern-behind-all-eight"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The pattern behind all eight
+  
+  
+</h2>
+    
+
+<p>The workflow controls exactly two things — and every solution above
+is one of them.</p>
+
+<p><strong>The quality of what goes into the model.</strong> Small units keep the
+context clean. Saved, shared prompts keep the input fixed. That is
+problems 1, 2, 3, and 7 — and it is the lever that actually changes
+what the model produces.</p>
+
+<p><strong>The cost of what comes out wrong.</strong> Gates before irreversible
+actions, checkpoints between steps, outputs small enough to honestly
+review. That is problems 4, 5, 6, and 8 — and it changes nothing
+about the output itself. It makes the failure cheap, contained, and
+caught.</p>
+
+<p>No workflow makes a model better than it is. But the first lever gets
+you the model’s best when it is right, and the second makes it
+survivable when it is wrong. “Consistently its best” was never on
+offer from any model — a clean input and a cheap failure is, and that
+is enough.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

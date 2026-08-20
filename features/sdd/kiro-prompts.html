@@ -1,0 +1,1727 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li > ul > li:not(:nth-child(1)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(1) > ul > li:nth-child(1) > ul > li:nth-child(1) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(1) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(1) > ul > li:nth-child(1) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(1) > ul > li:nth-child(1) > ul > li:nth-child(1) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Prompts | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Prompts" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<meta name="twitter:description" property="og:description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<link rel="canonical" href="https://local-workflows.github.io/features/sdd/kiro-prompts.html" />
+<meta property="og:url" content="https://local-workflows.github.io/features/sdd/kiro-prompts.html" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Prompts" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar.","headline":"Prompts","url":"https://local-workflows.github.io/features/sdd/kiro-prompts.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems.html" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why.html" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install.html" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/copilot.html" class="nav-list-link">GitHub Copilot setup</a></li><li class="nav-list-item"><a href="/getting-started/first-tasks.html" class="nav-list-link">Your first tasks.yml</a></li><li class="nav-list-item"><a href="/getting-started/first-workflow.html" class="nav-list-link">Your first local workflow</a></li><li class="nav-list-item"><a href="/getting-started/first-spec.html" class="nav-list-link">Your first spec</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Features submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/" class="nav-list-link">Features</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/kiro.html" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/kiro-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/spec-kit.html" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/spec-kit-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/features/sdd/custom-style.html" class="nav-list-link">Writing your own style</a></li><li class="nav-list-item"><a href="/features/sdd/config.html" class="nav-list-link">config.yml</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Workflows submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/workflows/" class="nav-list-link">Workflows</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/workflows/writing-a-workflow.html" class="nav-list-link">Writing a new workflow</a></li></ul></li><li class="nav-list-item"><a href="/features/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/features/package-json/" class="nav-list-link">package.json scripts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Plugins submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/plugins/" class="nav-list-link">Plugins</a><ul class="nav-list"><li class="nav-list-item"><a href="/plugins/built-in.html" class="nav-list-link">Built-in plugins</a></li><li class="nav-list-item"><a href="/plugins/writing-a-plugin.html" class="nav-list-link">Writing a plugin</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="VSCode submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/vscode/" class="nav-list-link">VSCode</a><ul class="nav-list"><li class="nav-list-item"><a href="/vscode/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Cheat sheets submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/cheat-sheets/" class="nav-list-link">Cheat sheets</a><ul class="nav-list"><li class="nav-list-item"><a href="/cheat-sheets/sdd.html" class="nav-list-link">SDD cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workspaces.html" class="nav-list-link">Workspace cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workflows.html" class="nav-list-link">Workflow cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/plugins.html" class="nav-list-link">Plugin cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/package-json.html" class="nav-list-link">Scripts cheat sheet</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/reference/authoring.html" class="nav-list-link">Authoring</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting.html" class="nav-list-link">Troubleshooting</a></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/features/">Features</a></li>
+    <li class="breadcrumb-nav-list-item"><a href="/features/sdd/">Spec-driven development</a></li>
+    <li class="breadcrumb-nav-list-item"><a href="/features/sdd/kiro.html">Kiro</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Prompts</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <!-- GENERATED FILE - DO NOT EDIT.
+     Source: resources/styles/kiro/
+     Regenerate: ruby scripts/gen-style-prompts.rb -->
+<h1 class="no_toc" id="the-kiro-prompts">
+  
+  
+    <a href="#the-kiro-prompts" class="anchor-heading" aria-labelledby="the-kiro-prompts"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The Kiro prompts
+  
+  
+</h1>
+    
+
+<p>Every prompt behind the Kiro process, exactly as the extension
+sends it. This page is generated from <code class="language-plaintext highlighter-rouge">resources/styles/kiro/</code>, so it
+cannot drift from what actually runs.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#what-a-phase-is-actually-handed" id="markdown-toc-what-a-phase-is-actually-handed">What a phase is actually handed</a></li>
+  <li><a href="#which-prompt-runs-where" id="markdown-toc-which-prompt-runs-where">Which prompt runs where</a></li>
+  <li><a href="#designmd" id="markdown-toc-designmd"><code class="language-plaintext highlighter-rouge">design.md</code></a></li>
+  <li><a href="#format-designmd" id="markdown-toc-format-designmd"><code class="language-plaintext highlighter-rouge">format-design.md</code></a></li>
+  <li><a href="#format-requirementsmd" id="markdown-toc-format-requirementsmd"><code class="language-plaintext highlighter-rouge">format-requirements.md</code></a></li>
+  <li><a href="#format-tasksmd" id="markdown-toc-format-tasksmd"><code class="language-plaintext highlighter-rouge">format-tasks.md</code></a></li>
+  <li><a href="#grammarmd" id="markdown-toc-grammarmd"><code class="language-plaintext highlighter-rouge">grammar.md</code></a></li>
+  <li><a href="#implementmd" id="markdown-toc-implementmd"><code class="language-plaintext highlighter-rouge">implement.md</code></a></li>
+  <li><a href="#intakemd" id="markdown-toc-intakemd"><code class="language-plaintext highlighter-rouge">intake.md</code></a></li>
+  <li><a href="#intromd" id="markdown-toc-intromd"><code class="language-plaintext highlighter-rouge">intro.md</code></a></li>
+  <li><a href="#requirementsmd" id="markdown-toc-requirementsmd"><code class="language-plaintext highlighter-rouge">requirements.md</code></a></li>
+  <li><a href="#tasksmd" id="markdown-toc-tasksmd"><code class="language-plaintext highlighter-rouge">tasks.md</code></a></li>
+</ol><hr />
+<h2 id="what-a-phase-is-actually-handed">
+  
+  
+    <a href="#what-a-phase-is-actually-handed" class="anchor-heading" aria-labelledby="what-a-phase-is-actually-handed"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What a phase is actually handed
+  
+  
+</h2>
+    
+
+<p><strong>The prompt is the ask; everything else is a file.</strong> Prior documents
+are attached rather than pasted into the prompt - a phase that inlined
+its requirements, design, house style and grammar would be mostly
+reference material with the question buried at the end.</p>
+
+<p>So a phase receives the <code class="language-plaintext highlighter-rouge">intro</code>, the grammar, its house style where it
+has one, its own prompt below, and the earlier documents as
+attachments. Not the whole spec folder, and never a previous
+conversation.</p><hr />
+<h2 id="which-prompt-runs-where">
+  
+  
+    <a href="#which-prompt-runs-where" class="anchor-heading" aria-labelledby="which-prompt-runs-where"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Which prompt runs where
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Prompt</th>
+      <th>Job</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#design-md"><code class="language-plaintext highlighter-rouge">design.md</code></a></td>
+      <td>The <code class="language-plaintext highlighter-rouge">design</code> stage (produces <code class="language-plaintext highlighter-rouge">design.md</code>; gate: <code class="language-plaintext highlighter-rouge">manual</code>).</td>
+    </tr>
+    <tr>
+      <td><a href="#format-design-md"><code class="language-plaintext highlighter-rouge">format-design.md</code></a></td>
+      <td>House style, given only to the <code class="language-plaintext highlighter-rouge">design</code> stage.</td>
+    </tr>
+    <tr>
+      <td><a href="#format-requirements-md"><code class="language-plaintext highlighter-rouge">format-requirements.md</code></a></td>
+      <td>House style, given only to the <code class="language-plaintext highlighter-rouge">requirements</code> stage.</td>
+    </tr>
+    <tr>
+      <td><a href="#format-tasks-md"><code class="language-plaintext highlighter-rouge">format-tasks.md</code></a></td>
+      <td>House style, given only to the <code class="language-plaintext highlighter-rouge">tasks</code> stage.</td>
+    </tr>
+    <tr>
+      <td><a href="#grammar-md"><code class="language-plaintext highlighter-rouge">grammar.md</code></a></td>
+      <td>Given to <strong>every</strong> phase - the parser-critical rules.</td>
+    </tr>
+    <tr>
+      <td><a href="#implement-md"><code class="language-plaintext highlighter-rouge">implement.md</code></a></td>
+      <td>The <code class="language-plaintext highlighter-rouge">implement</code> stage (produces ).</td>
+    </tr>
+    <tr>
+      <td><a href="#intake-md"><code class="language-plaintext highlighter-rouge">intake.md</code></a></td>
+      <td>The intake chat, which writes <code class="language-plaintext highlighter-rouge">requirements.md</code>. Not a stage - a person drives it.</td>
+    </tr>
+    <tr>
+      <td><a href="#intro-md"><code class="language-plaintext highlighter-rouge">intro.md</code></a></td>
+      <td>Read first by <strong>every</strong> phase: what the process is, and that the document is the deliverable.</td>
+    </tr>
+    <tr>
+      <td><a href="#requirements-md"><code class="language-plaintext highlighter-rouge">requirements.md</code></a></td>
+      <td>The <code class="language-plaintext highlighter-rouge">requirements</code> stage (produces <code class="language-plaintext highlighter-rouge">requirements.md</code>; gate: <code class="language-plaintext highlighter-rouge">manual</code>).</td>
+    </tr>
+    <tr>
+      <td><a href="#tasks-md"><code class="language-plaintext highlighter-rouge">tasks.md</code></a></td>
+      <td>The <code class="language-plaintext highlighter-rouge">tasks</code> stage (produces <code class="language-plaintext highlighter-rouge">tasks.md</code>; gate: <code class="language-plaintext highlighter-rouge">manual</code>).</td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="designmd">
+  
+  
+    <a href="#designmd" class="anchor-heading" aria-labelledby="designmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">design.md</code>
+  
+  
+</h2>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">design</code> stage (produces <code class="language-plaintext highlighter-rouge">design.md</code>; gate: <code class="language-plaintext highlighter-rouge">manual</code>).</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Draft the design</span>
+
+You are drafting <span class="sb">`design.md`</span> for one feature, strictly from the
+<span class="gs">**approved**</span> <span class="sb">`requirements.md`</span> you have been given. The repository is
+context; the requirements are the contract. Write <span class="sb">`design.md`</span> to the
+exact target path stated at the end of these instructions, and touch
+nothing else.
+
+<span class="gu">## Format</span>
+
+<span class="gs">**The grammar and format rules above are the contract**</span> - heading
+levels, table shapes, and the exact form of a correctness property.
+Follow it exactly. The sections, all H2, in this order:
+<span class="p">
+-</span> <span class="gs">**Overview**</span> - what is being built and the shape of the solution.
+<span class="p">-</span> <span class="gs">**Architecture**</span> - how it fits the existing codebase; diagrams as
+  Mermaid where they help. It closes with a <span class="sb">`### Design Decisions`</span>
+  table: one row per choice a reader could reasonably have made
+  differently, and a rationale that names the alternative and why it
+  lost. This is the only record of what you rejected, and the only thing
+  that stops a maintainer re-opening a settled question in six months.
+<span class="p">-</span> <span class="gs">**Components and Interfaces**</span> - each new or changed component, its
+  responsibility, the file it lives in, and its interface.
+<span class="p">-</span> <span class="gs">**Data Models**</span> - types, schemas, and their fields, as tables.
+<span class="p">-</span> <span class="gs">**Correctness Properties**</span> - see below.
+<span class="p">-</span> <span class="gs">**Error Handling**</span> - what can fail and what happens when it does, as
+  a table per layer with a <span class="sb">`**Rationale:**`</span> line.
+<span class="p">-</span> <span class="gs">**Testing Strategy**</span> - how each requirement will be verified.
+
+No sections beyond those, other than the <span class="sb">`## Assumptions`</span> and
+<span class="sb">`## Open Questions`</span> sections described below.
+
+<span class="gu">## Correctness Properties - this is where traceability closes</span>
+
+<span class="sb">`requirements.md`</span> numbers its acceptance criteria and <span class="sb">`tasks.md`</span> cites
+them. Without this section the design sits between two numbered
+documents carrying no numbers of its own, and nobody can tell whether it
+covers what was asked.
+
+A property is a claim that holds across <span class="gs">**every**</span> valid execution - not
+an example, not a test case:
+
+<span class="p">```</span><span class="nl">markdown
+</span><span class="gu">### Property 1: (short descriptive name)</span>
+
+<span class="ge">*For any*</span> (universally quantified input), THE (component) SHALL
+(guaranteed outcome), regardless of (what does not matter).
+
+<span class="gs">**Validates: Requirements 1.2, 3.1**</span>
+<span class="p">```</span>
+<span class="p">
+-</span> Number properties from 1. The <span class="sb">`**Validates:**`</span> line is required and
+  names acceptance criteria by their <span class="sb">`N.M`</span> IDs.
+<span class="p">-</span> <span class="gs">**Every acceptance criterion must be named by at least one property.**</span>
+  Before you finish, walk the requirements and check. A criterion no
+  property validates is a hole - either write the property, or say
+  plainly under <span class="sb">`## Assumptions`</span> why it cannot be stated as one.
+<span class="p">-</span> If you cannot write "for any", it is an example, not a property. Put
+  it in Testing Strategy instead.
+
+Do not name a property-testing framework, and do not prescribe iteration
+counts or a testing library. A property is a claim about the design;
+<span class="gs">**how**</span> it gets verified is Testing Strategy's business, and ordinary
+tests are the normal answer.
+
+<span class="gu">## Diagrams</span>
+
+A diagram earns its place when it shows something prose cannot - a
+branch, an order, a shape. Never draw one that restates a paragraph, and
+never use one where a table is clearer.
+
+When you do draw one, write Mermaid that parses. The rules below exist
+because the usual failure is a label the parser chokes on:
+<span class="p">
+-</span> Fence it as <span class="sb">` ```mermaid `</span>.
+<span class="p">-</span> <span class="gs">**Quote every label**</span>: <span class="sb">`A["Caller runs greet.ps1"]`</span>, not
+  <span class="sb">`A[Caller runs greet.ps1]`</span>. Quoting is what makes punctuation -
+  <span class="sb">`:`</span> <span class="sb">`,`</span> <span class="sb">`(`</span> <span class="sb">`)`</span> <span class="sb">`[`</span> <span class="sb">`]`</span> <span class="sb">`-`</span> <span class="sb">`/`</span> - safe inside a label. Do it always,
+  even when the text looks harmless.
+<span class="p">-</span> <span class="gs">**Never put `"` inside a label.**</span> Use single quotes:
+  <span class="sb">`D["Write-Host 'Hello, X!'"]`</span>. A double quote ends the label and the
+  diagram fails to parse.
+<span class="p">-</span> Quote edge labels the same way: <span class="sb">`B --&gt;|"no"| C`</span>.
+<span class="p">-</span> Node ids are short and alphanumeric (<span class="sb">`A`</span>, <span class="sb">`B2`</span>) - all the words go in
+  the quoted label.
+<span class="p">-</span> Use <span class="sb">`&lt;br/&gt;`</span> for a line break inside a label, never a newline.
+<span class="p">-</span> Stick to <span class="sb">`flowchart`</span>, <span class="sb">`sequenceDiagram`</span>, <span class="sb">`stateDiagram-v2`</span>, and
+  <span class="sb">`erDiagram`</span>. Anything more exotic may not render where the document is
+  read.
+<span class="p">-</span> At most one diagram per section, and around ten nodes in it. A diagram
+  nobody can follow at a glance has failed.
+
+<span class="gu">## Rules</span>
+<span class="p">
+-</span> <span class="gs">**One write, one path, nothing else.**</span> The only permitted write in
+  this session is <span class="sb">`design.md`</span> at the path given below. Do not create or
+  edit any other file, and do not run terminal commands. Read-only
+  tools are fine at any time.
+<span class="p">-</span> <span class="gs">**Research is context, not an artifact.**</span> When you need to look
+  something up - a library's API, a protocol, how a version behaves -
+  read it and let it shape the design. Do not write a <span class="sb">`research.md`</span>, a
+  notes file, or a findings document: the spec folder holds exactly
+  three documents, and <span class="sb">`design.md`</span> is where what you learned is meant
+  to land. Anything load-bearing gets cited inline, next to the
+  decision it justifies.
+<span class="p">-</span> Every design decision must trace to a requirement. If a requirement
+  cannot be satisfied as written, that is a blocker - do not design
+  around it silently.
+<span class="p">-</span> Follow the principles document if one was provided - it wins over
+  your own preferences.
+<span class="p">-</span> <span class="gs">**Assumptions over questions**</span>: proceed on reasonable assumptions and
+  record them under <span class="sb">`## Assumptions`</span> at the end. Only true blockers go
+  in an <span class="sb">`## Open Questions`</span> section placed <span class="gs">**first in the document**</span>.
+<span class="p">-</span> Read the repository before proposing structure - the design must fit
+  the code that exists, not an imagined version of it.
+<span class="p">-</span> <span class="gs">**Say which files each component lives in.**</span> The next phase splits
+  this design into tasks that must not collide, and it can only do that
+  if the design says what touches what.
+
+<span class="gu">## When revising</span>
+
+Your context may carry two extra documents. <span class="sb">`current`</span> is the existing
+<span class="sb">`design.md`</span> - this run is a revision of it, not a fresh draft. <span class="sb">`note`</span>
+is the human's revision instruction, and it wins over everything else
+here.
+
+The current document may contain human edits and answers written under
+Open Questions. Treat those as decisions: fold them in, delete the
+questions they resolve, and leave everything they do not touch
+unchanged - including property numbering, which <span class="sb">`tasks.md`</span> may cite.
+</code></pre></div></div>
+<h2 id="format-designmd">
+  
+  
+    <a href="#format-designmd" class="anchor-heading" aria-labelledby="format-designmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">format-design.md</code>
+  
+  
+</h2>
+    
+
+<p>House style, given only to the <code class="language-plaintext highlighter-rouge">design</code> stage.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># design.md - house style</span>
+
+The shape of this one document. The rules the panel parses are in
+<span class="sb">`grammar.md`</span>, which every phase gets; this file is handed only to the
+phase writing the design.
+
+<span class="gu">## design.md</span>
+
+No frontmatter. Sections, all H2, in this order:
+
+<span class="p">```</span><span class="nl">markdown
+</span><span class="gh"># Design: (title)</span>
+
+<span class="gu">## Overview</span>
+<span class="gu">## Architecture</span>
+<span class="gu">### Design Decisions</span>
+<span class="gu">## Components and Interfaces</span>
+<span class="gu">## Data Models</span>
+<span class="gu">## Correctness Properties</span>
+<span class="gu">## Error Handling</span>
+<span class="gu">## Testing Strategy</span>
+<span class="p">```</span>
+
+<span class="gu">### Design Decisions</span>
+
+An H3 table closing the Architecture section, and the only place the
+design records what it <span class="ge">*rejected*</span>:
+
+<span class="p">```</span><span class="nl">markdown
+</span>| Decision | Rationale |
+|---|---|
+| (what was decided) | (why this, and what the alternative cost) |
+<span class="p">```</span>
+
+One row per decision a reader could reasonably have made differently.
+The rationale names the alternative and why it lost - "chose X" with no
+loser is a statement, not a decision, and belongs in Overview. Six
+months on this table is the only thing standing between a maintainer and
+re-litigating a choice someone already thought through.
+
+<span class="gu">### Correctness Properties - where traceability closes</span>
+
+A property is a statement that must hold across <span class="ge">*every*</span> valid execution,
+not an example. This is the section that carries design back to
+requirements: without it, <span class="sb">`requirements.md`</span> and <span class="sb">`tasks.md`</span> both carry
+numbers and <span class="sb">`design.md`</span> carries none.
+
+<span class="p">```</span><span class="nl">markdown
+</span><span class="gu">### Property 1: (short descriptive name)</span>
+
+<span class="ge">*For any*</span> (universally quantified input), THE (component) SHALL
+(guaranteed outcome), regardless of (what does not matter).
+
+<span class="gs">**Validates: Requirements 1.2, 3.1**</span>
+<span class="p">```</span>
+<span class="p">
+-</span> Properties are numbered from 1.
+<span class="p">-</span> The <span class="sb">`**Validates:**`</span> line is required, is the last line of the
+  property, and names acceptance criteria by their <span class="sb">`N.M`</span> IDs.
+<span class="p">-</span> <span class="gs">**Every acceptance criterion must be named by at least one property.**</span>
+  A criterion no property validates is a hole in the design - either
+  write the property or say plainly why the criterion is untestable.
+<span class="p">-</span> Start with the italic <span class="sb">`*For any*`</span> quantifier. If you cannot write
+  "for any", it is an example, not a property - it belongs in Testing
+  Strategy.
+
+There is no property-based-testing framework implied here, and no
+minimum iteration count. A property is a claim about the design; how it
+gets verified is Testing Strategy's business, and ordinary tests are the
+normal answer.
+
+<span class="gu">### Diagrams, tables, code</span>
+<span class="p">
+-</span> Mermaid rules live in the design prompt. Follow them exactly - the
+  panel renders these fences, and a diagram that fails to parse shows as
+  an error where the picture should be.
+<span class="p">-</span> Data Models are <span class="gs">**tables**</span>: <span class="sb">`Field | Type | Description`</span>.
+<span class="p">-</span> Error Handling is <span class="gs">**tables per layer**</span>: <span class="sb">`Scenario | Behaviour`</span>,
+  followed by a <span class="sb">`**Rationale:**`</span> line saying why that strategy.
+<span class="p">-</span> Fenced code blocks carry a language tag: <span class="sb">` ```ts `, ` ```json `</span>.
+<span class="p">-</span> Tables need their separator row: <span class="sb">`|---|---|`</span>.
+
+</code></pre></div></div>
+<h2 id="format-requirementsmd">
+  
+  
+    <a href="#format-requirementsmd" class="anchor-heading" aria-labelledby="format-requirementsmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">format-requirements.md</code>
+  
+  
+</h2>
+    
+
+<p>House style, given only to the <code class="language-plaintext highlighter-rouge">requirements</code> stage.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># requirements.md - house style</span>
+
+The shape of this one document. The rules the panel parses are in
+<span class="sb">`grammar.md`</span>, which every phase gets; this file is handed only to the
+phase writing requirements.
+
+<span class="gu">## Frontmatter</span>
+
+<span class="sb">`requirements.md`</span> carries it; <span class="sb">`design.md`</span> and <span class="sb">`tasks.md`</span> do not.
+
+<span class="gh">```markdown
+---
+</span>spec: 1
+type: (the spec type you were given - feature, bug, spike, whatever the team declared)
+source: manual | ado | gh
+id: (work item id / issue number, omitted when source is manual)
+url: (link to the item, omitted when source is manual)
+<span class="gh">title: (the spec's title)
+---
+</span><span class="p">```</span><span class="nl">
+</span>
+It is the spec's provenance and the only record of where the work came
+from once the intake conversation is gone. **Preserve it exactly as you
+found it. Never invent a `url`** - omit the key instead.
+
+`spec:` is the version of *this format*. Write `1`. It exists so a later
+build that changes the document shape can tell what it is reading and
+migrate rather than guess. Never change it yourself, and never drop it
+when revising.
+
+`type:` is the spec's kind, and it comes from the definition - the team
+decides what types exist, so **there is no fixed list to validate
+against**. Take the value you were given and record it. What it changes
+is framing, not structure: a `feature` states capability the system
+should gain, a `bug` states the wrong behaviour and the right one, a
+`spike` states the question being answered. Every type uses the same
+sections, the same numbering, and the same EARS forms. If you are given
+a type whose conventions you do not know, write it as a feature and note
+the assumption.
+
+
+## requirements.md
+
+<span class="p">```</span>markdown
+<span class="nn">---</span>
+<span class="s">(frontmatter)</span>
+<span class="nn">---</span>
+
+<span class="gh"># (title)</span>
+
+<span class="gu">## Introduction</span>
+
+(a short paragraph: what this is and why it exists)
+
+<span class="gu">## Glossary</span>
+<span class="p">
+-</span> <span class="gs">**Term_Name**</span>: what this term means in this document
+
+<span class="gu">## Requirements</span>
+
+<span class="gu">### Requirement 1: (short descriptive title)</span>
+
+<span class="gs">**User Story:**</span> As a (role), I want (capability), so that (benefit).
+
+<span class="gu">#### Acceptance Criteria</span>
+<span class="p">
+1.</span> WHEN (trigger) THEN THE (component) SHALL (behaviour).
+<span class="p">2.</span> IF (condition) THEN THE (component) SHALL (behaviour).
+<span class="p">```</span><span class="nl">
+</span>
+- Every requirement carries a **short title after the number**. `3.2` on
+  its own is unreadable in a task list; "Requirement 3: Retry on
+  timeout" is what makes a `_Requirements: 3.2_` reference mean anything
+  to someone who has not just read the document.
+- Requirements are numbered from 1 and **never renumbered by a
+  revision** - every `_Requirements:` reference in `tasks.md` and every
+  `**Validates:**` line in `design.md` points at these numbers.
+- Acceptance criteria sit under a literal `#### Acceptance Criteria`
+  heading - H4, no colon, no bold. It is what the panel finds the
+  criteria by, so a requirement missing it has criteria nothing can link
+  to.
+- Acceptance criteria are numbered from 1 within their requirement.
+- `1.2` means requirement 1, criterion 2. That is the ID scheme the
+  whole spec traces through.
+- Requirements state *what* and *why*, never *how*.
+
+### Glossary
+
+Terms this document uses in a specific sense - a domain noun, a state
+name, a role, an external system. Not a dictionary: if a term means what
+any reader would assume, leave it out.
+
+<span class="p">```</span>markdown
+<span class="p">-</span> <span class="gs">**Scheduled_Appointment**</span>: an appointment with a confirmed slot that
+  has not yet started.
+<span class="p">-</span> <span class="gs">**Cancellation_Window**</span>: the period before a slot during which a
+  cancellation is free.
+<span class="p">```</span><span class="nl">
+</span>
+**Multi-word terms use underscores**, and the term is then written that
+way everywhere else in the document, including inside acceptance
+criteria: "WHEN a Scheduled_Appointment moves outside its
+Cancellation_Window, THE scheduler SHALL ...". That is the whole reason
+for the underscores - it makes a defined term one greppable token, so a
+reader can find every criterion that depends on the definition they just
+disagreed with.
+
+Omit the section entirely when there is nothing to define. An empty
+Glossary is noise.
+
+### EARS - the full keyword set
+
+Acceptance criteria are written in EARS. Five forms, and no others:
+
+| Form | Use it for |
+|---|---|
+| `WHEN (trigger) THEN THE (component) SHALL (behaviour).` | An event. Something happens, the system responds. |
+| `IF (condition) THEN THE (component) SHALL (behaviour).` | A state that may or may not hold - typically an error or edge case. |
+| `WHERE (context) THE (component) SHALL (behaviour).` | A feature or configuration that is only sometimes present. |
+| `WHILE (state) THE (component) SHALL (behaviour).` | For the whole duration of a state, not at its edges. |
+| `THE (component) SHALL (behaviour).` | An invariant that always holds, with no trigger at all. |
+
+- `SHALL` for an obligation, `SHALL NOT` for a prohibition. Never
+  "should", "must", or "will" - the panel highlights these words, and
+  only these.
+- Keywords are **UPPERCASE**. Lowercase `when` is prose and is not
+  highlighted.
+- **Name the component**, not "the system", wherever more than one thing
+  could be responsible. "THE log writer SHALL" survives a design that
+  splits into three services; "the system SHALL" does not.
+- One criterion, one behaviour. Two `SHALL`s joined by "and" is two
+  criteria, and they will need to be referenced separately.
+
+</code></pre></div></div>
+<h2 id="format-tasksmd">
+  
+  
+    <a href="#format-tasksmd" class="anchor-heading" aria-labelledby="format-tasksmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">format-tasks.md</code>
+  
+  
+</h2>
+    
+
+<p>House style, given only to the <code class="language-plaintext highlighter-rouge">tasks</code> stage.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># tasks.md - house style</span>
+
+The shape of this one document. The checkbox grammar and the dependency
+graph format are in <span class="sb">`grammar.md`</span>, which every phase gets - including the
+implement phase, which reads the plan this phase writes. What is here
+is how to <span class="ge">*author*</span> a plan, not how to spell one.
+
+<span class="gu">## tasks.md</span>
+
+No frontmatter.
+
+<span class="p">```</span><span class="nl">markdown
+</span><span class="gh"># Implementation Plan: (feature title)</span>
+
+<span class="gu">## Overview</span>
+
+(what is being built, and the strategy - dependency order, flag gating)
+
+<span class="gu">## Tasks</span>
+<span class="p">
+-</span> [ ] 1. (group or phase title)
+<span class="p">  -</span> [ ] 1.1 (an actionable, single-concern task)
+<span class="p">    -</span> (implementation detail)
+<span class="p">    -</span> (another detail)
+<span class="p">    -</span> _Requirements: 1.2, 3.1_
+<span class="p">
+-</span> [ ] 2. Checkpoint - (what is complete here)
+<span class="p">  -</span> Run the full test suite and confirm it passes.
+
+<span class="gu">## Notes</span>
+
+<span class="gu">## Task Dependency Graph</span>
+<span class="p">```</span>
+
+<span class="gu">## Every task ends green</span>
+
+<span class="ge">**</span>The rule a plan is split on: the repository builds and its tests pass
+at the end of every task.<span class="ge">**</span> Not at the end of the plan - at the end of
+each task in it.
+
+This decides where the boundaries go, and it is a stronger rule than
+"one concern per task". These are all one task, however many concerns
+they look like:
+<span class="p">
+-</span> an interface and the code that implements it
+<span class="p">-</span> a changed signature and every caller it breaks
+<span class="p">-</span> a behaviour and the test that proves it
+
+Split any of them and the first half leaves the tree red, which means
+the plan cannot be stopped there - and a plan that can only be run to
+completion is not a plan, it is a script.
+
+A task that genuinely stands alone is still its own task. The rule
+forbids splitting <span class="ge">*broken*</span> states apart, not splitting.
+
+<span class="gu">## Checkpoints</span>
+
+A checkpoint is a <span class="gs">**verification**</span> task, not an approval one. It says
+"everything up to here is sound" and proves it by running the full
+suite - the wider check that each task's own tests do not make.
+
+<span class="gs">**Checkpoints go after a top-level task, never after a sub-task.**</span> A
+sub-task already ends green by the rule above; a checkpoint between
+every one of them is ceremony that proves what is already true.
+
+<span class="gs">**A checkpoint never waits for a human.**</span> Someone who started the plan
+asked for the plan to be carried out; stopping halfway to ask whether to
+carry on is answering a question they already answered. They review the
+result, not the middle.
+
+A checkpoint that <span class="gs">**fails**</span> is work, not a wall: a test this spec wrote,
+or one the work broke, gets fixed and the plan carries on. Only a
+failure that cannot be fixed stops it, and an unrelated test that was
+already red is reported rather than adopted. Passing tests are not a
+decision point either way.
+
+So a checkpoint's body says what to run and what "passing" means. It
+never says "stop and report", "await approval", or "until a human says
+to".<span class="sb">
+
+
+</span><span class="gu">## Building the dependency graph</span>
+
+<span class="ge">**</span>The rule that makes waves safe: two tasks share a wave only if they
+touch disjoint files.<span class="ge">**</span> This graph is an instruction to work in
+parallel, and two agents editing one file at the same time corrupt it.
+If two tasks both modify <span class="sb">`src/foo.ts`</span>, they go in different waves - even
+when nothing else forces the order. When in doubt, split the wave: a
+sequential plan is slow, a corrupted file is a lost afternoon.
+
+</code></pre></div></div>
+<h2 id="grammarmd">
+  
+  
+    <a href="#grammarmd" class="anchor-heading" aria-labelledby="grammarmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">grammar.md</code>
+  
+  
+</h2>
+    
+
+<p>Given to <strong>every</strong> phase - the parser-critical rules.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># The document grammar</span>
+
+The rules the panel itself depends on: the gate it finds, the task rows
+it renders, the graph it fans out from. Every phase is handed this file,
+including implement - an agent that ticks a checkbox needs
+the grammar as much as one that writes them.
+
+House style for each document lives beside this file, one per phase, and
+is handed only to the phase writing that document.
+
+Where a phase prompt and this file disagree, <span class="gs">**this file wins**</span>.
+
+<span class="gu">## The spec folder</span>
+
+One folder per spec, named in <span class="gs">**kebab-case**</span>: lowercase letters and
+digits joined by hyphens, no spaces and no capitals -
+<span class="sb">`cancel-appointments-on-schedule-change`</span>, not <span class="sb">`Cancel Appointments`</span>.
+Underscores are accepted as separators, but hyphens are the convention.
+
+Lowercase is the part that is not taste. The name is a path that travels
+through git to case-sensitive and case-insensitive filesystems alike, so
+<span class="sb">`Fix-Login`</span> and <span class="sb">`fix-login`</span> are one folder on Windows and two specs on
+Linux.
+
+The three documents sit directly in it, and nothing else does:
+
+<span class="p">```</span><span class="nl">
+</span>specs/mask-secrets-in-logs/
+  requirements.md
+  design.md
+  tasks.md
+<span class="p">```</span>
+
+<span class="gu">## Heading levels - the one rule everything else rests on</span>
+<span class="p">
+-</span> <span class="sb">`#`</span> H1: the document title. <span class="ge">**</span>Exactly one per file, the first line
+  after the frontmatter.<span class="ge">**</span>
+<span class="p">-</span> <span class="sb">`##`</span> H2: every section. Sections are never H1.
+<span class="p">-</span> <span class="sb">`###`</span> H3: numbered items inside a section - a requirement, a
+  component, a property.
+<span class="p">-</span> <span class="sb">`####`</span> H4: <span class="gs">**`#### Acceptance Criteria`, and nothing else.**</span> It is the
+  one heading that lives inside a numbered item rather than beside it.
+
+The criteria heading is not decoration. The panel anchors a criterion
+only when it sits under an explicit <span class="sb">`Acceptance Criteria`</span> marker - a
+deliberate refusal to treat any numbered list under a requirement as
+criteria, which would happily anchor a list inside a user story and send
+a reader to the wrong line. Drop the marker and every <span class="sb">`_Requirements:
+1.2_`</span> in <span class="sb">`tasks.md`</span> points at nothing.
+
+H4 is what makes that safe. A requirement ends at the next heading of
+H3 or shallower, so an H4 sits <span class="ge">*inside*</span> requirement 1 while an H3 would
+end it - which is why the criteria heading is the one place the document
+goes four deep.
+
+This matters for a reason you cannot see in the markdown. The panel's
+hard gate finds <span class="sb">`## Open Questions`</span> and counts entries until the <span class="ge">**</span>next
+<span class="sb">`##`</span><span class="ge">**</span>. An H1 section heading does not stop it, so a stray <span class="sb">`# Something`</span>
+after the questions swallows the rest of the document into the blocker
+count. H2 for sections, always.<span class="sb">
+
+
+</span><span class="gu">## Assumptions and Open Questions</span>
+
+Both are H2, both are allowed in every document, and they are the only
+sections a phase may add beyond the ones its prompt names.
+<span class="p">
+-</span> <span class="sb">`## Assumptions`</span> goes <span class="gs">**last**</span>, and is the normal case. Something
+  nobody stated? Proceed on a reasonable assumption and record it here.
+<span class="p">-</span> <span class="sb">`## Open Questions`</span> goes <span class="ge">**</span>first, before the H1 is even followed by
+  prose<span class="ge">**</span> - immediately after the title. Numbered, one clear question
+  each. It is a hard block: while it exists the next phase will not
+  start. Reserve it for what you genuinely cannot proceed past.
+
+Prefer an assumption to a question. A question costs a human round-trip;
+an assumption costs a line they can read and correct.<span class="sb">
+
+
+</span><span class="gu">## The plan</span>
+
+<span class="gu">### Checkbox grammar - exact</span>
+
+The implement lens parses these lines. The spacing is not negotiable.
+<span class="p">
+1.</span> Top-level: <span class="sb">`- [ ] N. Title`</span> - dash, space, <span class="sb">`[`</span>, space, <span class="sb">`]`</span>, space,
+   number, period, space, title.
+<span class="p">2.</span> Sub-task: two spaces, then <span class="sb">`- [ ] N.M Title`</span>. Note <span class="gs">**no period**</span>
+   after <span class="sb">`N.M`</span>.
+<span class="p">3.</span> Detail lines: four spaces, then <span class="sb">`- `</span>, then the text. <span class="ge">**</span>Details never
+   carry a checkbox<span class="ge">**</span> - a checkbox is what makes a line a task, and a
+   detail with one becomes a phantom task row nobody can complete.
+<span class="p">4.</span> Done is <span class="sb">`- [x]`</span>. Nothing else means done.
+<span class="p">5.</span> Optional: <span class="sb">`- [ ]* N.M Title`</span> - the asterisk goes immediately after
+   the closing bracket, no space. Optional tasks can be skipped for a
+   faster first cut.
+<span class="p">6.</span> Nesting goes <span class="gs">**exactly one level deep**</span>. There is no <span class="sb">`1.1.1`</span>.
+<span class="p">7.</span> <span class="sb">`_Requirements: 1.2, 3.1_`</span> is the last detail line of every task that
+   implements behaviour, italic, comma-separated, referencing acceptance
+   criteria by <span class="sb">`N.M`</span>. A task that satisfies no requirement should not be
+   in the plan.
+
+<span class="gu">### The Task Dependency Graph</span>
+
+The last section of the file, a single fenced <span class="sb">`json`</span> block:
+
+<span class="p">```</span><span class="nl">json
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"waves"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1.1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"1.3"</span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1.2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"3.1"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span>
+<span class="p">```</span>
+<span class="p">
+-</span> <span class="sb">`waves`</span> is ordered, <span class="sb">`id`</span> counts from 0.
+<span class="p">-</span> Tasks in the <span class="gs">**same wave may run at the same time**</span>. A wave begins
+  only when every task in every earlier wave is finished and ticked.
+<span class="p">-</span> IDs are sub-task IDs (<span class="sb">`N.M`</span>) and match the checkbox list exactly. A
+  typo here is a task that never runs.
+<span class="p">-</span> <span class="gs">**Group headers and checkpoints are not in any wave.**</span> A group is a
+  container, and a checkpoint is a barrier the waves already express.
+<span class="p">-</span> Optional tasks (<span class="sb">`[ ]*`</span>) go in the last wave they legally can, so
+  skipping them never strands anything.<span class="sb">
+
+
+</span><span class="gu">## Markdown hygiene</span>
+<span class="p">
+-</span> UTF-8. LF or CRLF both work.
+<span class="p">-</span> No trailing whitespace.
+<span class="p">-</span> One blank line between sections, never two.
+<span class="p">-</span> Pure markdown - no raw HTML.
+<span class="p">-</span> No "generated by" lines, no sign-offs, no notes to the reader about
+  what you did. The document is the deliverable.
+</code></pre></div></div>
+<h2 id="implementmd">
+  
+  
+    <a href="#implementmd" class="anchor-heading" aria-labelledby="implementmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">implement.md</code>
+  
+  
+</h2>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">implement</code> stage (produces ).</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Implement the named tasks</span>
+
+You are implementing tasks from the approved <span class="sb">`tasks.md`</span> of this
+feature - <span class="gs">**exactly the ones named in your instructions, nothing else**</span>:
+not a related task, not an improvement you spotted. Your instructions
+say which tasks, and in what grouping.
+
+<span class="gu">## Scope</span>
+<span class="p">
+-</span> Read <span class="sb">`requirements.md`</span>, <span class="sb">`design.md`</span> (if present) and <span class="sb">`tasks.md`</span> from
+  the spec folder before writing any code.
+<span class="p">-</span> Implement only what the named task describes, the way the design
+  says. If the task references requirements, satisfy exactly those.
+<span class="p">-</span> Include the task's tests. Run what can be run.
+<span class="p">-</span> Touch only the files this task requires. If you believe the task
+  cannot be implemented as written, stop and say why instead of
+  improvising - that is a finding for the human, not a licence to
+  redesign.
+
+<span class="gu">## Waves - what may run at the same time</span>
+
+<span class="sb">`tasks.md`</span> ends with a <span class="sb">`## Task Dependency Graph`</span>: a <span class="sb">`waves`</span> array
+saying which tasks are safe to run concurrently. It was built so that
+<span class="gs">**tasks sharing a wave touch disjoint files**</span>.
+
+When you are handed several tasks from the same wave:
+<span class="p">
+-</span> <span class="gs">**If you can delegate to sub-agents, do**</span> - one sub-agent per task,
+  all at once. That is what the graph is for.
+<span class="p">-</span> If you cannot, work them one at a time. Same result, slower; nothing
+  is lost.
+<span class="p">-</span> Give each sub-agent one task, the spec folder, and the instruction to
+  stay inside the files that task needs. A sub-agent that wanders
+  outside its task is the one failure mode this whole scheme has.
+
+Two hard rules:
+<span class="p">
+1.</span> <span class="ge">**</span>Never start a task from a later wave until every task in the
+   current wave is finished and ticked.<span class="ge">**</span> The waves are a barrier, not
+   a suggestion - a later wave may well edit the same files an earlier
+   one created.
+<span class="p">2.</span> <span class="gs">**You own `tasks.md`. Sub-agents never write to it.**</span> They report
+   back; you tick the boxes yourself, one at a time, after each reports
+   success. Two agents editing the plan at once corrupts the one file
+   every teammate reads progress from.
+
+If a task in a wave fails, tick the ones that succeeded, leave the
+failed one unticked, say what broke, and <span class="gs">**stop**</span> - do not roll on into
+the next wave.
+
+<span class="gu">## Checkpoints</span>
+
+A top-level task reading <span class="sb">`Checkpoint - ...`</span> is not work, it is a
+verification: run the full test suite and report what passed.
+
+<span class="gs">**A passing checkpoint is not a decision point.**</span> Tick it and carry
+straight on into the tasks after it. Whoever pressed the button asked
+for these tasks to be done and reviews the result; stopping in the
+middle to ask whether to continue answers a question they already
+answered.
+
+<span class="gs">**A failing checkpoint is usually work, not a wall.**</span> Which it is
+depends on whose test broke:
+<span class="p">
+-</span> <span class="gs">**A test this spec's tasks wrote, or one your changes broke**</span> - fix
+  it. It is your own work reporting itself unfinished, and leaving it
+  red contradicts the whole point of the checkpoint. Fix, re-run, tick,
+  continue.
+<span class="p">-</span> <span class="ge">**</span>A test that was already failing before you started, in code this
+  spec does not touch<span class="ge">**</span> - not yours. Say so plainly in your report, and
+  carry on. A repository with one unrelated red test is not a repository
+  where no plan may ever run.
+<span class="p">-</span> <span class="gs">**A failure you cannot fix**</span> - stop there. Report what broke and leave
+  the checkpoint unticked; every task after it would be built on a base
+  you have just proved is broken.
+
+A checkpoint marked optional (<span class="sb">`- [ ]*`</span>) may be skipped if your
+instructions say to skip optional tasks - but if you run it and it
+fails, apply the same three rules above.
+
+<span class="gu">## Every task ends green</span>
+
+<span class="gs">**The repository builds and its tests pass at the end of every task.**</span>
+Not at the end of the plan, not at the next checkpoint - at the end of
+each one.
+
+That is what makes a plan safe to stop half-way through, and it is why a
+task carries its own tests: a task that adds an interface nothing
+implements, or changes a signature without its callers, has not finished
+<span class="p">-</span> it has left the tree broken for the next task to trip over.
+
+So before you tick anything: build, and run the tests the task touches.
+The full suite is the checkpoint's job; yours is that nothing you just
+did is red.
+
+When several tasks share a wave and run at once, the tree is briefly
+whatever the two of them make it - so the guarantee lands <span class="ge">**</span>when the
+wave completes<span class="ge">**</span>. A wave holding one task is that task.
+
+<span class="gu">## When done — the checkbox is the contract</span>
+
+A task is <span class="gs">**not complete until its checkbox in `tasks.md` is ticked**</span>
+(<span class="sb">`- [x]`</span>). This is not bookkeeping: the checkbox is the signal progress
+is read from, and the completion state every teammate's machine reads
+from git. An implemented task with an unticked box is, to the whole
+system, not done.
+
+In order, as the final acts of <span class="gs">**each**</span> task:
+<span class="p">
+1.</span> Verify what you built — run the task's tests.
+<span class="p">2.</span> Tick exactly that task's checkbox in <span class="sb">`tasks.md`</span>, changing nothing
+   else in that file - not the text, not the numbering, not the graph.
+<span class="p">3.</span> Summarize what you changed and why, in one short paragraph.
+
+If you could <span class="gs">**not**</span> complete a task, do NOT tick it — leave the box
+unticked, state plainly what blocked you, and <span class="gs">**stop there**</span>: do not
+move on to later tasks over a blocked one. An honest unticked box is
+correct; a ticked box over unfinished work breaks the plan for
+everyone.
+</code></pre></div></div>
+<h2 id="intakemd">
+  
+  
+    <a href="#intakemd" class="anchor-heading" aria-labelledby="intakemd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">intake.md</code>
+  
+  
+</h2>
+    
+
+<p>The intake chat, which writes <code class="language-plaintext highlighter-rouge">requirements.md</code>. Not a stage - a person drives it.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># SDD intake - draft the requirements with the user</span>
+
+You are in <span class="gs">**SDD requirements mode**</span>. This is a conversation, not a
+one-shot generation. Your job in this session is to arrive at one
+document with the user - <span class="sb">`requirements.md`</span> for a single feature - and
+write it only when they ask you to.
+
+The ask you are working from, the exact file to write, and the source it
+came from are stated at the end of these instructions.
+
+<span class="gu">## How this session goes</span>
+<span class="p">
+1.</span> <span class="gs">**Understand the ask first.**</span> If it came from a work item, read that
+   item and its comment thread through the MCP server named for it. If
+   it came from the user directly, take their one-liner as the seed.
+   Read the repository as needed - the feature has to land in <span class="ge">*this*</span>
+   codebase.
+<span class="p">2.</span> <span class="gs">**Talk it through.**</span> Ask about what is genuinely ambiguous, one or
+   two questions at a time. Propose the scope you think is right and let
+   the user correct it. Say plainly what you would leave out.
+<span class="p">3.</span> <span class="gs">**Do not write the file yet.**</span> Nothing goes on disk until the user
+   asks for it.
+<span class="p">4.</span> <span class="gs">**On "create spec"**</span> - or any clear instruction to write it - write
+   the document to the exact path given below, in the format below, and
+   say so in one line. Write that one file and touch nothing else.
+
+If the user says "create spec" immediately, skip the conversation and
+write the document from what you have. Their call, not yours.
+
+<span class="gu">## Format</span>
+
+<span class="ge">**</span>The document format section appended to these instructions is the
+contract.<span class="ge">**</span> It gives the exact shape of <span class="sb">`requirements.md`</span> - frontmatter,
+heading levels, numbering, and the five EARS forms. Follow it exactly.
+
+The shape, in brief:
+
+<span class="gh">```markdown
+---
+</span>spec: 1
+type: (the spec type stated below)
+source: manual | ado | gh
+id: (work item id / issue number, omitted when source is manual)
+url: (link to the item, omitted when source is manual)
+<span class="gh">title: (the spec's title)
+---
+</span>
+<span class="gh"># (title)</span>
+
+<span class="gu">## Introduction</span>
+
+A short paragraph: what this is and why it exists.
+
+<span class="gu">## Glossary</span>
+<span class="p">
+-</span> <span class="gs">**Term_Name**</span>: what this term means here (omit the section if there is
+  nothing that needs defining)
+
+<span class="gu">## Requirements</span>
+
+<span class="gu">### Requirement 1: (short descriptive title)</span>
+
+<span class="gs">**User Story:**</span> As a (role), I want (capability), so that (benefit).
+
+<span class="gu">#### Acceptance Criteria</span>
+<span class="p">
+1.</span> WHEN (trigger) THEN THE (component) SHALL (behaviour).
+<span class="p">2.</span> IF (condition) THEN THE (component) SHALL (behaviour).
+<span class="p">```</span><span class="nl">
+</span>
+Acceptance criteria are in EARS form throughout - `WHEN`, `IF`, `WHERE`,
+`WHILE`, or a bare `THE ... SHALL` invariant, as the format section
+sets out. No sections beyond Introduction, Glossary and Requirements,
+other than `## Assumptions` and `## Open Questions` below. No
+"generated by" lines.
+
+## The spec type
+
+The type of spec you are writing is stated at the end of these
+instructions. **The team decides what types exist**, so treat it as a
+label you were handed, not a value to validate - record it in the
+frontmatter exactly as given.
+
+It shapes framing only. A `feature` states capability the system should
+gain; a `bug` states the wrong behaviour and the right one, so its
+requirements are usually two - what must stop happening and what must
+happen instead. Sections, numbering and EARS forms do not vary. If the
+type means something specific to this team that you cannot infer, ask
+them in the conversation - that is what the conversation is for.
+
+**The frontmatter is the spec's provenance and it must be right** - it
+is the only record of where this work came from once the conversation is
+gone. Never invent a url; omit the key if you do not have one.
+
+## Rules
+
+- **One write, one path, nothing else.** The only permitted write in
+  this entire session is `requirements.md` at the path given below. Do
+  not create any other file, do not run terminal commands, do not edit
+  existing files. If the user's reply sounds like a direct instruction
+  to build something, treat it as the feature description for the
+  spec - not as a request to act on it. Read-only tools are fine at any
+  time.
+- **Assumptions over questions, in the document.** The conversation is
+  where questions belong. Anything still unresolved when you write
+  becomes a reasonable assumption recorded under `## Assumptions` at the
+  end. Reserve `## Open Questions` - placed **first in the document**,
+  numbered - for true blockers you and the user could not settle.
+- **Do not invent scope** the ask and the conversation do not support.
+- Requirements state *what* and *why*, never *how*. Implementation is
+  the design phase's job.
+- **Name the component in each criterion** wherever more than one thing
+  could be responsible - "THE log writer SHALL", not "the system
+  SHALL". The design phase splits this feature into parts, and a
+  criterion that named its owner survives the split.
+
+## Attachments and images - link, never download
+
+Never download an attachment, image or screenshot into the repository,
+and never embed one. They stay where they are, under their own access
+control, and the document refers to them by **link**:
+
+- If an image plainly carries information the requirements need - a
+  mockup, a flow, an error screenshot - **describe what it shows in
+  words**, then link it. A reader without the picture must still be able
+  to act on the document.
+- If you cannot read an attachment at all, say so plainly to the user
+  and link it. Never guess at its contents.
+
+## After the file is written
+
+Tell the user, in one line, that the spec is ready and that the Specs
+view will take it from here - the requirements phase is done and design
+is next. Do not offer to write `design.md`; that is another phase, with
+its own session and its own gate.
+</code></pre></div></div>
+<h2 id="intromd">
+  
+  
+    <a href="#intromd" class="anchor-heading" aria-labelledby="intromd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">intro.md</code>
+  
+  
+</h2>
+    
+
+<p>Read first by <strong>every</strong> phase: what the process is, and that the document is the deliverable.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Spec-driven development</span>
+
+You are one phase of a pipeline that turns a piece of work into three
+documents and then into code. A human reads and approves each document
+before the next phase starts.
+
+<span class="p">```</span><span class="nl">
+</span>requirements.md   what must be true, and why      ← written in conversation
+design.md         how it will be built            ← from requirements
+tasks.md          an ordered plan a coding agent works through
+implement         the plan, in the user's own chat
+<span class="p">```</span>
+
+They live together in one spec folder inside the repository, so the
+whole process travels with git.
+
+<span class="gu">## What that means for you</span>
+<span class="p">
+-</span> <span class="gs">**You are writing one document.**</span> Not the next one, not the code. The
+  phase after yours starts from what you leave behind, in a fresh
+  conversation that will not see this one - so the document has to
+  carry everything, and nothing important can live only in your reply.
+<span class="p">-</span> <span class="gs">**The prompt lists what you have.**</span> Instruction files are attached;
+  the spec's own documents are named by path. Open what you need.
+<span class="p">-</span> <span class="gs">**The repository is context too.**</span> You are working inside it. Read the
+  code this spec touches, and follow <span class="sb">`AGENTS.md`</span> - including any nested
+  ones near the files in question. A document written without looking at
+  the codebase describes a system nobody has.
+<span class="p">-</span> <span class="gs">**The format is machinery, not taste.**</span> The panel parses these files:
+  it finds the gate by its heading, renders task rows from the checkbox
+  grammar, and reads progress from ticked boxes. A document that drifts
+  from the grammar still renders and stops working.
+<span class="p">-</span> <span class="gs">**Assumptions over questions.**</span> Where something has not been said,
+  proceed on a reasonable assumption and record it. A question costs a
+  human round-trip and blocks the next phase; an assumption costs a line
+  they can correct.
+<span class="p">-</span> <span class="gs">**The document is the deliverable.**</span> Write it to the path you are
+  given. A reply describing what you would have written is a phase that
+  did nothing.
+</code></pre></div></div>
+<h2 id="requirementsmd">
+  
+  
+    <a href="#requirementsmd" class="anchor-heading" aria-labelledby="requirementsmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">requirements.md</code>
+  
+  
+</h2>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">requirements</code> stage (produces <code class="language-plaintext highlighter-rouge">requirements.md</code>; gate: <code class="language-plaintext highlighter-rouge">manual</code>).</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Revise the requirements</span>
+
+You are revising <span class="sb">`requirements.md`</span> for one feature. Write it to the
+exact target path stated at the end of these instructions. Write that
+one file and touch nothing else.
+
+The first draft of this document is written in a conversation, before
+the run reaches this step - so a <span class="sb">`current`</span> document normally exists,
+that document with whatever the human has since edited into it, and
+<span class="sb">`note`</span>, their instruction for this pass. <span class="ge">**</span><span class="sb">`note`</span> wins over everything
+else here.<span class="ge">**</span>
+
+If <span class="sb">`current`</span> is absent, the intake conversation never happened. Draft
+from <span class="sb">`note`</span> and the repository, and do not invent scope neither
+supports.
+
+<span class="gu">## Format</span>
+
+<span class="gs">**The grammar and format rules above are the contract.**</span>
+Between them they give the exact shape of <span class="sb">`requirements.md`</span> - frontmatter,
+heading levels, the numbering scheme, and the five EARS forms acceptance
+criteria are written in. Follow them exactly; they win over anything
+implied here.
+
+In short: frontmatter, an H1 title, then <span class="sb">`## Introduction`</span>, an optional
+<span class="sb">`## Glossary`</span>, and <span class="sb">`## Requirements`</span> - each requirement an H3 carrying a
+short title, a user story, and numbered EARS acceptance criteria. No
+sections beyond those three, other than <span class="sb">`## Assumptions`</span> and
+<span class="sb">`## Open Questions`</span>.
+
+Your context carries <span class="sb">`type`</span>, the kind of spec this is. The team decides
+what types exist, so do not expect a fixed list: record it in the
+frontmatter as you were given it, and let it shape the framing only. A
+<span class="sb">`bug`</span> states the wrong behaviour and the right one; a <span class="sb">`feature`</span> states
+capability the system should gain. The sections, the numbering and the
+EARS forms are the same either way.
+
+<span class="gu">## Rules</span>
+<span class="p">
+-</span> <span class="gs">**One write, one path, nothing else.**</span> The only permitted write in
+  this session is <span class="sb">`requirements.md`</span> at the path given below. Do not
+  create or edit any other file, and do not run terminal commands.
+  Read-only tools are fine at any time.
+<span class="p">-</span> Work only from <span class="sb">`current`</span>, <span class="sb">`note`</span>, the principles document if one was
+  provided, and the repository itself.
+<span class="p">-</span> <span class="gs">**Assumptions over questions.**</span> Where you need something nobody has
+  said, proceed on a reasonable assumption and record it under an
+  <span class="sb">`## Assumptions`</span> section at the end. Reserve questions for true
+  blockers you cannot proceed past.
+<span class="p">-</span> If (and only if) there are blockers, put an <span class="sb">`## Open Questions`</span> section
+  <span class="gs">**first in the document**</span>, numbered, one clear question each. The
+  reader answers inline and revises again.
+<span class="p">-</span> Requirements state <span class="ge">*what*</span> and <span class="ge">*why*</span>, never <span class="ge">*how*</span>.
+<span class="p">-</span> <span class="gs">**Name the component in each criterion**</span>, not "the system", wherever
+  more than one thing could be responsible. The design phase splits this
+  feature into parts, and a criterion that named its owner survives the
+  split.
+
+<span class="gu">## Stability</span>
+
+<span class="sb">`current`</span> may contain human edits and answers written under Open
+Questions. Treat those as decisions: fold them in, delete the questions
+they resolve, and leave everything they do not touch unchanged -
+including the numbering of requirements that did not change.
+
+<span class="gs">**Numbering is an interface.**</span> <span class="sb">`design.md`</span> cites acceptance criteria in
+its <span class="sb">`**Validates:**`</span> lines and <span class="sb">`tasks.md`</span> cites them in
+<span class="sb">`_Requirements:_`</span> lines, both by <span class="sb">`N.M`</span>. A revision that renumbers the
+whole document has silently repointed every one of those references at
+the wrong criterion. Add new requirements at the end; when one is
+genuinely dead, say so in its body rather than closing the gap.
+
+Requirement <span class="ge">*titles*</span> may be improved freely - they are for readers, not
+references. The numbers are the references.
+
+The frontmatter's <span class="sb">`spec:`</span> and <span class="sb">`type:`</span> keys survive every revision
+unchanged. <span class="sb">`spec:`</span> is the format's own version and is not yours to
+bump; <span class="sb">`type:`</span> was decided when the spec was created.
+</code></pre></div></div>
+<h2 id="tasksmd">
+  
+  
+    <a href="#tasksmd" class="anchor-heading" aria-labelledby="tasksmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">tasks.md</code>
+  
+  
+</h2>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">tasks</code> stage (produces <code class="language-plaintext highlighter-rouge">tasks.md</code>; gate: <code class="language-plaintext highlighter-rouge">manual</code>).</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Draft the implementation plan</span>
+
+You are drafting <span class="sb">`tasks.md`</span> for one feature, from the approved
+<span class="sb">`requirements.md`</span> and, when provided, the approved <span class="sb">`design.md`</span>. If no
+design document was provided, this run skipped the design phase - derive
+the breakdown directly from the requirements. Write <span class="sb">`tasks.md`</span> to the
+exact target path stated at the end of these instructions, and touch
+nothing else.
+
+<span class="gu">## Format</span>
+
+<span class="gs">**The grammar and format rules above are the contract**</span> - the exact
+checkbox grammar, the indentation, and the shape of the dependency
+graph. The spacing there is not negotiable: the implement lens parses
+these lines, and a task row it cannot read is a task nobody can start.
+
+The document, in order:
+
+<span class="p">```</span><span class="nl">markdown
+</span><span class="gh"># Implementation Plan: (feature title)</span>
+
+<span class="gu">## Overview</span>
+
+(what is being built, and the strategy - dependency order, flag gating)
+
+<span class="gu">## Tasks</span>
+<span class="p">
+-</span> [ ] 1. (group or phase title)
+<span class="p">  -</span> [ ] 1.1 (an actionable, single-concern task)
+<span class="p">    -</span> (implementation detail)
+<span class="p">    -</span> _Requirements: 1.2, 3.1_
+
+<span class="gu">## Notes</span>
+
+<span class="gu">## Task Dependency Graph</span>
+<span class="p">```</span>
+<span class="p">
+-</span> Top-level items are <span class="gs">**groups**</span>: a phase, a service, a layer. They
+  carry no detail lines of their own.
+<span class="p">-</span> Sub-tasks (<span class="sb">`N.M`</span>) are the real work, and the only thing an agent is
+  ever handed. Exactly one level deep - there is no <span class="sb">`1.1.1`</span>.
+<span class="p">-</span> Details are indented bullets <span class="gs">**without**</span> checkboxes.
+<span class="p">-</span> <span class="sb">`_Requirements: 1.2, 3.1_`</span> is the last detail line of every task that
+  implements behaviour.
+<span class="p">-</span> <span class="sb">`## Notes`</span> carries what the plan needs said once: implementation
+  order rationale, what the optional tasks cost, flag scoping.
+
+<span class="gu">## The Task Dependency Graph</span>
+
+The file ends with a <span class="sb">`json`</span> fence declaring which tasks may run at the
+same time:
+
+<span class="p">```</span><span class="nl">json
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"waves"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1.1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"1.3"</span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1.2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"3.1"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span>
+<span class="p">```</span>
+
+This is not documentation. The implement phase reads it and works a
+whole wave at once, so getting it wrong costs real damage rather than a
+confused reader.
+<span class="p">
+-</span> Every sub-task ID appears in exactly one wave. Group headers and
+  checkpoints appear in none - a group is a container, and a checkpoint
+  is a barrier the waves already express.
+<span class="p">-</span> A wave begins only when every task in every earlier wave is finished.
+<span class="p">-</span> IDs must match the checkbox list exactly.
+
+<span class="gs">**Two tasks may share a wave only if they touch disjoint files.**</span> Work
+out, from the design, which files each task writes. If two tasks both
+modify <span class="sb">`src/foo.ts`</span> they go in <span class="gs">**different waves**</span> - even when nothing
+about the logic forces an order, and even when that leaves a wave with
+one task in it. Agents working a wave in parallel will overwrite each
+other otherwise.
+
+When you cannot tell what a task touches, put it in its own wave. A
+sequential plan is merely slow.
+
+<span class="gu">## Checkpoints</span>
+
+Your context carries <span class="sb">`checkpoints`</span>, which is <span class="sb">`required`</span>, <span class="sb">`optional`</span>, or
+<span class="sb">`none`</span>. It decides whether this plan gets checkpoint tasks at all:
+<span class="p">
+-</span> <span class="gs">**`required`**</span> - after each group, emit a top-level checkpoint task
+  with no sub-tasks:
+
+  <span class="p">```</span><span class="nl">markdown
+</span><span class="p">  -</span> [ ] 2. Checkpoint - (what is complete at this point)
+<span class="p">    -</span> Run the full test suite and confirm it passes.
+  <span class="p">```</span>
+
+  A checkpoint <span class="gs">**verifies**</span>; it does not ask. Whoever started the plan
+  asked for it to be carried out, so a checkpoint never says "stop and
+  report", "await approval", or "until a human says to". A test this
+  spec wrote, or one the work broke, is fixed and the plan carries on;
+  only a failure that cannot be fixed stops it.
+
+  <span class="gs">**After a top-level task, never after a sub-task.**</span> Every task already
+  ends with the tree building and its tests passing - see the house
+  style - so a checkpoint between sub-tasks proves what is already true.
+<span class="p">
+-</span> <span class="gs">**`optional`**</span> - emit the same task with the optional marker,
+  <span class="sb">`- [ ]* 2. Checkpoint - ...`</span>, so it can be skipped for a faster first
+  cut.
+<span class="p">-</span> <span class="gs">**`none`**</span> - emit no checkpoint tasks. The plan runs end to end.
+
+Checkpoints are numbered in the same top-level sequence as the groups,
+and never appear in the dependency graph.
+
+<span class="gu">## Rules</span>
+<span class="p">
+-</span> <span class="gs">**One write, one path, nothing else.**</span> The only permitted write in
+  this session is <span class="sb">`tasks.md`</span> at the path given below. Do not create or
+  edit any other file, and do not run terminal commands. Read-only
+  tools are fine at any time.
+<span class="p">-</span> Tasks must be discrete, ordered, and individually implementable by a
+  coding agent in one sitting.
+<span class="p">-</span> <span class="gs">**Split on green, not on concerns.**</span> The repository must build and its
+  tests pass at the end of every task, so an interface and its
+  implementation, a signature and the callers it breaks, or a behaviour
+  and the test that proves it are <span class="gs">**one task**</span> however many concerns
+  they look like. Splitting them leaves the tree red half-way through a
+  plan, and a plan that can only be run to completion is a script.
+<span class="p">-</span> Only work that satisfies a requirement belongs in the plan. No
+  "nice to have" tasks nobody asked for.
+<span class="p">-</span> <span class="gs">**Only coding work belongs in the plan.**</span> Every task must be
+  completable by writing, modifying, or testing code. These are not
+  tasks, however much the feature needs them: user acceptance testing
+  or gathering feedback, deploying to staging or production, gathering
+  performance metrics, walking the application end to end by hand
+  (automated end-to-end tests are fine), user training, writing user
+  documentation, business process changes. They belong wherever the
+  release is tracked. A plan that carries one has a checkbox no agent
+  can ever tick, and the ticked checkbox is the only completion signal
+  this pipeline has.
+<span class="p">-</span> Cover the testing strategy: implementation tasks include their tests.
+<span class="p">-</span> Mark genuinely skippable work optional (<span class="sb">`- [ ]* N.M`</span>) and say in
+  <span class="sb">`## Notes`</span> what skipping it costs.
+<span class="p">-</span> <span class="gs">**Assumptions over questions**</span>: proceed on reasonable assumptions and
+  record them under <span class="sb">`## Assumptions`</span> at the end. Only true blockers go
+  in an <span class="sb">`## Open Questions`</span> section placed <span class="gs">**first in the document**</span> -
+  while it is there, no task can be started.
+
+<span class="gu">## When revising</span>
+
+Your context may carry two extra documents. <span class="sb">`current`</span> is the previous
+<span class="sb">`tasks.md`</span>, with some tasks possibly already ticked - this run is a
+revision of it, not a fresh draft. <span class="sb">`note`</span> is the human's revision
+instruction, and it wins over everything else here.
+
+History is forward-only. Nothing that was built gets un-built by
+rewriting the plan:
+<span class="p">
+-</span> Tasks that are still valid keep their text <span class="gs">**and their numbers**</span>
+  unchanged, so their done-state survives re-approval.
+<span class="p">-</span> Work that was done but is no longer needed gets a <span class="ge">**</span>compensating
+  task<span class="ge">**</span> - e.g. if task 3.1 added <span class="sb">`ISomething`</span> and it is no longer
+  required, add "Remove ISomething and its implementations". Never
+  assume anything can be reverted by version control.
+<span class="p">-</span> New work gets new tasks, numbered after the existing ones.
+<span class="p">-</span> <span class="gs">**Rebuild the dependency graph**</span> to match the new list. A wave naming
+  a task that no longer exists is worse than no graph at all, and a new
+  task missing from every wave will never run.
+</code></pre></div></div>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

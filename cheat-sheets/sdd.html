@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(1)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(8) > ul > li:nth-child(1) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(8) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(8) > ul > li:nth-child(1) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(8) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(8) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>SDD cheat sheet | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="SDD cheat sheet" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<meta name="twitter:description" property="og:description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<link rel="canonical" href="https://local-workflows.github.io/cheat-sheets/sdd.html" />
+<meta property="og:url" content="https://local-workflows.github.io/cheat-sheets/sdd.html" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="SDD cheat sheet" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar.","headline":"SDD cheat sheet","url":"https://local-workflows.github.io/cheat-sheets/sdd.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems.html" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why.html" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install.html" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/copilot.html" class="nav-list-link">GitHub Copilot setup</a></li><li class="nav-list-item"><a href="/getting-started/first-tasks.html" class="nav-list-link">Your first tasks.yml</a></li><li class="nav-list-item"><a href="/getting-started/first-workflow.html" class="nav-list-link">Your first local workflow</a></li><li class="nav-list-item"><a href="/getting-started/first-spec.html" class="nav-list-link">Your first spec</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Features submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/" class="nav-list-link">Features</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/kiro.html" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/kiro-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/spec-kit.html" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/spec-kit-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/features/sdd/custom-style.html" class="nav-list-link">Writing your own style</a></li><li class="nav-list-item"><a href="/features/sdd/config.html" class="nav-list-link">config.yml</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Workflows submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/workflows/" class="nav-list-link">Workflows</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/workflows/writing-a-workflow.html" class="nav-list-link">Writing a new workflow</a></li></ul></li><li class="nav-list-item"><a href="/features/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/features/package-json/" class="nav-list-link">package.json scripts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Plugins submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/plugins/" class="nav-list-link">Plugins</a><ul class="nav-list"><li class="nav-list-item"><a href="/plugins/built-in.html" class="nav-list-link">Built-in plugins</a></li><li class="nav-list-item"><a href="/plugins/writing-a-plugin.html" class="nav-list-link">Writing a plugin</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="VSCode submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/vscode/" class="nav-list-link">VSCode</a><ul class="nav-list"><li class="nav-list-item"><a href="/vscode/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Cheat sheets submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/cheat-sheets/" class="nav-list-link">Cheat sheets</a><ul class="nav-list"><li class="nav-list-item"><a href="/cheat-sheets/sdd.html" class="nav-list-link">SDD cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workspaces.html" class="nav-list-link">Workspace cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workflows.html" class="nav-list-link">Workflow cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/plugins.html" class="nav-list-link">Plugin cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/package-json.html" class="nav-list-link">Scripts cheat sheet</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/reference/authoring.html" class="nav-list-link">Authoring</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting.html" class="nav-list-link">Troubleshooting</a></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/cheat-sheets/">Cheat sheets</a></li>
+    <li class="breadcrumb-nav-list-item"><span>SDD cheat sheet</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="sdd-cheat-sheet">
+  
+  
+    <a href="#sdd-cheat-sheet" class="anchor-heading" aria-labelledby="sdd-cheat-sheet"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> SDD cheat sheet
+  
+  
+</h1>
+    
+
+<ol id="markdown-toc">
+  <li><a href="#paths" id="markdown-toc-paths">Paths</a></li>
+  <li><a href="#configyml" id="markdown-toc-configyml"><code class="language-plaintext highlighter-rouge">config.yml</code></a></li>
+  <li><a href="#styleyml" id="markdown-toc-styleyml"><code class="language-plaintext highlighter-rouge">style.yml</code></a>    <ol>
+      <li><a href="#stage-keys" id="markdown-toc-stage-keys">Stage keys</a></li>
+    </ol>
+  </li>
+  <li><a href="#rules" id="markdown-toc-rules">Rules</a></li>
+  <li><a href="#shipped-styles" id="markdown-toc-shipped-styles">Shipped styles</a></li>
+  <li><a href="#styleyml-errors" id="markdown-toc-styleyml-errors"><code class="language-plaintext highlighter-rouge">style.yml</code> errors</a></li>
+  <li><a href="#override-one-prompt" id="markdown-toc-override-one-prompt">Override one prompt</a></li>
+  <li><a href="#eject-a-built-in-style" id="markdown-toc-eject-a-built-in-style">Eject a built-in style</a></li>
+  <li><a href="#requires" id="markdown-toc-requires">Requires</a></li>
+</ol><hr />
+<h2 id="paths">
+  
+  
+    <a href="#paths" class="anchor-heading" aria-labelledby="paths"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Paths
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Specs</td>
+      <td><code class="language-plaintext highlighter-rouge">.local-workflows/specs/&lt;spec&gt;/</code></td>
+    </tr>
+    <tr>
+      <td>Config</td>
+      <td><code class="language-plaintext highlighter-rouge">.local-workflows/config.yml</code></td>
+    </tr>
+    <tr>
+      <td>Styles, workspace</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;repo&gt;/.local-workflows/styles/&lt;id&gt;/</code></td>
+    </tr>
+    <tr>
+      <td>Styles, profile</td>
+      <td><code class="language-plaintext highlighter-rouge">~/.local-workflows/styles/&lt;id&gt;/</code></td>
+    </tr>
+    <tr>
+      <td>Styles, builtin</td>
+      <td>ships with the extension</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Precedence: workspace &gt; profile &gt; builtin. Definition comes from the
+highest scope with a <code class="language-plaintext highlighter-rouge">style.yml</code>; prompts come from every scope with that
+id.</p><hr />
+<h2 id="configyml">
+  
+  
+    <a href="#configyml" class="anchor-heading" aria-labelledby="configyml"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">config.yml</code>
+  
+  
+</h2>
+    
+
+<p>Full page: <a href="/features/sdd/config.html"><code class="language-plaintext highlighter-rouge">config.yml</code></a>.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Values</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">style</code></td>
+      <td><code class="language-plaintext highlighter-rouge">kiro</code>, <code class="language-plaintext highlighter-rouge">spec-kit</code>, custom id</td>
+      <td><code class="language-plaintext highlighter-rouge">kiro</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">specRoot</code></td>
+      <td>path, repo-relative — absolute or <code class="language-plaintext highlighter-rouge">..</code> is an <strong>error</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">.local-workflows/specs</code> — <strong>ignored when a <code class="language-plaintext highlighter-rouge">.code-workspace</code> is open</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">source</code></td>
+      <td><code class="language-plaintext highlighter-rouge">manual</code> | <code class="language-plaintext highlighter-rouge">ado</code> | <code class="language-plaintext highlighter-rouge">gh</code></td>
+      <td>unset — asked each time</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">checkpoints</code></td>
+      <td><code class="language-plaintext highlighter-rouge">required</code> | <code class="language-plaintext highlighter-rouge">optional</code> | <code class="language-plaintext highlighter-rouge">none</code></td>
+      <td><code class="language-plaintext highlighter-rouge">required</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ai.uses</code></td>
+      <td>plugin ref</td>
+      <td><code class="language-plaintext highlighter-rouge">ai@1</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ai.provider</code></td>
+      <td>agent runtime</td>
+      <td><code class="language-plaintext highlighter-rouge">ghcp</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ai.model</code></td>
+      <td>model name | <code class="language-plaintext highlighter-rouge">auto</code></td>
+      <td><code class="language-plaintext highlighter-rouge">auto</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ai.stages.&lt;id&gt;</code></td>
+      <td>per-phase override, merged per setting</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="styleyml">
+  
+  
+    <a href="#styleyml" class="anchor-heading" aria-labelledby="styleyml"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">style.yml</code>
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">schema</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>must equal the folder name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>shown in the picker</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">desc</code></td>
+      <td>one line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">intake.prompt</code></td>
+      <td>path</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">intake.produces</code></td>
+      <td>filename</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">specTypes[]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">{ id, label, stages[] }</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">intro</code></td>
+      <td>path — sent to every phase</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">format.grammar</code></td>
+      <td>path — sent to every phase</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">format.house.&lt;stage&gt;</code></td>
+      <td>path — sent to that stage only</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">stages[]</code></td>
+      <td>below</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3 id="stage-keys">
+  
+  
+    <a href="#stage-keys" class="anchor-heading" aria-labelledby="stage-keys"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Stage keys
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>referenced from <code class="language-plaintext highlighter-rouge">specTypes[].stages</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">kind</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ai</code> — runs it and waits<br /><code class="language-plaintext highlighter-rouge">implement</code> — starts the session, does not wait</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">produces[]</code></td>
+      <td>artifacts that must all exist to satisfy the stage. Required on <code class="language-plaintext highlighter-rouge">ai</code>, optional on <code class="language-plaintext highlighter-rouge">implement</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mayProduce[]</code></td>
+      <td>optional artifacts; never blocks</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gate</code></td>
+      <td><code class="language-plaintext highlighter-rouge">manual</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">prompt</code></td>
+      <td>path</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>No <code class="language-plaintext highlighter-rouge">requires:</code> key exists.</p><hr />
+<h2 id="rules">
+  
+  
+    <a href="#rules" class="anchor-heading" aria-labelledby="rules"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Rules
+  
+  
+</h2>
+    
+
+<ul>
+  <li>A stage is satisfied when its artifacts exist.</li>
+  <li>A stage with no artifact is never satisfied.</li>
+  <li>Terminal = <code class="language-plaintext highlighter-rouge">kind: implement</code> with an empty <code class="language-plaintext highlighter-rouge">produces</code>. A terminal stage must be the last one a spec type visits.</li>
+  <li><code class="language-plaintext highlighter-rouge">gate: manual</code> parks the walk. It is the only gate; omit the key otherwise.</li>
+  <li>A stage’s args are the prior stages’ artifacts for that spec type.</li>
+  <li><code class="language-plaintext highlighter-rouge">## Open Questions</code> blocks the next phase while it holds questions.</li>
+  <li>Starting the next phase is the approval. No Approve button.</li>
+  <li>Each phase is a fresh session seeded only by prior documents.</li>
+</ul><hr />
+<h2 id="shipped-styles">
+  
+  
+    <a href="#shipped-styles" class="anchor-heading" aria-labelledby="shipped-styles"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Shipped styles
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stages</td>
+      <td><code class="language-plaintext highlighter-rouge">requirements</code> <code class="language-plaintext highlighter-rouge">design</code> <code class="language-plaintext highlighter-rouge">tasks</code> <code class="language-plaintext highlighter-rouge">implement</code></td>
+      <td><code class="language-plaintext highlighter-rouge">specify</code> <code class="language-plaintext highlighter-rouge">plan</code> <code class="language-plaintext highlighter-rouge">tasks</code> <code class="language-plaintext highlighter-rouge">implement</code></td>
+    </tr>
+    <tr>
+      <td>Spec types</td>
+      <td>Feature: all<br />Bug fix: skips <code class="language-plaintext highlighter-rouge">design</code></td>
+      <td>Feature only</td>
+    </tr>
+    <tr>
+      <td>Intake writes</td>
+      <td><code class="language-plaintext highlighter-rouge">requirements.md</code></td>
+      <td><code class="language-plaintext highlighter-rouge">spec.md</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mayProduce</code></td>
+      <td>—</td>
+      <td><code class="language-plaintext highlighter-rouge">research.md</code> <code class="language-plaintext highlighter-rouge">data-model.md</code> <code class="language-plaintext highlighter-rouge">quickstart.md</code> <code class="language-plaintext highlighter-rouge">contracts</code></td>
+    </tr>
+    <tr>
+      <td>Task ids</td>
+      <td><code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">1.1</code> + dependency graph</td>
+      <td><code class="language-plaintext highlighter-rouge">T001</code> flat, <code class="language-plaintext highlighter-rouge">[P]</code> = parallel</td>
+    </tr>
+    <tr>
+      <td>Absent commands</td>
+      <td>—</td>
+      <td><code class="language-plaintext highlighter-rouge">/clarify</code>, <code class="language-plaintext highlighter-rouge">/analyze</code></td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="styleyml-errors">
+  
+  
+    <a href="#styleyml-errors" class="anchor-heading" aria-labelledby="styleyml-errors"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">style.yml</code> errors
+  
+  
+</h2>
+    
+
+<p>Every one is refused at load, not mid-run.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Cause</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code> not equal to the folder name</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">schema:</code> missing, not a whole number, or newer than the build</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">stages:</code> empty, or a duplicated stage <code class="language-plaintext highlighter-rouge">id</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">kind: ai</code> with no <code class="language-plaintext highlighter-rouge">produces</code></td>
+      <td>it could never complete</td>
+    </tr>
+    <tr>
+      <td>An artifact in both <code class="language-plaintext highlighter-rouge">produces</code> and <code class="language-plaintext highlighter-rouge">mayProduce</code></td>
+      <td>it is required or it is not</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">kind:</code> other than <code class="language-plaintext highlighter-rouge">ai</code> / <code class="language-plaintext highlighter-rouge">implement</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gate:</code> other than <code class="language-plaintext highlighter-rouge">manual</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">specTypes:</code> empty, or a duplicated spec type <code class="language-plaintext highlighter-rouge">id</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A spec type listing no stages</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A spec type naming a stage the style does not define</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>A spec type visiting the same stage twice</td>
+      <td>it is satisfied, so it cannot run again</td>
+    </tr>
+    <tr>
+      <td>Any stage listed <strong>after</strong> a terminal stage</td>
+      <td>the walk would stop and never reach it</td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="override-one-prompt">
+  
+  
+    <a href="#override-one-prompt" class="anchor-heading" aria-labelledby="override-one-prompt"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Override one prompt
+  
+  
+</h2>
+    
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.local-workflows/styles/kiro/prompts/design.md
+</code></pre></div></div>
+
+<p>No <code class="language-plaintext highlighter-rouge">style.yml</code> alongside it.</p><hr />
+<h2 id="eject-a-built-in-style">
+  
+  
+    <a href="#eject-a-built-in-style" class="anchor-heading" aria-labelledby="eject-a-built-in-style"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Eject a built-in style
+  
+  
+</h2>
+    
+
+<p><strong>Local Workflows: Eject Style</strong> — copies a built-in, byte for byte, to
+the scope you pick.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Target</td>
+      <td>user profile (default) or workspace</td>
+    </tr>
+    <tr>
+      <td>Collisions</td>
+      <td>listed, overwritten only on explicit confirm</td>
+    </tr>
+    <tr>
+      <td>The trade</td>
+      <td>an ejected copy stops receiving built-in improvements</td>
+    </tr>
+    <tr>
+      <td>Revert</td>
+      <td>delete files — each one falls back to the built-in</td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="requires">
+  
+  
+    <a href="#requires" class="anchor-heading" aria-labelledby="requires"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Requires
+  
+  
+</h2>
+    
+
+<p>Copilot sign-in. <code class="language-plaintext highlighter-rouge">ai@1</code> on its default <code class="language-plaintext highlighter-rouge">ghcp</code> provider runs the document
+phases; <code class="language-plaintext highlighter-rouge">implement</code> launches Copilot Chat.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

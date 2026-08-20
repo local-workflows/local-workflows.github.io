@@ -1,0 +1,774 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(4)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(4) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(4) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(4) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Your first local workflow | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Your first local workflow" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<meta name="twitter:description" property="og:description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/first-workflow.html" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/first-workflow.html" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Your first local workflow" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar.","headline":"Your first local workflow","url":"https://local-workflows.github.io/getting-started/first-workflow.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems.html" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why.html" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install.html" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/copilot.html" class="nav-list-link">GitHub Copilot setup</a></li><li class="nav-list-item"><a href="/getting-started/first-tasks.html" class="nav-list-link">Your first tasks.yml</a></li><li class="nav-list-item"><a href="/getting-started/first-workflow.html" class="nav-list-link">Your first local workflow</a></li><li class="nav-list-item"><a href="/getting-started/first-spec.html" class="nav-list-link">Your first spec</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Features submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/" class="nav-list-link">Features</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/kiro.html" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/kiro-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/spec-kit.html" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/spec-kit-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/features/sdd/custom-style.html" class="nav-list-link">Writing your own style</a></li><li class="nav-list-item"><a href="/features/sdd/config.html" class="nav-list-link">config.yml</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Workflows submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/workflows/" class="nav-list-link">Workflows</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/workflows/writing-a-workflow.html" class="nav-list-link">Writing a new workflow</a></li></ul></li><li class="nav-list-item"><a href="/features/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/features/package-json/" class="nav-list-link">package.json scripts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Plugins submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/plugins/" class="nav-list-link">Plugins</a><ul class="nav-list"><li class="nav-list-item"><a href="/plugins/built-in.html" class="nav-list-link">Built-in plugins</a></li><li class="nav-list-item"><a href="/plugins/writing-a-plugin.html" class="nav-list-link">Writing a plugin</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="VSCode submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/vscode/" class="nav-list-link">VSCode</a><ul class="nav-list"><li class="nav-list-item"><a href="/vscode/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Cheat sheets submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/cheat-sheets/" class="nav-list-link">Cheat sheets</a><ul class="nav-list"><li class="nav-list-item"><a href="/cheat-sheets/sdd.html" class="nav-list-link">SDD cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workspaces.html" class="nav-list-link">Workspace cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workflows.html" class="nav-list-link">Workflow cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/plugins.html" class="nav-list-link">Plugin cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/package-json.html" class="nav-list-link">Scripts cheat sheet</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/reference/authoring.html" class="nav-list-link">Authoring</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting.html" class="nav-list-link">Troubleshooting</a></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Your first local workflow</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="your-first-local-workflow">
+  
+  
+    <a href="#your-first-local-workflow" class="anchor-heading" aria-labelledby="your-first-local-workflow"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Your first local workflow
+  
+  
+</h1>
+    
+
+<p>From one pipeline file to a release that builds, drafts its own notes, and
+stops for a person before it publishes. About five minutes.</p>
+
+<p class="note">This page assumes you have finished
+<a href="/getting-started/first-tasks.html">your first <code class="language-plaintext highlighter-rouge">tasks.yml</code></a>.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#why-a-second-file-at-all" id="markdown-toc-why-a-second-file-at-all">Why a second file at all</a></li>
+  <li><a href="#1-create-the-file" id="markdown-toc-1-create-the-file">1. Create the file</a></li>
+  <li><a href="#2-run-it" id="markdown-toc-2-run-it">2. Run it</a></li>
+  <li><a href="#3-add-a-stage-and-see-the-barrier" id="markdown-toc-3-add-a-stage-and-see-the-barrier">3. Add a stage, and see the barrier</a></li>
+  <li><a href="#4-two-jobs-at-once-and-tasks-in-order" id="markdown-toc-4-two-jobs-at-once-and-tasks-in-order">4. Two jobs at once, and tasks in order</a></li>
+  <li><a href="#5-park-the-run-on-a-human" id="markdown-toc-5-park-the-run-on-a-human">5. Park the run on a human</a></li>
+  <li><a href="#6-let-ai-draft-it-and-keep-the-decision-yours" id="markdown-toc-6-let-ai-draft-it-and-keep-the-decision-yours">6. Let AI draft it, and keep the decision yours</a></li>
+  <li><a href="#what-you-now-have" id="markdown-toc-what-you-now-have">What you now have</a></li>
+</ol><hr />
+<h2 id="why-a-second-file-at-all">
+  
+  
+    <a href="#why-a-second-file-at-all" class="anchor-heading" aria-labelledby="why-a-second-file-at-all"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why a second file at all
+  
+  
+</h2>
+    
+
+<p>A <code class="language-plaintext highlighter-rouge">tasks.yml</code> is a <strong>library of commands</strong> — you run one, and it pulls in
+what it needs. A workflow is <strong>one pipeline</strong>, run as a whole, with an
+order that is part of what it means.</p>
+
+<p>Reach for a workflow when the order is the point: build, then draft the
+notes, then wait for a human, then publish. Reach for <code class="language-plaintext highlighter-rouge">tasks.yml</code> when you
+have a pile of commands people run individually.</p>
+
+<p>Both run through the same task executor, so everything you learned about
+<code class="language-plaintext highlighter-rouge">run:</code>, <code class="language-plaintext highlighter-rouge">env:</code>, <code class="language-plaintext highlighter-rouge">vars:</code>, <code class="language-plaintext highlighter-rouge">cwd:</code> and templating means the same thing here.</p><hr />
+<h2 id="1-create-the-file">
+  
+  
+    <a href="#1-create-the-file" class="anchor-heading" aria-labelledby="1-create-the-file"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. Create the file
+  
+  
+</h2>
+    
+
+<p>Workflows live one folder deeper:
+<code class="language-plaintext highlighter-rouge">.local-workflows/workflows/</code>. Create <code class="language-plaintext highlighter-rouge">release.yml</code> in it:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+
+<span class="na">name</span><span class="pi">:</span> <span class="s">Release</span>
+<span class="na">desc</span><span class="pi">:</span> <span class="s">Builds, then publishes.</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify</span>
+    <span class="na">jobs</span><span class="pi">:</span>
+
+      <span class="na">build</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Compile</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+</code></pre></div></div>
+
+<p>Three levels, and all three are mandatory: <strong>stages</strong> hold <strong>jobs</strong>, jobs
+hold <strong>tasks</strong>. Even for one command.</p>
+
+<p>Two keys behave differently to <code class="language-plaintext highlighter-rouge">tasks.yml</code>:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">version:</code></td>
+      <td><strong>required</strong> here, and must be <code class="language-plaintext highlighter-rouge">1</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name:</code></td>
+      <td>the row’s label in the tree — in a <code class="language-plaintext highlighter-rouge">tasks.yml</code> it is ignored at file level</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p class="note"><code class="language-plaintext highlighter-rouge">version:</code> cannot be omitted because this format has no legacy to forgive.
+<code class="language-plaintext highlighter-rouge">tasks.yml</code> forgives an absent version only because files written before
+versions existed have none.</p><hr />
+<h2 id="2-run-it">
+  
+  
+    <a href="#2-run-it" class="anchor-heading" aria-labelledby="2-run-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2. Run it
+  
+  
+</h2>
+    
+
+<p>The file appears in the <strong>Local Workflows</strong> view beside your tasks. Click
+it to open — same rule as before, clicking never runs anything — then hit
+▶.</p>
+
+<p><strong>There is no way to run one job.</strong> A workflow is addressed as a whole;
+that is the difference from a <code class="language-plaintext highlighter-rouge">tasks.yml</code>, where every task has its own ▶.
+If you want the parts individually runnable, they belong in a <code class="language-plaintext highlighter-rouge">tasks.yml</code>.</p><hr />
+<h2 id="3-add-a-stage-and-see-the-barrier">
+  
+  
+    <a href="#3-add-a-stage-and-see-the-barrier" class="anchor-heading" aria-labelledby="3-add-a-stage-and-see-the-barrier"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3. Add a stage, and see the barrier
+  
+  
+</h2>
+    
+
+<p>Stages are sequential, with a hard barrier between them. Nothing in stage
+two starts until <em>everything</em> in stage one has finished:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">stages</span><span class="pi">:</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify</span>
+    <span class="na">jobs</span><span class="pi">:</span>
+
+      <span class="na">build</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Compile</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">release</span>
+    <span class="na">jobs</span><span class="pi">:</span>
+
+      <span class="na">publish</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Publish</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Publish the build</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Publishing...</span>
+</code></pre></div></div>
+
+<p>Run it. The panel draws the two stages in order, and <code class="language-plaintext highlighter-rouge">publish</code> sits
+waiting until <code class="language-plaintext highlighter-rouge">build</code> is green.</p><hr />
+<h2 id="4-two-jobs-at-once-and-tasks-in-order">
+  
+  
+    <a href="#4-two-jobs-at-once-and-tasks-in-order" class="anchor-heading" aria-labelledby="4-two-jobs-at-once-and-tasks-in-order"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. Two jobs at once, and tasks in order
+  
+  
+</h2>
+    
+
+<p>Inside a stage, jobs with no <code class="language-plaintext highlighter-rouge">needs:</code> between them run <strong>at the same
+time</strong> — because the file says they do not depend on each other:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify</span>
+    <span class="na">desc</span><span class="pi">:</span> <span class="s">Two checks that do not depend on each other.</span>
+    <span class="na">jobs</span><span class="pi">:</span>
+
+      <span class="na">build</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Compile</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Archive</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Archiving...</span>
+
+      <span class="na">lint</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Lint</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Analyse sources</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Linting...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">build</code> and <code class="language-plaintext highlighter-rouge">lint</code> start together. Inside <code class="language-plaintext highlighter-rouge">build</code>, <strong>Compile</strong> and
+<strong>Archive</strong> do not: a job’s tasks are a list, and a list already carries
+its order.</p>
+
+<p class="gotcha"><code class="language-plaintext highlighter-rouge">needs:</code> on a <em>task</em> is a hard error, not a no-op. A list and a <code class="language-plaintext highlighter-rouge">needs:</code>
+key disagreeing about order is worse than either one alone, so only jobs
+take <code class="language-plaintext highlighter-rouge">needs:</code>.</p>
+
+<p>To make a job wait on a sibling, give it <code class="language-plaintext highlighter-rouge">needs:</code> — one id, or a list of
+them, exactly as in a <code class="language-plaintext highlighter-rouge">tasks.yml</code>.</p><hr />
+<h2 id="5-park-the-run-on-a-human">
+  
+  
+    <a href="#5-park-the-run-on-a-human" class="anchor-heading" aria-labelledby="5-park-the-run-on-a-human"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5. Park the run on a human
+  
+  
+</h2>
+    
+
+<p><code class="language-plaintext highlighter-rouge">trigger: manual</code> stops the run and waits for a person:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="na">publish</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Publish</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Publish the build</span>
+            <span class="na">trigger</span><span class="pi">:</span> <span class="s">manual</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Publishing to ${{ vars.target }}...</span>
+</code></pre></div></div>
+
+<p>Add <code class="language-plaintext highlighter-rouge">vars: { target: production }</code> at the top of the file and run it. The
+run parks, and the panel offers <strong>Approve</strong> and <strong>Reject</strong>.</p>
+
+<p>Two things worth knowing about that pause:</p>
+
+<ul>
+  <li><strong>What you are shown is the resolved command</strong> — already
+<code class="language-plaintext highlighter-rouge">echo Publishing to production...</code>, not the template. Approving a
+template would be approving a promise rather than a command.</li>
+  <li><strong>Nothing is executing while it waits.</strong> No process, no timer. Close
+VS Code, reopen it, and run <strong>Local Workflows: Show Runs Waiting for
+Approval</strong> — the run is still there.</li>
+</ul>
+
+<p>Reject it and the tasks after the gate are reported as <strong>Skipped</strong>, not
+left looking like they are still to come.</p><hr />
+<h2 id="6-let-ai-draft-it-and-keep-the-decision-yours">
+  
+  
+    <a href="#6-let-ai-draft-it-and-keep-the-decision-yours" class="anchor-heading" aria-labelledby="6-let-ai-draft-it-and-keep-the-decision-yours"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6. Let AI draft it, and keep the decision yours
+  
+  
+</h2>
+    
+
+<p>This is the shape the whole engine exists for: <strong>a model proposes, a
+human approves, a task executes.</strong></p>
+
+<p class="note">This step needs a GitHub Copilot sign-in. Everything above works without
+one — if you have not got Copilot, you already have a working workflow and
+can stop here.</p>
+
+<p>Declare what runs the AI once, at the top of the file, then the whole
+file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+
+<span class="na">name</span><span class="pi">:</span> <span class="s">Release</span>
+<span class="na">desc</span><span class="pi">:</span> <span class="s">Builds, drafts the notes, then waits for a person before publishing.</span>
+
+<span class="na">vars</span><span class="pi">:</span>
+  <span class="na">target</span><span class="pi">:</span> <span class="s">production</span>
+
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">provider</span><span class="pi">:</span> <span class="s">ghcp</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify</span>
+    <span class="na">desc</span><span class="pi">:</span> <span class="s">Two checks that do not depend on each other.</span>
+    <span class="na">jobs</span><span class="pi">:</span>
+
+      <span class="na">build</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Compile</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Archive</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Archiving...</span>
+
+      <span class="na">lint</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Lint</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Analyse sources</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Linting...</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">release</span>
+    <span class="na">desc</span><span class="pi">:</span> <span class="s">AI drafts, a human approves, a task publishes.</span>
+    <span class="na">jobs</span><span class="pi">:</span>
+
+      <span class="na">notes</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Release notes</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Draft the notes</span>
+            <span class="na">uses</span><span class="pi">:</span> <span class="s">ai</span>
+            <span class="na">args</span><span class="pi">:</span>
+              <span class="na">prompt</span><span class="pi">:</span> <span class="s">Draft release notes from the commits on this branch.</span>
+            <span class="na">output</span><span class="pi">:</span> <span class="s">NOTES</span>
+
+      <span class="na">publish</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">Publish</span>
+        <span class="na">needs</span><span class="pi">:</span> <span class="s">notes</span>
+        <span class="na">tasks</span><span class="pi">:</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Approve the release</span>
+            <span class="na">trigger</span><span class="pi">:</span> <span class="s">manual</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Publishing to ${{ vars.target }} - "${{ run.context.NOTES.summary }}"</span>
+
+          <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Announce</span>
+            <span class="na">run</span><span class="pi">:</span> <span class="s">echo Announced</span>
+</code></pre></div></div>
+
+<p>Run it, and read the gate. It shows you the sentence the model actually
+wrote, because the run variable resolved before anybody was asked.</p>
+
+<p>Three lines in there are the entire argument:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">uses: ai</code></strong> is a name <em>you</em> declared. Swapping the vendor is one
+word at the top of the file; no task mentions a vendor or a model.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">output: NOTES</code></strong> stores what it drafted as a value. Not a decision —
+a value.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">trigger: manual</code></strong> is on the task that <em>acts</em>, and it is
+there because you put it there. <code class="language-plaintext highlighter-rouge">ai@1</code> enforces no gate of its own —
+it is an agent, and it can write to the repository. The publishing
+command is an ordinary <code class="language-plaintext highlighter-rouge">run:</code> you wrote and someone reviewed; all the
+model did was fill in <code class="language-plaintext highlighter-rouge">${{ run.context.NOTES.summary }}</code>.</li>
+</ul>
+
+<p>The drafting task cannot act and the acting task cannot draft. That split
+is not a limitation waiting to be lifted — it is the reason a person is
+asked at all.</p><hr />
+<h2 id="what-you-now-have">
+  
+  
+    <a href="#what-you-now-have" class="anchor-heading" aria-labelledby="what-you-now-have"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What you now have
+  
+  
+</h2>
+    
+
+<p>Two formats, and a sense of which is which:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code class="language-plaintext highlighter-rouge">tasks.yml</code></th>
+      <th><code class="language-plaintext highlighter-rouge">workflows/*.yml</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Is</td>
+      <td>a library of commands</td>
+      <td>one pipeline</td>
+    </tr>
+    <tr>
+      <td>Ordering</td>
+      <td><code class="language-plaintext highlighter-rouge">needs:</code> between tasks</td>
+      <td><code class="language-plaintext highlighter-rouge">stages:</code>, then <code class="language-plaintext highlighter-rouge">needs:</code> between jobs</td>
+    </tr>
+    <tr>
+      <td>Run granularity</td>
+      <td>any task, alone</td>
+      <td>the whole file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">version:</code></td>
+      <td>optional</td>
+      <td>required</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Next: <a href="/getting-started/first-spec.html">your first spec</a> — the
+same engine, running requirements, design, plan and implementation as a
+process whose prompts are files in your repository.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Samples/HelloWorld/.local-workflows/workflows/release-pipeline.yml</code>
+exercises every shape the format can express, each case numbered and
+commented. <code class="language-plaintext highlighter-rouge">approve-a-deploy.yml</code> beside it is the gate on its own.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

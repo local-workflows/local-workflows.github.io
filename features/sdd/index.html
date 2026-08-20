@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(1)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(1) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(1) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Spec-driven development | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Spec-driven development" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<meta name="twitter:description" property="og:description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<link rel="canonical" href="https://local-workflows.github.io/features/sdd/" />
+<meta property="og:url" content="https://local-workflows.github.io/features/sdd/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Spec-driven development" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar.","headline":"Spec-driven development","url":"https://local-workflows.github.io/features/sdd/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems.html" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why.html" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install.html" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/copilot.html" class="nav-list-link">GitHub Copilot setup</a></li><li class="nav-list-item"><a href="/getting-started/first-tasks.html" class="nav-list-link">Your first tasks.yml</a></li><li class="nav-list-item"><a href="/getting-started/first-workflow.html" class="nav-list-link">Your first local workflow</a></li><li class="nav-list-item"><a href="/getting-started/first-spec.html" class="nav-list-link">Your first spec</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Features submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/" class="nav-list-link">Features</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/kiro.html" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/kiro-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/sdd/spec-kit.html" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/sdd/spec-kit-prompts.html" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/features/sdd/custom-style.html" class="nav-list-link">Writing your own style</a></li><li class="nav-list-item"><a href="/features/sdd/config.html" class="nav-list-link">config.yml</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Workflows submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/features/workflows/" class="nav-list-link">Workflows</a><ul class="nav-list"><li class="nav-list-item"><a href="/features/workflows/writing-a-workflow.html" class="nav-list-link">Writing a new workflow</a></li></ul></li><li class="nav-list-item"><a href="/features/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/features/package-json/" class="nav-list-link">package.json scripts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Plugins submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/plugins/" class="nav-list-link">Plugins</a><ul class="nav-list"><li class="nav-list-item"><a href="/plugins/built-in.html" class="nav-list-link">Built-in plugins</a></li><li class="nav-list-item"><a href="/plugins/writing-a-plugin.html" class="nav-list-link">Writing a plugin</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="VSCode submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/vscode/" class="nav-list-link">VSCode</a><ul class="nav-list"><li class="nav-list-item"><a href="/vscode/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Cheat sheets submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/cheat-sheets/" class="nav-list-link">Cheat sheets</a><ul class="nav-list"><li class="nav-list-item"><a href="/cheat-sheets/sdd.html" class="nav-list-link">SDD cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workspaces.html" class="nav-list-link">Workspace cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/workflows.html" class="nav-list-link">Workflow cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/plugins.html" class="nav-list-link">Plugin cheat sheet</a></li><li class="nav-list-item"><a href="/cheat-sheets/package-json.html" class="nav-list-link">Scripts cheat sheet</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Reference submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/reference/" class="nav-list-link">Reference</a><ul class="nav-list"><li class="nav-list-item"><a href="/reference/authoring.html" class="nav-list-link">Authoring</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting.html" class="nav-list-link">Troubleshooting</a></li></ul>
+  
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/features/">Features</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Spec-driven development</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="spec-driven-development">
+  
+  
+    <a href="#spec-driven-development" class="anchor-heading" aria-labelledby="spec-driven-development"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Spec-driven development
+  
+  
+</h1>
+    
+
+<p>A workflow whose tasks are AI-drafted documents and human decisions:
+requirements, design, plan, then implementation. Each phase runs a fixed
+prompt in a clean session, and the whole process state is committed to
+git.</p>
+
+<p class="note">Keys and defaults only: the <a href="/cheat-sheets/sdd.html">cheat sheet</a>.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#what-a-spec-is" id="markdown-toc-what-a-spec-is">What a spec is</a></li>
+  <li><a href="#the-loop" id="markdown-toc-the-loop">The loop</a>    <ol>
+      <li><a href="#there-is-no-approve-button" id="markdown-toc-there-is-no-approve-button">There is no Approve button</a></li>
+      <li><a href="#each-phase-runs-in-a-fresh-session" id="markdown-toc-each-phase-runs-in-a-fresh-session">Each phase runs in a fresh session</a></li>
+      <li><a href="#the-last-phase-is-yours" id="markdown-toc-the-last-phase-is-yours">The last phase is yours</a></li>
+    </ol>
+  </li>
+  <li><a href="#the-one-hard-block" id="markdown-toc-the-one-hard-block">The one hard block</a></li>
+  <li><a href="#existing-specs-are-read-not-just-written" id="markdown-toc-existing-specs-are-read-not-just-written">Existing specs are read, not just written</a></li>
+  <li><a href="#choosing-a-style" id="markdown-toc-choosing-a-style">Choosing a style</a></li>
+  <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a></li>
+</ol><hr />
+<h2 id="what-a-spec-is">
+  
+  
+    <a href="#what-a-spec-is" class="anchor-heading" aria-labelledby="what-a-spec-is"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What a spec is
+  
+  
+</h2>
+    
+
+<p>A folder of Markdown under <code class="language-plaintext highlighter-rouge">.local-workflows/specs/</code>, committed
+alongside your code. Nothing else — no database, no service, no hidden
+state. Pull the repository and you have the specs; delete the extension
+and the documents are still there, still readable, still in your history.</p>
+
+<p class="note">Needs a Copilot sign-in. The document phases run on the <code class="language-plaintext highlighter-rouge">ai@1</code> plugin
+with its default <code class="language-plaintext highlighter-rouge">ghcp</code> provider, and the implement phase launches
+Copilot Chat, so this half of the extension is the one part that does
+not work without it.</p><hr />
+<h2 id="the-loop">
+  
+  
+    <a href="#the-loop" class="anchor-heading" aria-labelledby="the-loop"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The loop
+  
+  
+</h2>
+    
+
+<p><strong>＋ New Spec</strong> asks at most two questions — what kind of spec, and where
+the work item comes from — then creates the folder and opens a Copilot
+chat to write the first document <em>with</em> you.</p>
+
+<p>That first one is a conversation rather than a form, deliberately. It is
+the document worth arguing about, and a chat gets more out of a person
+than a set of fields does. The engine starts that session and does not
+wait on it — the pipeline picks up when the document lands.</p>
+
+<p>The moment that file lands, the spec appears in the Specs view and the
+panel offers the next phase. From there each phase is one click.</p>
+<h3 id="there-is-no-approve-button">
+  
+  
+    <a href="#there-is-no-approve-button" class="anchor-heading" aria-labelledby="there-is-no-approve-button"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> There is no Approve button
+  
+  
+</h3>
+    
+
+<p><strong>Starting the next phase is the approval.</strong> One click, one decision.</p>
+
+<p>A separate approve task would be a second thing to click that changes
+nothing — and a button people learn to press without reading is worse
+than no gate at all.</p>
+<h3 id="each-phase-runs-in-a-fresh-session">
+  
+  
+    <a href="#each-phase-runs-in-a-fresh-session" class="anchor-heading" aria-labelledby="each-phase-runs-in-a-fresh-session"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Each phase runs in a fresh session
+  
+  
+</h3>
+    
+
+<p>A phase is seeded only by the documents before it. What crosses a phase
+boundary is a file on disk, never a conversation.</p>
+
+<p>That is what makes the process portable: a teammate pulls the folder and
+carries on from exactly where you left off, because there was never any
+context living in your chat history that they would be missing.</p>
+<h3 id="the-last-phase-is-yours">
+  
+  
+    <a href="#the-last-phase-is-yours" class="anchor-heading" aria-labelledby="the-last-phase-is-yours"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The last phase is yours
+  
+  
+</h3>
+    
+
+<p>The engine writes documents; it does not write your code. The implement
+phase starts a session and does not wait on it — the agent works, the
+panel offers to open the conversation, and whether anybody watches is
+your choice. Git is the record, and a ticked checkbox in <code class="language-plaintext highlighter-rouge">tasks.md</code> is
+the definition of done.</p><hr />
+<h2 id="the-one-hard-block">
+  
+  
+    <a href="#the-one-hard-block" class="anchor-heading" aria-labelledby="the-one-hard-block"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The one hard block
+  
+  
+</h2>
+    
+
+<p>An <code class="language-plaintext highlighter-rouge">## Open Questions</code> section stops the pipeline. While it holds
+questions, the next phase will not start, and the panel says so.</p>
+
+<p>Answer them in the document, or delete the section.</p>
+
+<p>It is the only hard block in the whole process, and it exists because
+every other way of handling an unresolved question is worse: a phase
+that proceeds anyway invents an answer, and one that merely warns gets
+clicked through.</p><hr />
+<h2 id="existing-specs-are-read-not-just-written">
+  
+  
+    <a href="#existing-specs-are-read-not-just-written" class="anchor-heading" aria-labelledby="existing-specs-are-read-not-just-written"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Existing specs are read, not just written
+  
+  
+</h2>
+    
+
+<p>Point the extension at a repository full of specs somebody else made and
+it works out which style wrote each folder from the documents in it, then
+picks up at the right phase. There is no import task.</p>
+
+<p>This falls out of one rule: <strong>a stage whose artifacts already exist is
+satisfied.</strong> A spec folder that already contains <code class="language-plaintext highlighter-rouge">requirements.md</code> starts
+at design without visiting requirements — whether that file arrived from
+an intake chat five minutes ago or from a colleague’s commit last month.</p><hr />
+<h2 id="choosing-a-style">
+  
+  
+    <a href="#choosing-a-style" class="anchor-heading" aria-labelledby="choosing-a-style"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Choosing a style
+  
+  
+</h2>
+    
+
+<p>A <strong>style</strong> is the process: which phases exist, what each writes, where
+the gates are, and the prompts behind them.</p>
+
+<p>Two ship, and they are genuinely different shapes rather than the same
+one renamed:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Phases</th>
+      <th>Shape</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="/features/sdd/kiro.html"><strong>Kiro</strong></a></td>
+      <td><code class="language-plaintext highlighter-rouge">requirements</code> → <code class="language-plaintext highlighter-rouge">design</code> → <code class="language-plaintext highlighter-rouge">tasks</code> → <code class="language-plaintext highlighter-rouge">implement</code></td>
+      <td>three documents, a gate between each; Bug fix skips design</td>
+    </tr>
+    <tr>
+      <td><a href="/features/sdd/spec-kit.html"><strong>Spec Kit</strong></a></td>
+      <td><code class="language-plaintext highlighter-rouge">specify</code> → <code class="language-plaintext highlighter-rouge">plan</code> → <code class="language-plaintext highlighter-rouge">tasks</code> → <code class="language-plaintext highlighter-rouge">implement</code></td>
+      <td>one phase writes several documents; a flat <code class="language-plaintext highlighter-rouge">T001</code> task list</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Pick the one your team already writes. If neither, start with Kiro —
+three documents with a gate between each is the smaller idea, and
+switching later costs one line of config.</p>
+
+<p>You are not limited to those two.
+<a href="/features/sdd/custom-style.html">Writing your own style</a> is a
+YAML file and a folder of prompts; no code changes, and your style
+appears in the ＋ New Spec menu beside the built-ins.</p><hr />
+<h2 id="configuration">
+  
+  
+    <a href="#configuration" class="anchor-heading" aria-labelledby="configuration"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Configuration
+  
+  
+</h2>
+    
+
+<p>Everything is optional. With no configuration at all, <code class="language-plaintext highlighter-rouge">kiro</code> runs on
+whichever model Copilot would have chosen.</p>
+
+<p>Create <code class="language-plaintext highlighter-rouge">.local-workflows/config.yml</code> to change that:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The process. 'kiro' or 'spec-kit', or a style you wrote yourself.</span>
+<span class="na">style</span><span class="pi">:</span> <span class="s">kiro</span>
+
+<span class="c1"># Where spec folders live, relative to the repository.</span>
+<span class="c1"># Ignored when a .code-workspace is open - see below.</span>
+<span class="na">specRoot</span><span class="pi">:</span> <span class="s">.local-workflows/specs</span>
+
+<span class="c1"># Where work items come from. Leave it out and New Spec asks each time.</span>
+<span class="na">source</span><span class="pi">:</span> <span class="s">ado</span>          <span class="c1"># manual | ado | gh</span>
+
+<span class="c1"># Full-test-suite verification tasks in the plan.</span>
+<span class="na">checkpoints</span><span class="pi">:</span> <span class="s">required</span>   <span class="c1"># required | optional | none</span>
+
+<span class="na">ai</span><span class="pi">:</span>
+  <span class="c1"># What runs the AI phases.</span>
+  <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+
+  <span class="c1"># Which agent runtime it runs them on. The vendor is named here and</span>
+  <span class="c1"># nowhere else.</span>
+  <span class="na">provider</span><span class="pi">:</span> <span class="s">ghcp</span>
+
+  <span class="c1"># 'auto' lets the provider choose, which is the right default - a</span>
+  <span class="c1"># pinned model name goes stale, and a team with no opinion should not</span>
+  <span class="c1"># be made to hold one.</span>
+  <span class="na">model</span><span class="pi">:</span> <span class="s">auto</span>
+
+  <span class="c1"># Per-phase, keyed by phase id. Merged over the defaults above one</span>
+  <span class="c1"># setting at a time, so naming only 'thinking' keeps the model.</span>
+  <span class="na">stages</span><span class="pi">:</span>
+    <span class="na">design</span><span class="pi">:</span>
+      <span class="na">model</span><span class="pi">:</span> <span class="s">claude-opus-5</span>
+      <span class="na">thinking</span><span class="pi">:</span> <span class="s">high</span>
+</code></pre></div></div>
+
+<p class="note">Every key, its default, and every error the file can raise:
+<a href="/features/sdd/config.html"><code class="language-plaintext highlighter-rouge">config.yml</code></a>.</p>
+
+          
+
+          
+            <hr>
+<h2 class="text-delta">Table of contents</h2>
+
+<ul>
+  
+  <li>
+    <a href="/features/sdd/kiro.html">Kiro</a>
+  </li>
+  
+  <li>
+    <a href="/features/sdd/spec-kit.html">Spec Kit</a>
+  </li>
+  
+  <li>
+    <a href="/features/sdd/custom-style.html">Writing your own style</a>
+  </li>
+  
+  <li>
+    <a href="/features/sdd/config.html">config.yml</a>
+  </li>
+  
+</ul>
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+
