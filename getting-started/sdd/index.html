@@ -1,0 +1,847 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(6)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(6) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(6) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(6) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Spec-driven development | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Spec-driven development" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Spec-driven development, the whole feature - your first spec from a one-line piece of work to an approved plan, the rules underneath, the two shipped styles, and writing your own." />
+<meta name="twitter:description" property="og:description" content="Spec-driven development, the whole feature - your first spec from a one-line piece of work to an approved plan, the rules underneath, the two shipped styles, and writing your own." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/sdd/" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/sdd/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Spec-driven development" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-03T19:45:46+00:00","description":"Spec-driven development, the whole feature - your first spec from a one-line piece of work to an approved plan, the rules underneath, the two shipped styles, and writing your own.","headline":"Spec-driven development","url":"https://local-workflows.github.io/getting-started/sdd/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/Samples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Samples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Spec-driven development</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="spec-driven-development">
+  
+  
+    <a href="#spec-driven-development" class="anchor-heading" aria-labelledby="spec-driven-development"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Spec-driven development
+  
+  
+</h1>
+    
+
+<p>A workflow whose tasks are AI-drafted documents and human decisions:
+requirements, design, plan, then implementation. Each phase runs a fixed
+prompt in a clean session, and the whole process state is committed to
+git. This page walks your first spec end to end, then covers the rules
+underneath; the sub-pages hold the two shipped styles, their exact
+prompts, and <a href="/getting-started/sdd/custom-style/">writing your own</a>.</p>
+
+<p class="warning">This needs an <strong>agent sign-in</strong>. Every phase that runs a model runs on
+the <code class="language-plaintext highlighter-rouge">ai@1</code> plugin, whose default provider is <code class="language-plaintext highlighter-rouge">ghcp</code> — GitHub Copilot —
+so out of the box this is the one half of the extension that needs a
+Copilot sign-in. Set <code class="language-plaintext highlighter-rouge">provider: claude</code> and it needs a Claude sign-in
+instead. See <a href="/getting-started/agent-sdks/">Agent SDKs</a>.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#what-a-spec-is" id="markdown-toc-what-a-spec-is">What a spec is</a></li>
+  <li><a href="#1-new-spec" id="markdown-toc-1-new-spec">1. New Spec</a></li>
+  <li><a href="#2-requirements" id="markdown-toc-2-requirements">2. Requirements</a></li>
+  <li><a href="#3-design--and-notice-there-is-no-approve-button" id="markdown-toc-3-design--and-notice-there-is-no-approve-button">3. Design — and notice there is no Approve button</a>    <ol>
+      <li><a href="#contextmd--anything-the-documents-have-no-place-for" id="markdown-toc-contextmd--anything-the-documents-have-no-place-for"><code class="language-plaintext highlighter-rouge">context.md</code> — anything the documents have no place for</a></li>
+    </ol>
+  </li>
+  <li><a href="#4-the-plan" id="markdown-toc-4-the-plan">4. The plan</a>    <ol>
+      <li><a href="#the-documents-point-at-each-other" id="markdown-toc-the-documents-point-at-each-other">The documents point at each other</a></li>
+    </ol>
+  </li>
+  <li><a href="#5-implement" id="markdown-toc-5-implement">5. Implement</a></li>
+  <li><a href="#6-the-one-thing-that-should-stop-you" id="markdown-toc-6-the-one-thing-that-should-stop-you">6. The one thing that should stop you</a></li>
+  <li><a href="#what-you-now-have" id="markdown-toc-what-you-now-have">What you now have</a></li>
+  <li><a href="#existing-specs-are-read-not-just-written" id="markdown-toc-existing-specs-are-read-not-just-written">Existing specs are read, not just written</a></li>
+  <li><a href="#choosing-a-style" id="markdown-toc-choosing-a-style">Choosing a style</a></li>
+  <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a></li>
+  <li><a href="#the-engine-knows-nothing-about-sdd" id="markdown-toc-the-engine-knows-nothing-about-sdd">The engine knows nothing about SDD</a></li>
+</ol><hr />
+<h2 id="what-a-spec-is">
+  
+  
+    <a href="#what-a-spec-is" class="anchor-heading" aria-labelledby="what-a-spec-is"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What a spec is
+  
+  
+</h2>
+    
+
+<p>A folder of Markdown under <code class="language-plaintext highlighter-rouge">.local-workflows/specs/</code>, committed alongside
+your code. That is the whole artefact — no database, no service, no
+hidden state. Delete the extension and the documents are still there,
+still readable, still in your history.</p>
+
+<p>You need no configuration to start. With no
+<code class="language-plaintext highlighter-rouge">.local-workflows/settings.json</code> at all you get the <code class="language-plaintext highlighter-rouge">kiro</code> style, specs
+under <code class="language-plaintext highlighter-rouge">.local-workflows/specs</code>, checkpoints on, and whichever model
+Copilot would have chosen. The walkthrough below assumes exactly that.</p><hr />
+<h2 id="1-new-spec">
+  
+  
+    <a href="#1-new-spec" class="anchor-heading" aria-labelledby="1-new-spec"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. New Spec
+  
+  
+</h2>
+    
+
+<p>Open the <strong>Specs</strong> view and click <strong>＋ New Spec</strong>. It asks a short series
+of questions — what kind of spec, where the work item comes from, the one
+detail that source needs (a work item id, a one-line description, or a
+file picker), and a name for the spec — then creates the folder.</p>
+
+<p>Two of those the settings file can answer for you: a style offering one
+spec type is not asked about, and an <code class="language-plaintext highlighter-rouge">sdd.source</code> set in
+<code class="language-plaintext highlighter-rouge">.local-workflows/settings.json</code> skips the second question for everyone
+on the repository.</p>
+
+<p>The two kinds it offers come from the style, not from the engine:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Phases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Feature</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">intake</code> → <code class="language-plaintext highlighter-rouge">requirements</code> → <code class="language-plaintext highlighter-rouge">design</code> → <code class="language-plaintext highlighter-rouge">tasks</code> → <code class="language-plaintext highlighter-rouge">implement</code></td>
+    </tr>
+    <tr>
+      <td><strong>Bug fix</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">intake</code> → <code class="language-plaintext highlighter-rouge">requirements</code> → <code class="language-plaintext highlighter-rouge">tasks</code> → <code class="language-plaintext highlighter-rouge">implement</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Every pipeline opens with <code class="language-plaintext highlighter-rouge">intake</code> and closes with <code class="language-plaintext highlighter-rouge">implement</code> — the ask
+comes in, the work goes out. What a style chooses is the middle.</p>
+
+<p><code class="language-plaintext highlighter-rouge">intake</code> runs no model: ＋ New Spec writes <code class="language-plaintext highlighter-rouge">intake.md</code> from your answers,
+copies in any files you picked, opens the document for editing, and the
+spec is ready. Everything after it is AI.</p>
+
+<p><code class="language-plaintext highlighter-rouge">intake.md</code> is short on purpose. It records <strong>where the ask lives</strong> — the
+work item, the issue, the copied files — rather than summarising it, so
+the next phase reads the original instead of somebody’s paraphrase of it.
+Add whatever the pickers could not capture while it is open.</p>
+
+<p>Pick <strong>Feature</strong>. A bug fix skips design, because a one-line fix does not
+need a design document and a process that demands one teaches people to
+write a paragraph of nothing to get past the gate.</p><hr />
+<h2 id="2-requirements">
+  
+  
+    <a href="#2-requirements" class="anchor-heading" aria-labelledby="2-requirements"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2. Requirements
+  
+  
+</h2>
+    
+
+<p>The panel offers <strong>requirements</strong>. Click it, and the engine runs the
+phase and waits for it: a fresh session whose whole seed is <code class="language-plaintext highlighter-rouge">intake.md</code>
+and the material the ask brought with it.</p>
+
+<p>Because <code class="language-plaintext highlighter-rouge">intake.md</code> only says where the ask lives, this phase goes and
+reads it — the files copied into the spec folder, or the work item and
+its comment thread through your own Azure DevOps or GitHub MCP server —
+and the repository around it, before it drafts a line.</p>
+
+<p>The moment <code class="language-plaintext highlighter-rouge">requirements.md</code> lands, the panel shows it and offers the next
+phase. Read it. If it is wrong, <strong>Revise</strong> re-runs this same phase over
+the document it already wrote, and what you type goes to it as the note.</p><hr />
+<h2 id="3-design--and-notice-there-is-no-approve-button">
+  
+  
+    <a href="#3-design--and-notice-there-is-no-approve-button" class="anchor-heading" aria-labelledby="3-design--and-notice-there-is-no-approve-button"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3. Design — and notice there is no Approve button
+  
+  
+</h2>
+    
+
+<p>The panel offers <strong>design</strong>. Click it.</p>
+
+<p><strong>Starting the next phase is the approval.</strong> There is no separate approve
+step anywhere in the process, because a second thing to click that changes
+nothing is a button people learn to press without reading — and a run
+recording “approved” against an unread document is worse than recording
+nothing.</p>
+
+<p>So what you are actually deciding, when you click design, is
+“<code class="language-plaintext highlighter-rouge">requirements.md</code> is good enough to build on”. That gate lives on the
+phase that <em>depends</em> on the document rather than on the phase that wrote
+it, because depending on it is when the judgement is real.</p>
+
+<p>Two things about the session that runs:</p>
+
+<ul>
+  <li><strong>It is a fresh session, seeded by files.</strong> What it gets is what the
+earlier stages of <em>this</em> spec type wrote — <code class="language-plaintext highlighter-rouge">intake.md</code> and
+<code class="language-plaintext highlighter-rouge">requirements.md</code> — plus any material the ask itself brought in. Not
+the session that wrote them, and never a document from a stage this
+pipeline has not reached: handing <code class="language-plaintext highlighter-rouge">tasks.md</code> back to <code class="language-plaintext highlighter-rouge">design</code> would
+invert the pipeline.</li>
+  <li><strong>What crosses a phase boundary is a file on disk, never a
+conversation.</strong> That is what makes this portable: a teammate pulls the
+folder and carries on from exactly where you left off, because there was
+never any context living in your chat history for them to be missing.</li>
+</ul>
+
+<p>Read <code class="language-plaintext highlighter-rouge">design.md</code> when it lands. If it is wrong, this is the cheap moment.</p>
+<h3 id="contextmd--anything-the-documents-have-no-place-for">
+  
+  
+    <a href="#contextmd--anything-the-documents-have-no-place-for" class="anchor-heading" aria-labelledby="contextmd--anything-the-documents-have-no-place-for"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">context.md</code> — anything the documents have no place for
+  
+  
+</h3>
+    
+
+<p>Drop a file called <code class="language-plaintext highlighter-rouge">context.md</code> in the spec folder and <strong>every phase gets
+it, and every revise too</strong>. Nothing to switch on and nothing to declare;
+a spec without one loses nothing and is told nothing.</p>
+
+<p>It is for what the pipeline’s own documents have no room for — a link to
+the ticket the ask really came from, a decision taken in a meeting, an
+API’s quirk somebody already knows about, a paragraph pasted from a
+conversation that happened somewhere else. Write it by hand, or tell a
+phase to leave what it found there. Either way the next phase reads it,
+and so does the one after that.</p>
+
+<p>It is attached, not listed among the documents: reference to read, never
+a document a phase rewrites. If your style happens to name a phase’s
+output <code class="language-plaintext highlighter-rouge">context.md</code>, that wins — the file is then that phase’s document
+and flows through the pipeline like any other.</p><hr />
+<h2 id="4-the-plan">
+  
+  
+    <a href="#4-the-plan" class="anchor-heading" aria-labelledby="4-the-plan"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. The plan
+  
+  
+</h2>
+    
+
+<p>Click <strong>tasks</strong>. It writes <code class="language-plaintext highlighter-rouge">tasks.md</code>: a numbered plan (<code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">1.1</code>) with a
+dependency graph between tasks expressed as ordered <strong>waves</strong>. Tasks in
+one wave may run at the same time; a wave begins only when every task in
+every earlier wave is finished and ticked.</p>
+
+<p>The rule that decides where the boundaries fall is worth knowing before
+you read it, because it is not the obvious one:</p>
+
+<p><strong>Every task ends green.</strong> The repository builds and its tests pass at the
+end of each task, not just at the end of the plan. So an interface and its
+implementation are <em>one</em> task. A changed signature and every caller it
+breaks: one task. A behaviour and the test that proves it: one task.
+Splitting any of them would leave the tree red in between, and a plan you
+cannot stop half-way through is a script rather than a plan.</p>
+<h3 id="the-documents-point-at-each-other">
+  
+  
+    <a href="#the-documents-point-at-each-other" class="anchor-heading" aria-labelledby="the-documents-point-at-each-other"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The documents point at each other
+  
+  
+</h3>
+    
+
+<p>Every task that implements behaviour ends with a <strong>citation</strong> — the
+criteria it answers for:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">    -</span> <span class="p">[</span><span class="nv">Requirements : 1.2, 3.1</span><span class="p">](</span><span class="sx">requirements.md</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>It is an ordinary markdown link, so it works wherever the spec is read:
+click it on GitHub or in a pull request and you get the file.</p>
+
+<p>In the panel it does more. <strong>Rest the pointer on it for two seconds</strong> and
+a card shows the criterion itself, so you can check what <code class="language-plaintext highlighter-rouge">1.2</code> says
+without leaving the plan. <strong>Click it</strong> and the panel opens that document
+and marks every criterion the citation names.</p>
+
+<p>And a number the target document does not have is <strong>struck through</strong>.
+That is the one thing worth knowing: a revise that renumbers the
+requirements leaves the plan citing criteria that have moved, and this is
+what makes that visible instead of silent.</p>
+
+<p>Citations are not only between phases. A requirement can cite the PRD it
+came from, a design can cite an ADR — any <code class="language-plaintext highlighter-rouge">.md</code> file in the repository,
+with the path written relative to the document you are in. The ids are
+whatever that document calls its own: <code class="language-plaintext highlighter-rouge">1.2</code> here, <code class="language-plaintext highlighter-rouge">G11</code> in a gap
+analysis, <code class="language-plaintext highlighter-rouge">FR-1</code> in a Spec Kit spec.</p>
+
+<p>You will also see <strong>checkpoint</strong> tasks — a top-level task that runs the
+full test suite and confirms it passes. A checkpoint <em>verifies</em>; it does
+not ask. It never waits for a human, because whoever started the plan
+already asked for it to be carried out. Turn them off with
+<code class="language-plaintext highlighter-rouge">"sdd": { "checkpoints": "none" }</code> in
+<a href="/getting-started/settings/#sdd"><code class="language-plaintext highlighter-rouge">settings.json</code></a> if you
+must.</p><hr />
+<h2 id="5-implement">
+  
+  
+    <a href="#5-implement" class="anchor-heading" aria-labelledby="5-implement"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5. Implement
+  
+  
+</h2>
+    
+
+<p>This phase is different in a way that matters: <strong>the engine does not wait
+here, and it never finishes.</strong> There are no artifacts to satisfy it.</p>
+
+<p>The panel’s implement lens hands tasks to an agent session and returns
+straight away. <strong>Start</strong> on a row hands over one task; <strong>Start all</strong> hands
+over everything still unticked in a single chat, wave by wave. The engine
+writes documents; it does not write your code. Git is the record, and a
+ticked checkbox in <code class="language-plaintext highlighter-rouge">tasks.md</code> is the definition of done.</p>
+
+<p>There is no gate on this phase either — the plan was approved by starting
+its first task. Whether anybody watches the session is your choice.</p><hr />
+<h2 id="6-the-one-thing-that-should-stop-you">
+  
+  
+    <a href="#6-the-one-thing-that-should-stop-you" class="anchor-heading" aria-labelledby="6-the-one-thing-that-should-stop-you"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6. The one thing that should stop you
+  
+  
+</h2>
+    
+
+<p>A phase that could not settle something writes it under <code class="language-plaintext highlighter-rouge">## Open
+Questions</code>, first in the document, before anything else.</p>
+
+<p><strong>Nothing stops you starting the next phase anyway.</strong> No button is
+disabled and no check runs. The document is on screen, the questions are
+at the top of it, and you are the one deciding whether to build on it.</p>
+
+<p class="warning">Answer them in the document and run the phase again, or decide they do
+not matter and carry on. Either way the section is in git, so whoever
+reads the spec next sees what was open and what was done about it.</p><hr />
+<h2 id="what-you-now-have">
+  
+  
+    <a href="#what-you-now-have" class="anchor-heading" aria-labelledby="what-you-now-have"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What you now have
+  
+  
+</h2>
+    
+
+<p>Look at <code class="language-plaintext highlighter-rouge">git status</code>. Four Markdown files under
+<code class="language-plaintext highlighter-rouge">.local-workflows/specs/&lt;your-spec&gt;/</code> — <code class="language-plaintext highlighter-rouge">intake.md</code>, plus the three the
+phases drafted — and the process state alongside them. All of it
+reviewable in a pull request. A fifth if you wrote a <code class="language-plaintext highlighter-rouge">context.md</code>, which
+travels with them.</p>
+
+<p>That is the part that compounds. The judgement about what was required,
+what the design should be, and how the work was cut up stops living in one
+person’s chat history and becomes a file the team inherits.</p>
+
+<p class="note"><code class="language-plaintext highlighter-rouge">Samples/HelloWorld/.local-workflows/specs/</code> has spec folders with their
+requirements already written — read them without running anything, or
+point the extension at one and it picks up at design.</p><hr />
+<h2 id="existing-specs-are-read-not-just-written">
+  
+  
+    <a href="#existing-specs-are-read-not-just-written" class="anchor-heading" aria-labelledby="existing-specs-are-read-not-just-written"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Existing specs are read, not just written
+  
+  
+</h2>
+    
+
+<p>Point the extension at a repository full of specs somebody else made and
+it works out which style wrote each folder from the documents in it, then
+picks up at the right phase. There is no import step.</p>
+
+<p>This falls out of one rule: <strong>a stage whose artifacts already exist is
+satisfied.</strong> A spec folder that already contains <code class="language-plaintext highlighter-rouge">requirements.md</code> starts
+at design without visiting requirements — whether that file was drafted
+five minutes ago or arrived in a colleague’s commit last month.</p><hr />
+<h2 id="choosing-a-style">
+  
+  
+    <a href="#choosing-a-style" class="anchor-heading" aria-labelledby="choosing-a-style"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Choosing a style
+  
+  
+</h2>
+    
+
+<p>A <strong>style</strong> is the process: which phases exist, what each writes, where
+the gates are, and the prompts behind them.</p>
+
+<p>Two ship, and they are genuinely different shapes rather than the same
+one renamed:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Phases</th>
+      <th>Shape</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="/getting-started/sdd/kiro/"><strong>Kiro</strong></a></td>
+      <td><code class="language-plaintext highlighter-rouge">intake</code> → <code class="language-plaintext highlighter-rouge">requirements</code> → <code class="language-plaintext highlighter-rouge">design</code> → <code class="language-plaintext highlighter-rouge">tasks</code> → <code class="language-plaintext highlighter-rouge">implement</code></td>
+      <td>three documents, a gate between each; Bug fix skips design</td>
+    </tr>
+    <tr>
+      <td><a href="/getting-started/sdd/spec-kit/"><strong>Spec Kit</strong></a></td>
+      <td><code class="language-plaintext highlighter-rouge">intake</code> → <code class="language-plaintext highlighter-rouge">specify</code> → <code class="language-plaintext highlighter-rouge">plan</code> → <code class="language-plaintext highlighter-rouge">tasks</code> → <code class="language-plaintext highlighter-rouge">implement</code></td>
+      <td>one phase writes several documents; a flat <code class="language-plaintext highlighter-rouge">T001</code> task list</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Pick the one your team already writes. If neither, start with Kiro —
+three documents with a gate between each is the smaller idea, and
+switching later costs one line of config.</p>
+
+<p>You are not limited to those two.
+<a href="/getting-started/sdd/custom-style/">Writing your own style</a>
+is a YAML file and a folder of prompts; no code changes, and your style
+appears in the ＋ New Spec menu beside the built-ins. The exact prompts
+the shipped styles run are published verbatim —
+<a href="/getting-started/sdd/kiro-prompts/">Kiro’s</a> and
+<a href="/getting-started/sdd/spec-kit-prompts/">Spec Kit’s</a>.</p><hr />
+<h2 id="configuration">
+  
+  
+    <a href="#configuration" class="anchor-heading" aria-labelledby="configuration"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Configuration
+  
+  
+</h2>
+    
+
+<p>Everything is optional. With no configuration at all, <code class="language-plaintext highlighter-rouge">kiro</code> runs on
+whichever model Copilot would have chosen. Change that in
+<code class="language-plaintext highlighter-rouge">.local-workflows/settings.json</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"sdd"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kiro"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ado"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"checkpoints"</span><span class="p">:</span><span class="w"> </span><span class="s2">"required"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stages"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"design"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"claude-opus-5"</span><span class="p">,</span><span class="w"> </span><span class="nl">"reasoningEffort"</span><span class="p">:</span><span class="w"> </span><span class="s2">"high"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"ai"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ai@1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ghcp"</span><span class="p">,</span><span class="w"> </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Every key, its default, and every error the file can raise:
+<a href="/getting-started/settings/#sdd"><code class="language-plaintext highlighter-rouge">settings.json</code></a>.</p><hr />
+<h2 id="the-engine-knows-nothing-about-sdd">
+  
+  
+    <a href="#the-engine-knows-nothing-about-sdd" class="anchor-heading" aria-labelledby="the-engine-knows-nothing-about-sdd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The engine knows nothing about SDD
+  
+  
+</h2>
+    
+
+<p>The runner walks a graph of tasks: resolve the args, run the task,
+record what happened, stop at the gates. SDD is a layer <em>above</em> that — a
+folder of prompts, a config file, and a purpose-built panel — expressed
+entirely in terms the engine already had.</p>
+
+<p>That is not an implementation detail you can ignore. It is the reason a
+style is a YAML file you can replace, rather than a feature you have to
+wait for someone to build. Every phase of every process is a stage with
+a prompt and a gate, and nothing in the engine knows what “requirements”
+means.</p>
+
+          
+
+          
+            <hr>
+<h2 class="text-delta">Table of contents</h2>
+
+<ul>
+  
+  <li>
+    <a href="/getting-started/sdd/kiro/">Kiro</a>
+  </li>
+  
+  <li>
+    <a href="/getting-started/sdd/spec-kit/">Spec Kit</a>
+  </li>
+  
+  <li>
+    <a href="/getting-started/sdd/custom-style/">Writing your own style</a>
+  </li>
+  
+</ul>
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

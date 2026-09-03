@@ -1,0 +1,706 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(5)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(5) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(5) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(5) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Variables | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Variables" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Every built-in variable on one page - the four directory anchors, params, vars, env and run.context, the one resolution order, and the exact grammar an expression allows." />
+<meta name="twitter:description" property="og:description" content="Every built-in variable on one page - the four directory anchors, params, vars, env and run.context, the one resolution order, and the exact grammar an expression allows." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/variables/" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/variables/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Variables" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-03T19:45:46+00:00","description":"Every built-in variable on one page - the four directory anchors, params, vars, env and run.context, the one resolution order, and the exact grammar an expression allows.","headline":"Variables","url":"https://local-workflows.github.io/getting-started/variables/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/Samples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Samples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Variables</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="variables">
+  
+  
+    <a href="#variables" class="anchor-heading" aria-labelledby="variables"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Variables
+  
+  
+</h1>
+    
+
+<p><strong>Every name a <code class="language-plaintext highlighter-rouge">${{ }}</code> expression can resolve, on one page.</strong></p>
+
+<p>The set is closed. An unknown name is an error that lists what exists —
+never an empty string, never the literal text passed through. How the
+blocks are <em>declared</em> is on
+<a href="/getting-started/tasks/#values-and-templating">Values and templating</a>;
+this page is the read side: what is built in, and where each name is
+readable.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#the-whole-set" id="markdown-toc-the-whole-set">The whole set</a></li>
+  <li><a href="#the-four-anchors" id="markdown-toc-the-four-anchors">The four anchors</a></li>
+  <li><a href="#paramsname" id="markdown-toc-paramsname"><code class="language-plaintext highlighter-rouge">params.NAME</code></a></li>
+  <li><a href="#varsname" id="markdown-toc-varsname"><code class="language-plaintext highlighter-rouge">vars.NAME</code></a></li>
+  <li><a href="#envname" id="markdown-toc-envname"><code class="language-plaintext highlighter-rouge">env.NAME</code></a></li>
+  <li><a href="#runcontextname" id="markdown-toc-runcontextname"><code class="language-plaintext highlighter-rouge">run.context.NAME</code></a></li>
+  <li><a href="#resolution-order" id="markdown-toc-resolution-order">Resolution order</a></li>
+  <li><a href="#grammar" id="markdown-toc-grammar">Grammar</a></li>
+  <li><a href="#the-same-notation-in-settingsjson" id="markdown-toc-the-same-notation-in-settingsjson">The same notation in <code class="language-plaintext highlighter-rouge">settings.json</code></a></li>
+</ol><hr />
+<h2 id="the-whole-set">
+  
+  
+    <a href="#the-whole-set" class="anchor-heading" aria-labelledby="the-whole-set"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The whole set
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Expression</th>
+      <th>What it is</th>
+      <th>Declared</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ workspaceFolder }}</code></td>
+      <td>where the editor opened, or where a CLI was invoked</td>
+      <td>built in</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ workspaceConfig }}</code></td>
+      <td><code class="language-plaintext highlighter-rouge">workspaceFolder</code>’s own <code class="language-plaintext highlighter-rouge">.local-workflows/</code></td>
+      <td>built in</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ cwd }}</code></td>
+      <td>the working directory the resolved thing runs in</td>
+      <td>built in</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ home }}</code></td>
+      <td>the person’s home directory</td>
+      <td>built in</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ params.NAME }}</code></td>
+      <td>what the run was asked for at start</td>
+      <td>a workflow’s <code class="language-plaintext highlighter-rouge">params:</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ vars.NAME }}</code>, <code class="language-plaintext highlighter-rouge">${{ vars.NAME.key }}</code></td>
+      <td>the file’s own template values</td>
+      <td><code class="language-plaintext highlighter-rouge">vars:</code> at file or task level</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code></td>
+      <td>declared env, readable over the machine’s</td>
+      <td><code class="language-plaintext highlighter-rouge">env:</code> / <code class="language-plaintext highlighter-rouge">dotenv:</code> — or the machine</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ run.context.NAME }}</code>, <code class="language-plaintext highlighter-rouge">${{ run.context.NAME.key }}</code></td>
+      <td>what an earlier task stored with <code class="language-plaintext highlighter-rouge">artifact: NAME</code></td>
+      <td>a task’s <code class="language-plaintext highlighter-rouge">artifact:</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Anything else — <code class="language-plaintext highlighter-rouge">${{ github.sha }}</code>, <code class="language-plaintext highlighter-rouge">${{ secrets.X }}</code>,
+a misspelled anchor — is an error naming the available set. This is not
+GitHub Actions’ namespace.</p><hr />
+<h2 id="the-four-anchors">
+  
+  
+    <a href="#the-four-anchors" class="anchor-heading" aria-labelledby="the-four-anchors"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The four anchors
+  
+  
+</h2>
+    
+
+<p>Always available, in every field of every file.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Anchor</th>
+      <th>Resolves to</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ workspaceFolder }}</code></td>
+      <td>where the editor opened, or where a CLI was invoked. Stable for a whole run</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ workspaceConfig }}</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;workspaceFolder&gt;/.local-workflows</code> — where the workspace’s settings, specs and plugins live</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ cwd }}</code></td>
+      <td>where the task will run. Inside a <code class="language-plaintext highlighter-rouge">cwd:</code> expression it means the <strong>inherited</strong> value, so <code class="language-plaintext highlighter-rouge">cwd: ${{ cwd }}/dist</code> appends to the parent’s</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ home }}</code></td>
+      <td><code class="language-plaintext highlighter-rouge">os.homedir()</code> — constant for the whole process; nothing a file declares can move it</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><code class="language-plaintext highlighter-rouge">home</code> is the one anchor that is not about the work: the other three
+name somewhere inside the run at hand, <code class="language-plaintext highlighter-rouge">home</code> names where the <em>person</em>
+keeps things — for a file that follows them between repositories.</p><hr />
+<h2 id="paramsname">
+  
+  
+    <a href="#paramsname" class="anchor-heading" aria-labelledby="paramsname"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">params.NAME</code>
+  
+  
+</h2>
+    
+
+<p>What the run was asked for before it started — declared in a workflow’s
+<code class="language-plaintext highlighter-rouge">params:</code> block, answered at run start, frozen for the whole run.</p>
+
+<ul>
+  <li><strong>Workflows only.</strong> <code class="language-plaintext highlighter-rouge">tasks.yml</code> has no <code class="language-plaintext highlighter-rouge">params:</code> block, so
+<code class="language-plaintext highlighter-rouge">${{ params.X }}</code> there errors with <em>“params are
+not available here”</em> rather than blaming the name.</li>
+  <li>Values are strings. There is no <code class="language-plaintext highlighter-rouge">params.NAME.key</code>.</li>
+  <li>Known before anything else resolves, so a <code class="language-plaintext highlighter-rouge">vars:</code> value can be built
+out of one.</li>
+</ul><hr />
+<h2 id="varsname">
+  
+  
+    <a href="#varsname" class="anchor-heading" aria-labelledby="varsname"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">vars.NAME</code>
+  
+  
+</h2>
+    
+
+<p>The file’s own constants. Declarable at file or task level; nearer wins,
+merged per key.</p>
+
+<ul>
+  <li><strong>Typed</strong>: a value that is <em>nothing but</em> one expression keeps its YAML
+type — <code class="language-plaintext highlighter-rouge">retries: ${{ vars.n }}</code> hands over a
+number. Inside a larger string it is stringified.</li>
+  <li>A var whose value is a map is addressed one level deep:
+<code class="language-plaintext highlighter-rouge">${{ vars.NAME.key }}</code>. No deeper.</li>
+  <li>May read the anchors, <code class="language-plaintext highlighter-rouge">params:</code> and sibling vars — in any declaration
+order. <strong>Never <code class="language-plaintext highlighter-rouge">env:</code></strong>: vars are the file’s stable constants, and a
+constant that depends on the machine’s environment is not one.</li>
+</ul><hr />
+<h2 id="envname">
+  
+  
+    <a href="#envname" class="anchor-heading" aria-labelledby="envname"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">env.NAME</code>
+  
+  
+</h2>
+    
+
+<p>What <code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code> <em>reads</em> is the declared
+<code class="language-plaintext highlighter-rouge">env:</code> (with <code class="language-plaintext highlighter-rouge">dotenv:</code> files layered under it) merged <strong>over</strong> the real
+process environment — so <code class="language-plaintext highlighter-rouge">${{ env.PATH }}</code> resolves
+even though no file declares <code class="language-plaintext highlighter-rouge">PATH</code>. A typo is still caught: a name in
+neither map is an error.</p>
+
+<p>What gets <em>exported</em> to a spawned process is narrower — declared <code class="language-plaintext highlighter-rouge">env:</code>
+and <code class="language-plaintext highlighter-rouge">dotenv:</code> values only, layered onto the process’s own environment by
+the runner. The whole machine environment is never copied into a
+sandboxed plugin’s map.</p>
+
+<p class="warning"><strong>An agent child is narrower still.</strong> A <code class="language-plaintext highlighter-rouge">run:</code> task’s process inherits
+the machine’s environment; an <code class="language-plaintext highlighter-rouge">ai@1</code> session’s does not. It gets a fixed
+baseline of process plumbing, whatever a grant list names, and the task’s
+own <code class="language-plaintext highlighter-rouge">env:</code> — nothing else, credentials included. See
+<a href="/getting-started/agent-sdks/#the-environment-the-cli-child-gets">the environment the CLI child gets</a>.</p>
+
+<ul>
+  <li>No <code class="language-plaintext highlighter-rouge">env.NAME.key</code> — env vars are flat text, coerced to string.</li>
+  <li>May read the anchors and <code class="language-plaintext highlighter-rouge">vars:</code>. Resolved after vars, so a <code class="language-plaintext highlighter-rouge">vars:</code>
+value cannot read <code class="language-plaintext highlighter-rouge">env:</code> — asking gets the error that explains the
+order.</li>
+</ul><hr />
+<h2 id="runcontextname">
+  
+  
+    <a href="#runcontextname" class="anchor-heading" aria-labelledby="runcontextname"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">run.context.NAME</code>
+  
+  
+</h2>
+    
+
+<p>Run variables — what a task’s <code class="language-plaintext highlighter-rouge">artifact:</code> stores, read by any later task.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">draft</span><span class="pi">:</span>
+  <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+  <span class="na">args</span><span class="pi">:</span>
+    <span class="na">prompt</span><span class="pi">:</span> <span class="s">Draft the notes.</span>
+  <span class="na">artifact</span><span class="pi">:</span> <span class="s">NOTES</span>
+
+<span class="na">publish</span><span class="pi">:</span>
+  <span class="na">needs</span><span class="pi">:</span> <span class="s">draft</span>
+  <span class="na">run</span><span class="pi">:</span> <span class="s">./publish.ps1 -Notes "${{ run.context.NOTES.summary }}"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>A plugin declaring exactly <strong>one</strong> artifact makes
+<code class="language-plaintext highlighter-rouge">${{ run.context.NAME }}</code> that single value;
+anything else stores the whole map, addressed as
+<code class="language-plaintext highlighter-rouge">${{ run.context.NAME.key }}</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">context</code> segment is mandatory — <code class="language-plaintext highlighter-rouge">run</code> stays a namespace, so a
+flat <code class="language-plaintext highlighter-rouge">run.NOTES</code> is an error.</li>
+  <li>Flat and run-scoped: they cross stage boundaries for free.</li>
+  <li>Readable from <code class="language-plaintext highlighter-rouge">cwd:</code>, <code class="language-plaintext highlighter-rouge">run:</code> and a task’s <code class="language-plaintext highlighter-rouge">args:</code> — those resolve when
+the task is reached, by which point earlier tasks have produced
+theirs. Not from <code class="language-plaintext highlighter-rouge">vars:</code> or <code class="language-plaintext highlighter-rouge">env:</code>, which resolve before any task has
+run.</li>
+</ul><hr />
+<h2 id="resolution-order">
+  
+  
+    <a href="#resolution-order" class="anchor-heading" aria-labelledby="resolution-order"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Resolution order
+  
+  
+</h2>
+    
+
+<p>Strictly one-directional, so no namespace can chase its own tail:</p>
+
+<ol>
+  <li><strong>Anchors and <code class="language-plaintext highlighter-rouge">params:</code></strong> — known before anything runs</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">vars:</code></strong> — may read 1 and each other</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">dotenv:</code> files, then <code class="language-plaintext highlighter-rouge">env:</code></strong> — may read 1–2</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">cwd:</code>, <code class="language-plaintext highlighter-rouge">run:</code>, task <code class="language-plaintext highlighter-rouge">args:</code></strong> — may read everything, plus <code class="language-plaintext highlighter-rouge">run.context.*</code></li>
+</ol>
+
+<p>An expression that reaches for a later stage does not silently resolve
+to nothing — the error says which stage the namespace belongs to.</p><hr />
+<h2 id="grammar">
+  
+  
+    <a href="#grammar" class="anchor-heading" aria-labelledby="grammar"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Grammar
+  
+  
+</h2>
+    
+
+<ul>
+  <li>One form: <code class="language-plaintext highlighter-rouge">${{ name }}</code> or <code class="language-plaintext highlighter-rouge">${{ namespace.NAME }}</code> — word characters
+and dots only. No functions, no operators, no defaults.</li>
+  <li>Depth is capped at what the tables above show: <code class="language-plaintext highlighter-rouge">vars.NAME.key</code> and
+<code class="language-plaintext highlighter-rouge">run.context.NAME.key</code> are the deepest expressions there are.</li>
+  <li>A name only resolves when a file actually <strong>declares</strong> it —
+<code class="language-plaintext highlighter-rouge">${{ vars.toString }}</code> is an unknown var, not a JavaScript accident.</li>
+  <li>An unresolvable expression fails the task immediately, naming the
+expression and the value it sits in — it is never passed through as
+literal text to surface later as a cryptic <code class="language-plaintext highlighter-rouge">ENOENT</code>.</li>
+</ul>
+
+<p><strong>Casing</strong>: camelCase for <code class="language-plaintext highlighter-rouge">vars:</code> and <code class="language-plaintext highlighter-rouge">params:</code> (like the anchors),
+UPPER_SNAKE for <code class="language-plaintext highlighter-rouge">env:</code> (like the operating system) and <code class="language-plaintext highlighter-rouge">artifact:</code> names —
+so a glance tells you where a name lives.</p><hr />
+<h2 id="the-same-notation-in-settingsjson">
+  
+  
+    <a href="#the-same-notation-in-settingsjson" class="anchor-heading" aria-labelledby="the-same-notation-in-settingsjson"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The same notation in <code class="language-plaintext highlighter-rouge">settings.json</code>
+  
+  
+</h2>
+    
+
+<p><code class="language-plaintext highlighter-rouge">${{ }}</code> works in
+<a href="/getting-started/settings/"><code class="language-plaintext highlighter-rouge">settings.json</code></a> and in a
+style’s <code class="language-plaintext highlighter-rouge">style.yml</code> too — same spelling, same anchors, same
+<code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code>. It used to be a different
+dialect there (<code class="language-plaintext highlighter-rouge">${env:VAR}</code>, MCP declarations only); that form is gone
+and using it is an error naming the replacement.</p>
+
+<p>What differs is not the notation but the <strong>gate</strong>. An env read inside
+<code class="language-plaintext highlighter-rouge">ai.mcpServers</code> is handed to a third-party server process, so it must
+be granted a name —
+<a href="/getting-started/settings/#env--the-gate-on-mcp-env-reads">the env gate</a>.
+Everywhere else, including this page’s task files, an env read needs no
+grant and only <code class="language-plaintext highlighter-rouge">env.denied</code> vetoes it.</p>
+
+<p>Not readable in those two files: <code class="language-plaintext highlighter-rouge">vars</code>, <code class="language-plaintext highlighter-rouge">params</code> and
+<code class="language-plaintext highlighter-rouge">${{ run.context.NAME }}</code>. They belong to a run,
+and a configuration file is read before there is one.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

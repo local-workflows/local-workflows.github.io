@@ -1,0 +1,35 @@
+{
+    "id": "greet",
+    "name": "Greet",
+    "description": "Greets someone by name.",
+    "version": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+    },
+    "args": [
+        {
+            "name": "name",
+            "type": "string",
+            "label": "Name",
+            "description": "Who to greet.",
+            "required": true
+        },
+        {
+            "name": "excited",
+            "type": "boolean",
+            "label": "Excited",
+            "description": "Ends the greeting with an exclamation mark.",
+            "default": false
+        }
+    ],
+    "artifacts": [
+        "greeting"
+    ],
+    "execution": {
+        "target": "index.js"
+    },
+    "secrets": [
+        "GREET_TOKEN"
+    ]
+}

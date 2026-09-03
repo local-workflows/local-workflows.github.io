@@ -1,0 +1,674 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    
+    .site-nav > ul.nav-list:first-child > li:not(:nth-child(1)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(1) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(1) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(1) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Home | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Home" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Local Workflows is a VS Code extension for running AI-assisted work one small unit at a time — you declare the units, each AI step starts from a clean context, tasks that don’t need AI don’t use it, and a human-authored file decides what happens to every AI output. Pipelines in YAML, specs in Markdown, all in your repository." />
+<meta name="twitter:description" property="og:description" content="Local Workflows is a VS Code extension for running AI-assisted work one small unit at a time — you declare the units, each AI step starts from a clean context, tasks that don’t need AI don’t use it, and a human-authored file decides what happens to every AI output. Pipelines in YAML, specs in Markdown, all in your repository." />
+<link rel="canonical" href="https://local-workflows.github.io/" />
+<meta property="og:url" content="https://local-workflows.github.io/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Home" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","dateModified":"2026-09-03T19:45:46+00:00","description":"Local Workflows is a VS Code extension for running AI-assisted work one small unit at a time — you declare the units, each AI step starts from a clean context, tasks that don’t need AI don’t use it, and a human-authored file decides what happens to every AI output. Pipelines in YAML, specs in Markdown, all in your repository.","headline":"Home","name":"Local Workflows","url":"https://local-workflows.github.io/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/Samples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Samples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="fs-9" id="ai-quality-is-decided-by-the-context-you-feed-it">
+  
+  
+    <a href="#ai-quality-is-decided-by-the-context-you-feed-it" class="anchor-heading" aria-labelledby="ai-quality-is-decided-by-the-context-you-feed-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> AI quality is decided by the context you feed it
+  
+  
+</h1>
+    
+
+<p class="fs-6 fw-300">Local Workflows is a VS Code extension built on one idea: <strong class="text-green-100">the
+smaller the task, the cleaner the context — and the cleaner the
+context, the better the AI</strong>. So you declare the
+work as small units in a file, the extension runs each one in its own
+clean context, and that same file decides what happens to each unit’s
+output.</p>
+
+<p class="fs-6 fw-300">One engine, two ways to use it. A <strong class="text-blue-100">pipeline
+runner</strong>: your dev commands and whole pipelines,
+drawn stage by stage in your editor, run without pushing to CI. And
+<strong class="text-purple-000">spec-driven development</strong>: AI drafts each
+phase, you approve it before the next builds on it, and every prompt
+is a file in your repository. Your pipelines, your specs, your files.</p>
+
+<p><a href="/getting-started/" class="btn btn-primary fs-5 mb-4 mb-md-0 mr-2">Get started</a>
+<a href="/why/" class="btn fs-5 mb-4 mb-md-0 mr-2">Compared with alternatives</a>
+<a href="https://github.com/local-workflows" class="btn fs-5 mb-4 mb-md-0">View on GitHub</a></p><hr />
+<h2 id="the-problem">
+  
+  
+    <a href="#the-problem" class="anchor-heading" aria-labelledby="the-problem"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The problem
+  
+  
+</h2>
+    
+
+<p>You know this session. It started as “add the endpoint”, then a test
+failed, then you pasted a stack trace, then you asked about a rename
+while you were at it. Twenty minutes in, the answers are getting
+worse — and it is not the model. Every failed tool call, every dead
+end, every side discussion is still sitting in the context, and the
+model is reasoning over all of it.</p>
+
+<p>Vague prompt, long session, three jobs in one chat: quality decays.
+The fix is not a better model. It is a cleaner context.</p><hr />
+<h2 id="the-fix">
+  
+  
+    <a href="#the-fix" class="anchor-heading" aria-labelledby="the-fix"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The fix
+  
+  
+</h2>
+    
+
+<p>Cut the work into the <strong class="text-green-100">smallest unit that can stand
+alone</strong>, and run each unit as its own AI task.
+Each task starts from a context that contains only what the previous,
+human-approved step produced. The failed attempts and the detours
+never travel forward.</p>
+
+<p>Two things fall out of that:</p>
+
+<ul>
+  <li><strong>Consistent quality.</strong> Same task, same clean context, same output
+quality — for every developer on the team, every time, instead of
+depending on how disciplined each person’s chat session was that
+day.</li>
+  <li><strong>A gate a human can actually use.</strong> Small output is output someone
+really reads. AI produces <strong class="text-green-100">data</strong>; <strong class="text-green-100">a
+human-authored file</strong> decides what happens to
+it — and that file lives in your repository, reviewed in pull
+requests like any other code.</li>
+</ul><hr />
+<h2 id="how-it-works">
+  
+  
+    <a href="#how-it-works" class="anchor-heading" aria-labelledby="how-it-works"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How it works
+  
+  
+</h2>
+    
+<h3 id="a-pipeline-runner-that-lives-in-your-editor">
+  
+  
+    <a href="#a-pipeline-runner-that-lives-in-your-editor" class="anchor-heading" aria-labelledby="a-pipeline-runner-that-lives-in-your-editor"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A <strong class="text-blue-100">pipeline runner</strong> that lives in your editor
+  
+  
+</h3>
+    
+
+<ul>
+  <li>Declare your dev commands in two files next to your code:
+<code class="language-plaintext highlighter-rouge">.local-workflows/tasks.yml</code>, a library of commands each runnable on
+its own, and <code class="language-plaintext highlighter-rouge">.local-workflows/workflows/*.yml</code>, whole pipelines of
+stages, jobs, and tasks.</li>
+  <li>Run a library task alone, or a workflow as a whole, from a native
+sidebar — one click, no commit, no push, no waiting on a CI queue.</li>
+  <li>Watch it in a live run panel: per-task logs, status, and a dependency
+graph of what runs after what.</li>
+  <li>Extend it with first-party plugins or any JavaScript you write.</li>
+  <li>No server of ours, nothing to sign up for, no telemetry of your runs.
+Your commands run on your machine. The one thing that leaves it is an
+AI task, which goes to the provider you named — and that provider’s
+sign-in is the only account involved.</li>
+</ul>
+
+<p><a href="/getting-started/tasks/">Build your first <code class="language-plaintext highlighter-rouge">tasks.yml</code></a>
+— about five minutes.</p>
+<h3 id="spec-driven-development-where-every-phase-starts-clean">
+  
+  
+    <a href="#spec-driven-development-where-every-phase-starts-clean" class="anchor-heading" aria-labelledby="spec-driven-development-where-every-phase-starts-clean"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <strong class="text-purple-000">Spec-driven development</strong> where every phase starts clean
+  
+  
+</h3>
+    
+
+<p>A spec is a folder of Markdown committed next to your code — one
+document per phase, each drafted by AI and read by a human before the
+next phase builds on it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.local-workflows/specs/dark-mode/
+├── intake.md          # the ask, and where it came from — written without a model
+├── requirements.md    # what to build — drafted from the ask
+├── design.md          # how — seeded by the documents before it, nothing else
+└── tasks.md           # the plan implementation follows, task by task
+</code></pre></div></div>
+
+<p>Look at that third line again. The design phase never sees the session
+that produced the requirements — not the failed tool calls, not the
+detours, only the finished file. That is the clean context, made out
+of files. A bad inference cannot slip past unseen: each phase reads a
+document sitting in your editor, and the next phase does not start
+until a person clicks to start it.</p>
+
+<ul>
+  <li>The prompt that drives each phase is a file in your repository. You
+edit it, version it, and review it in pull requests like any other
+code — instead of re-pasting the same mega-prompt into a chat window
+and hoping everyone on the team uses the same one.</li>
+  <li>The implement phase adds no fourth document — the work happens in
+your repository, and a ticked checkbox in <code class="language-plaintext highlighter-rouge">tasks.md</code> is the
+definition of done.</li>
+  <li>No separate toolkit to install, no service to sign up for. The same
+engine that runs your pipelines runs your specs.</li>
+</ul>
+
+<p><a href="/getting-started/sdd/">Write your first spec</a>.</p>
+<h3 id="not-every-task-needs-ai">
+  
+  
+    <a href="#not-every-task-needs-ai" class="anchor-heading" aria-labelledby="not-every-task-needs-ai"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Not every task needs AI
+  
+  
+</h3>
+    
+
+<p>Take “publish a release”. Two different jobs hide inside it: drafting
+the notes — a job for a model — and publishing — a deterministic
+action that needs no model at all. Running the action through AI adds
+nothing but risk. So the AI task writes the notes into a run
+variable, and the action is an ordinary task wired by hand in a YAML
+file a teammate reviewed — behind a manual gate, so a human reads
+what the AI wrote before anything fires.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># .local-workflows/workflows/release.yml</span>
+
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">provider</span><span class="pi">:</span> <span class="s">ghcp</span>         <span class="c1"># which vendor runs it is also a line in the file</span>
+
+<span class="c1"># ...stages: release: tasks:</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Draft the notes</span>
+  <span class="na">uses</span><span class="pi">:</span> <span class="s">ai</span>
+  <span class="na">args</span><span class="pi">:</span>
+    <span class="na">prompt</span><span class="pi">:</span> <span class="s">Draft release notes from the commits on this branch.</span>
+  <span class="na">artifact</span><span class="pi">:</span> <span class="s">NOTES</span>             <span class="c1"># a value, not a decision</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Publish</span>
+  <span class="na">trigger</span><span class="pi">:</span> <span class="s">manual</span>            <span class="c1"># a human reads the resolved args first</span>
+  <span class="na">run</span><span class="pi">:</span> <span class="s">./publish.ps1 -Body "${{ run.context.NOTES.summary }}"</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">ai</code> here is a name you declare, not a built-in — it points at
+<a href="/getting-started/plugins/#the-six-that-ship"><code class="language-plaintext highlighter-rouge">ai@1</code></a>, the agent plugin, with
+the vendor as one of its arguments. Two ship: <code class="language-plaintext highlighter-rouge">ghcp</code> — GitHub Copilot,
+the default — and <code class="language-plaintext highlighter-rouge">claude</code>. So AI tasks and specs need a sign-in with
+whichever one you name; everything else works without either.</p>
+
+<p>For the full argument — and how this differs from task runners, CI,
+n8n, Kiro, and Spec Kit — see
+<a href="/why/">Compared with alternatives</a>.</p><hr />
+<h2 id="is-this-for-you">
+  
+  
+    <a href="#is-this-for-you" class="anchor-heading" aria-labelledby="is-this-for-you"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Is this for you?
+  
+  
+</h2>
+    
+
+<p><strong>Yes, if:</strong></p>
+
+<ul>
+  <li>Your AI sessions start sharp and end sloppy, and you suspect the
+session, not the model.</li>
+  <li>You re-run the same handful of commands all day and want them drawn as
+a graph, with per-task logs and status, without a commit or a push.</li>
+  <li>You want AI in the loop but never choosing what executes.</li>
+  <li>You want that judgement reviewed in a pull request instead of living in
+one person’s head.</li>
+  <li>You want spec-driven development but want to own the prompts.</li>
+</ul>
+
+<p><strong>No — close the tab if:</strong></p>
+
+<ul>
+  <li><strong>You need unattended or scheduled runs.</strong> There is no server. Close
+the laptop and nothing runs.</li>
+  <li><strong>You need hundreds of SaaS connectors.</strong> There are first-party plugins
+and whatever JavaScript you write. That is the whole ecosystem, and it
+is not growing into a marketplace.</li>
+  <li><strong>You want the model to decide what runs.</strong> Structurally refused.</li>
+  <li><strong>You want a no-code canvas.</strong> It is YAML, reviewed in pull requests,
+by people who read YAML.</li>
+  <li><strong>Your whole need is aliases for three shell commands.</strong> A plain task
+runner like <code class="language-plaintext highlighter-rouge">just</code> is lighter. This tool earns its keep when you want
+the graph, the logs, the AI steps, or the specs.</li>
+  <li><strong>You are not in VS Code.</strong> The one item on this list that is a <em>not
+yet</em> rather than a decision.</li>
+</ul><hr />
+<h2 id="where-to-go">
+  
+  
+    <a href="#where-to-go" class="anchor-heading" aria-labelledby="where-to-go"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Where to go
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Wondering why not just use X</strong></td>
+      <td><a href="/why/">Compared with alternatives</a> — task runners, CI, n8n, Kiro, Spec Kit, coding agents</td>
+    </tr>
+    <tr>
+      <td><strong>Never used it</strong></td>
+      <td><a href="/getting-started/install/">Install</a>, then <a href="/getting-started/tasks/">Tasks</a> and <a href="/getting-started/workflows/">Workflows</a> — a five-minute walkthrough opens each</td>
+    </tr>
+    <tr>
+      <td><strong>Here for spec-driven development</strong></td>
+      <td><a href="/getting-started/sdd/">Spec-driven development</a> — phases, prompts, and gates</td>
+    </tr>
+    <tr>
+      <td><strong>Anything else — a feature, a key, a default</strong></td>
+      <td><a href="/getting-started/">Getting started</a> — one page per feature, walkthrough and full reference on the same page</td>
+    </tr>
+    <tr>
+      <td><strong>Something is broken</strong></td>
+      <td><a href="/troubleshooting/">Troubleshooting</a></td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="everything-is-a-file-you-own">
+  
+  
+    <a href="#everything-is-a-file-you-own" class="anchor-heading" aria-labelledby="everything-is-a-file-you-own"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Everything is a file you own
+  
+  
+</h2>
+    
+
+<p>There is no hidden state, and no service or account of ours — the only
+sign-in anywhere is your AI provider’s. A workflow is a
+YAML file in your repository; a spec is a folder of Markdown committed
+alongside it. Your teammates review these files in pull requests — the
+extension runs them, humans review them. Uninstall the extension and
+everything you wrote is still there, still readable, still in your
+history.</p>
+
+<p>Ready? <a href="/getting-started/install/">Install it</a>, then
+<a href="/getting-started/tasks/">build your first <code class="language-plaintext highlighter-rouge">tasks.yml</code></a>.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

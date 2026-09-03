@@ -1,0 +1,266 @@
+# A one-shot smoke test for tasks.yml.
+#
+# Every key this format supports appears exactly once, on the one task
+# that exists to demonstrate it - no duplicate demos. Run `smoke-test`
+# (the last task) and the whole file executes in one click; read each
+# task's own status in the panel afterwards.
+#
+# Three tasks fail on purpose. They carry `continueOnError: true` so the
+# chain still completes - the point of a smoke test is to see all of it,
+# and a failed task is still reported as Failed, never repainted green.
+# `gate` stops and waits for you: that is what a gate is.
+#
+# Key -> where it is demonstrated:
+#   version: ........................... top of file
+#   vars: (file + task level) .......... file level, anchors
+#   dotenv: (file + task level) ........ file level, anchors
+#   plugins: (file-local alias) ........ file level, announce
+#   env: (file + task level) ........... file level, build
+#   bare-string shorthand .............. setup
+#   object form (name/desc) ............ every other task
+#   shell: default / pwsh / cmd ........ setup, anchors, check-format
+#   needs: string / array .............. build (string), test (array)
+#   cwd: ............................... package
+#   run: one-liner / block ............. lint, anchors
+#   uses: shell@1 (what run: desugars to) shell-plugin
+#   uses: pwsh@1 (inline / .ps1 file) .. verify, run-script
+#   uses: greet@1 (workspace plugin) ... greet
+#   uses: <alias from plugins:> ........ announce
+#   args: .............................. every uses: task
+#   output: + ${{ run.context.X }} ............. greet, verify -> read-artifacts
+#   if: ................................ skip-demo (false), read-artifacts (true)
+#   continueOnError: ................... the three failure demos
+#   timeout: + retries: ................ flaky
+#   trigger: manual .................... gate
+#   ${{ workspaceFolder }} / workspaceConfig / cwd / home  anchors
+#   ${{ vars.X }} / ${{ env.X }} ....... file level, anchors, run-script
+#   failure - exit code ................ fail-exit
+#   failure - real .ps1 exit 1 ......... fail-script
+#   failure - bad cwd (spawn) .......... fail-cwd
+#
+# Not here: `session:`, which names an AI conversation and only means
+# something for a task backed by an AI plugin. It works in a tasks.yml
+# the same as anywhere - the ReviewLoopTest sample is a tasks.yml built
+# on it - there is just no AI task in this file to hang it on.
+#
+# Tasks are deliberately not in alphabetical order: this file is also
+# what the tree's A-Z / file-order sort toggle is read against.
+#
+# All team members are assumed to run the same OS (see ReadMe.md - Non
+# Goals), so nothing here declares a `runs-on`. A task with no `shell:`
+# and no `uses:` runs through whatever this OS already provides - `cmd`
+# on Windows, `bash` elsewhere - never `pwsh`. Anything written in
+# PowerShell syntax below says `shell: pwsh` for that reason.
+
+# Optional here (and required in a workflows/*.yml) because every
+# tasks.yml written before versions existed has no such line. Declaring
+# it is what lets a later build migrate this file instead of guessing.
+version: 1
+
+# Template values for this file. Unlike `env:`, nothing here is exported
+# to a spawned process - it exists to be substituted into the fields
+# below. Resolution order is anchors -> vars -> env, so `env:` may read a
+# var but never the other way round.
+vars:
+  platform: linux-x64
+  artifact: myapp-${{ vars.platform }}
+
+# `.env` files, layered under this file's own `env:`. A later file wins
+# over an earlier one, and a declared `env:` value wins over both. `.env`
+# itself is gitignored and almost certainly absent - not an error, just
+# skipped with a line in the log. That is the whole point of the pattern.
+dotenv:
+  - .env.example
+  - .env
+
+# Define a plugin call once, reference it from any task by bare name. The
+# entry's args are defaults; a task's own args win over them.
+plugins:
+  announce:
+    uses: pwsh@1
+    args:
+      script: Write-Output 'Announcing (the default message).'
+
+env:
+  BUILD_CONFIGURATION: Release
+  SCRIPTS_DIR: ${{ workspaceFolder }}/scripts
+  ARTIFACT_NAME: ${{ vars.artifact }}
+
+tasks:
+
+  # A plain string is shorthand for `run:` - the one task here that runs
+  # through the OS default shell rather than naming one.
+  setup: echo Checking out and restoring dependencies...
+
+  anchors:
+    name: Anchors, vars and dotenv
+    desc: The four directory anchors, a task-level var, and a missing .env.
+    shell: pwsh
+    needs: setup
+    # `home` is the one anchor that is not about the work: the other
+    # three all name somewhere inside this repository. Use it for files
+    # that are yours rather than the project's - a house style, a
+    # glossary - which nothing else here can name. It reaches your
+    # profile folder too, as ${{ home }}/.local-workflows.
+    #
+    # A task may override any file-level var for itself.
+    vars:
+      platform: win-x64
+    # Task-level dotenv, layered over the file's. This one does not exist
+    # on a fresh clone - a missing file is skipped, not an error.
+    dotenv:
+      - .env
+    run: |
+      echo "workspaceFolder  = ${{ workspaceFolder }}"
+      echo "workspaceConfig = ${{ workspaceConfig }}"
+      echo "cwd           = ${{ cwd }}"
+      echo "home          = ${{ home }}"
+      echo "artifact  = ${{ vars.artifact }} (platform overridden per task)"
+      echo "exported  = $env:ARTIFACT_NAME - env: read the file-level var"
+      echo "dotenv    = $env:DEMO_GREETING"
+
+  build:
+    name: Build
+    desc: Task-level env wins over the file's.
+    needs: setup
+    shell: pwsh
+    env:
+      BUILD_CONFIGURATION: Debug
+    # TEMPORARY: 10-second sleep to test the Stop button. Remove after.
+    run: |
+      echo "Compiling in $env:BUILD_CONFIGURATION configuration..."
+      Start-Sleep -Seconds 10
+      echo "You should never see this line if Stop worked."
+
+  package:
+    name: Package artifacts
+    desc: Runs somewhere other than the workspace.
+    needs: build
+    shell: pwsh
+    cwd: ${{ workspaceFolder }}/dist
+    run: echo "Packaging from $(Get-Location) (workspaceFolder is ${{ workspaceFolder }})..."
+
+  lint:
+    name: Lint
+    needs: setup
+    run: echo Linting source files...
+
+  check-format:
+    name: Check formatting
+    desc: The one task that names cmd explicitly.
+    needs: lint
+    shell: cmd
+    run: echo Checking code formatting...
+
+  test:
+    name: Test
+    desc: An array of prerequisites - everything above has to be done first.
+    needs: [package, check-format]
+    shell: pwsh
+    run: |
+      echo 'Running unit tests...'
+      echo 'Running integration tests...'
+
+  shell-plugin:
+    name: Shell plugin, written out by hand
+    desc: What a plain run task desugars to - the two are one and the same.
+    uses: shell@1
+    args:
+      script: echo run tasks are shell@1 under the hood
+      shell: cmd
+
+  verify:
+    name: Verify (bundled pwsh@1)
+    desc: An inline script through a plugin, with its result stored.
+    uses: pwsh@1
+    args:
+      script: Write-Output 'Formatting verified by pwsh@1.'
+    artifact: VERIFY
+
+  greet:
+    name: Greet (workspace plugin)
+    desc: greet@1 is plain JS in .local-workflows/plugins/greetV1 - no build step.
+    uses: greet@1
+    args:
+      name: Santosh
+      excited: true
+    artifact: GREETING
+
+  announce:
+    name: Announce (via a file-local alias)
+    desc: Runs the alias defined at the top of this file, with its default args.
+    uses: announce
+
+  read-artifacts:
+    name: Read the run variables
+    desc: A true condition, and two artifacts from two different plugins.
+    needs: [verify, greet]
+    # greet@1 declares exactly one output, so ${{ run.context.GREETING }} is that
+    # value directly rather than an object.
+    if: ${{ run.context.VERIFY.exitCode }} == 0
+    run: echo greet said ${{ run.context.GREETING }} / pwsh said ${{ run.context.VERIFY.stdout }}
+
+  skip-demo:
+    name: Skipped by its condition
+    desc: A false condition is a skip, not a failure - the run carries on.
+    needs: setup
+    if: ${{ vars.platform }} == solaris-sparc
+    run: echo You will never see this line.
+
+  flaky:
+    name: Flaky upload
+    desc: Gets 30 seconds and two extra attempts. It passes on the first.
+    shell: pwsh
+    timeout: 30s
+    retries: 2
+    run: echo 'Uploaded on the first attempt.'
+
+  gate:
+    name: Deploy (waits for a human)
+    desc: The run stops here until someone clicks Run in the panel.
+    needs: test
+    trigger: manual
+    shell: pwsh
+    run: echo "Deploying $env:ARTIFACT_NAME..."
+
+  run-script:
+    name: Run a real .ps1 file
+    desc: A file on disk with arguments, not an inline one-liner.
+    uses: pwsh@1
+    args:
+      file: ${{ env.SCRIPTS_DIR }}/hello.ps1
+      additionalArgs: -Name "Local Workflows"
+
+  # The three ways a task can go wrong. Each carries continueOnError so
+  # `smoke-test` below still reaches the end - they are reported as
+  # Failed regardless, which is the thing being smoke tested.
+
+  fail-exit:
+    name: Failure - non-zero exit
+    continueOnError: true
+    shell: pwsh
+    run: |
+      echo 'About to fail on purpose...'
+      exit 1
+
+  fail-script:
+    name: Failure - a real .ps1 that exits 1
+    continueOnError: true
+    shell: pwsh
+    cwd: ${{ env.SCRIPTS_DIR }}
+    run: ./fail.ps1
+
+  fail-cwd:
+    name: Failure - cannot even start (bad cwd)
+    continueOnError: true
+    shell: pwsh
+    cwd: ${{ env.SCRIPTS_DIR }}/does-not-exist
+    run: echo 'This task spawns in a directory that does not exist.'
+
+  # A pure composition node - no run:, no uses:, only needs:. Running it
+  # runs every task above, which is what makes this file a one-click
+  # smoke test of the whole format.
+  smoke-test:
+    name: Smoke test everything
+    desc: Runs every task in this file. Read each task's own status afterwards.
+    needs: [anchors, package, gate, shell-plugin, announce, read-artifacts, skip-demo, flaky, run-script, fail-exit, fail-script, fail-cwd]

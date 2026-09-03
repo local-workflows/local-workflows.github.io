@@ -1,0 +1,1907 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(7)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(7) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(7) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(7) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Plugins | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Plugins" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Plugins, the whole feature on one page - what a plugin is, every arg of the six that ship, and writing your own in plain JavaScript with every manifest key, the ctx API, and the sandbox." />
+<meta name="twitter:description" property="og:description" content="Plugins, the whole feature on one page - what a plugin is, every arg of the six that ship, and writing your own in plain JavaScript with every manifest key, the ctx API, and the sandbox." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/plugins/" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/plugins/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Plugins" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-03T19:45:46+00:00","description":"Plugins, the whole feature on one page - what a plugin is, every arg of the six that ship, and writing your own in plain JavaScript with every manifest key, the ctx API, and the sandbox.","headline":"Plugins","url":"https://local-workflows.github.io/getting-started/plugins/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/Samples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Samples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Plugins</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="plugins">
+  
+  
+    <a href="#plugins" class="anchor-heading" aria-labelledby="plugins"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Plugins
+  
+  
+</h1>
+    
+
+<p><strong>A plugin is the last, smallest thing that actually executes.</strong></p>
+
+<p>Every task in this extension bottoms out in one — a bare <code class="language-plaintext highlighter-rouge">echo</code>
+one-liner, a workflow task, an SDD phase. There is no second execution
+path underneath. A plugin never runs on its own: a
+<a href="/getting-started/tasks/">task</a> uses it, via <code class="language-plaintext highlighter-rouge">uses:</code>, and
+supplies its <code class="language-plaintext highlighter-rouge">args:</code> — the task is the wrapper, the plugin is the thing
+that executes.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#everything-desugars-to-a-plugin" id="markdown-toc-everything-desugars-to-a-plugin">Everything desugars to a plugin</a></li>
+  <li><a href="#uses-idmajor" id="markdown-toc-uses-idmajor"><code class="language-plaintext highlighter-rouge">uses: id@major</code></a></li>
+  <li><a href="#args-is-the-boundary" id="markdown-toc-args-is-the-boundary"><code class="language-plaintext highlighter-rouge">args:</code> is the boundary</a></li>
+  <li><a href="#the-round-trip" id="markdown-toc-the-round-trip">The round trip</a></li>
+  <li><a href="#where-plugins-come-from" id="markdown-toc-where-plugins-come-from">Where plugins come from</a></li>
+  <li><a href="#what-a-plugin-gives-back" id="markdown-toc-what-a-plugin-gives-back">What a plugin gives back</a></li>
+  <li><a href="#checked-before-anything-runs" id="markdown-toc-checked-before-anything-runs">Checked before anything runs</a></li>
+  <li><a href="#the-six-that-ship" id="markdown-toc-the-six-that-ship">The six that ship</a>    <ol>
+      <li><a href="#shell1" id="markdown-toc-shell1"><code class="language-plaintext highlighter-rouge">shell@1</code></a></li>
+      <li><a href="#pwsh1" id="markdown-toc-pwsh1"><code class="language-plaintext highlighter-rouge">pwsh@1</code></a></li>
+      <li><a href="#file1" id="markdown-toc-file1"><code class="language-plaintext highlighter-rouge">file@1</code></a></li>
+      <li><a href="#ado-comment1" id="markdown-toc-ado-comment1"><code class="language-plaintext highlighter-rouge">ado-comment@1</code></a></li>
+      <li><a href="#http1" id="markdown-toc-http1"><code class="language-plaintext highlighter-rouge">http@1</code></a></li>
+      <li><a href="#ai1" id="markdown-toc-ai1"><code class="language-plaintext highlighter-rouge">ai@1</code></a>        <ol>
+          <li><a href="#writing-an-attachments-path" id="markdown-toc-writing-an-attachments-path">Writing an <code class="language-plaintext highlighter-rouge">attachments:</code> path</a></li>
+          <li><a href="#mcp-servers--reading-systems-there-is-no-plugin-for" id="markdown-toc-mcp-servers--reading-systems-there-is-no-plugin-for">MCP servers — reading systems there is no plugin for</a></li>
+          <li><a href="#what-the-agent-can-see" id="markdown-toc-what-the-agent-can-see">What the agent can see</a></li>
+          <li><a href="#it-enforces-no-gate" id="markdown-toc-it-enforces-no-gate">It enforces no gate</a></li>
+          <li><a href="#args-this-build-has-never-heard-of" id="markdown-toc-args-this-build-has-never-heard-of">Args this build has never heard of</a></li>
+          <li><a href="#stopping-a-runaway-session" id="markdown-toc-stopping-a-runaway-session">Stopping a runaway session</a></li>
+          <li><a href="#one-plugin-every-vendor" id="markdown-toc-one-plugin-every-vendor">One plugin, every vendor</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#writing-a-plugin" id="markdown-toc-writing-a-plugin">Writing a plugin</a>    <ol>
+      <li><a href="#pluginjson" id="markdown-toc-pluginjson"><code class="language-plaintext highlighter-rouge">plugin.json</code></a></li>
+      <li><a href="#the-implementation" id="markdown-toc-the-implementation">The implementation</a></li>
+      <li><a href="#what-you-return" id="markdown-toc-what-you-return">What you return</a></li>
+      <li><a href="#what-ctx-gives-you" id="markdown-toc-what-ctx-gives-you">What <code class="language-plaintext highlighter-rouge">ctx</code> gives you</a></li>
+      <li><a href="#secrets" id="markdown-toc-secrets">Secrets</a></li>
+      <li><a href="#the-sandbox" id="markdown-toc-the-sandbox">The sandbox</a></li>
+      <li><a href="#reloading" id="markdown-toc-reloading">Reloading</a></li>
+    </ol>
+  </li>
+  <li><a href="#why-these-six-and-no-more" id="markdown-toc-why-these-six-and-no-more">Why these six and no more</a></li>
+</ol><hr />
+<h2 id="everything-desugars-to-a-plugin">
+  
+  
+    <a href="#everything-desugars-to-a-plugin" class="anchor-heading" aria-labelledby="everything-desugars-to-a-plugin"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Everything desugars to a plugin
+  
+  
+</h2>
+    
+
+<p>A task declares what it runs in one of two ways, and they are the same
+thing:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">setup</span><span class="pi">:</span> <span class="s">echo Restoring...</span>          <span class="c1"># a bare string, which means...</span>
+
+<span class="na">setup</span><span class="pi">:</span>
+  <span class="na">run</span><span class="pi">:</span> <span class="s">echo Restoring...</span>          <span class="c1"># ...this, which means...</span>
+
+<span class="na">setup</span><span class="pi">:</span>
+  <span class="na">uses</span><span class="pi">:</span> <span class="s">shell@1</span>                   <span class="c1"># ...this.</span>
+  <span class="na">args</span><span class="pi">:</span>
+    <span class="na">script</span><span class="pi">:</span> <span class="s">echo Restoring...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">run:</code> is author sugar. The parser rewrites it to <code class="language-plaintext highlighter-rouge">shell@1</code> with the
+command as <code class="language-plaintext highlighter-rouge">script:</code>, so even the tersest task is a plugin call — which
+is why a <code class="language-plaintext highlighter-rouge">run:</code> task’s stdout and exit code can be captured with
+<code class="language-plaintext highlighter-rouge">artifact:</code> exactly like any other plugin’s.</p>
+
+<p class="note">Declaring both <code class="language-plaintext highlighter-rouge">run:</code> and <code class="language-plaintext highlighter-rouge">uses:</code> is an error: <em>“a task runs one thing.”</em></p><hr />
+<h2 id="uses-idmajor">
+  
+  
+    <a href="#uses-idmajor" class="anchor-heading" aria-labelledby="uses-idmajor"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">uses: id@major</code>
+  
+  
+</h2>
+    
+
+<p>Always an id and a major version. Both halves are required:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">uses</span><span class="pi">:</span> <span class="s">pwsh@1</span>                   <span class="c1"># ok</span>
+<span class="na">uses</span><span class="pi">:</span> <span class="s">pwsh</span>                     <span class="c1"># error - a missing version is never implied</span>
+<span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-node@v4</span>    <span class="c1"># error - not a marketplace action</span>
+</code></pre></div></div>
+
+<p>Ids are lowercase kebab (<code class="language-plaintext highlighter-rouge">^[a-z0-9]+(-[a-z0-9]+)*$</code>), versions are whole
+numbers, and there is no <code class="language-plaintext highlighter-rouge">id@0</code>.</p>
+
+<p><strong>Only the major is pinned.</strong> Minor and patch float underneath it, so a
+fix reaches every workflow without anyone editing a file — and a breaking
+change has to announce itself by taking a new major, which is a new
+folder and a new reference.</p>
+
+<p>A bare id is rejected rather than defaulting to <code class="language-plaintext highlighter-rouge">1</code>: an implicit version
+means a workflow’s meaning can change under it when a plugin ships a v2,
+which is exactly the drift a committed file is supposed to prevent.</p><hr />
+<h2 id="args-is-the-boundary">
+  
+  
+    <a href="#args-is-the-boundary" class="anchor-heading" aria-labelledby="args-is-the-boundary"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">args:</code> is the boundary
+  
+  
+</h2>
+    
+
+<p>Engine keys sit at the task level. Everything the plugin itself consumes
+goes inside <code class="language-plaintext highlighter-rouge">args:</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Say hello</span>              <span class="c1"># engine</span>
+  <span class="na">uses</span><span class="pi">:</span> <span class="s">greet@1</span>                <span class="c1"># engine</span>
+  <span class="na">args</span><span class="pi">:</span>                        <span class="c1"># &lt;- the plugin's, whatever it declares</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">World</span>
+  <span class="na">artifact</span><span class="pi">:</span> <span class="s">GREETING</span>           <span class="c1"># engine</span>
+</code></pre></div></div>
+
+<p>That split is not cosmetic. Two things break without it:</p>
+
+<ul>
+  <li><strong>The same word legitimately means two things.</strong> An <code class="language-plaintext highlighter-rouge">http@1</code> task wants
+a <code class="language-plaintext highlighter-rouge">timeout</code> for the request; the engine wants one for the task. Flat,
+only one can exist.</li>
+  <li><strong>The parser could never reject an unknown key</strong>, because unknown keys
+<em>would be</em> the plugin’s args — so a misspelled <code class="language-plaintext highlighter-rouge">triger: manual</code> would
+silently become an arg and the human gate would disappear.</li>
+</ul>
+
+<p>With <code class="language-plaintext highlighter-rouge">args:</code>, the task level is a closed set and that typo is a hard
+error.</p><hr />
+<h2 id="the-round-trip">
+  
+  
+    <a href="#the-round-trip" class="anchor-heading" aria-labelledby="the-round-trip"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The round trip
+  
+  
+</h2>
+    
+
+<p>The keys you write under <code class="language-plaintext highlighter-rouge">args:</code> are exactly the names the plugin
+<strong>declares</strong>, and they arrive in its code under those same names.
+<code class="language-plaintext highlighter-rouge">greet@1</code> — which ships in
+<code class="language-plaintext highlighter-rouge">Samples/HelloWorld/.local-workflows/plugins/greetV1/</code> — end to end:</p>
+
+<p><strong>1. The plugin declares what it accepts</strong>, in <code class="language-plaintext highlighter-rouge">plugin.json</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"greet"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">"patch"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w">    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">  </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"excited"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boolean"</span><span class="p">,</span><span class="w"> </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"artifacts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"greeting"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong>2. Your task supplies them</strong>, by those names, under <code class="language-plaintext highlighter-rouge">args:</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">hello</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">greet@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">World</span>          <span class="c1"># &lt;- declared above, and required</span>
+      <span class="na">excited</span><span class="pi">:</span> <span class="kc">true</span>        <span class="c1"># &lt;- declared above; omit it and the default is false</span>
+    <span class="na">artifact</span><span class="pi">:</span> <span class="s">GREETING</span>
+</code></pre></div></div>
+
+<p><strong>3. The plugin reads them</strong>, already resolved and type-checked:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="nf">execute</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">const</span> <span class="nx">greeting</span> <span class="o">=</span> <span class="s2">`Hello, </span><span class="p">${</span><span class="nx">args</span><span class="p">.</span><span class="nx">name</span><span class="p">}${</span><span class="nx">args</span><span class="p">.</span><span class="nx">excited</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">!</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="na">success</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">artifacts</span><span class="p">:</span> <span class="p">{</span> <span class="nx">greeting</span> <span class="p">}</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>4. A later task reads what came back:</strong></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">announce</span><span class="pi">:</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">hello</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="s">echo ${{ run.context.GREETING }}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">greet@1</code> declares exactly one artifact, so
+<code class="language-plaintext highlighter-rouge">${{ run.context.GREETING }}</code> <em>is</em> the greeting. Two or more
+and you name the key — <code class="language-plaintext highlighter-rouge">${{ run.context.GREETING.greeting }}</code>.</p>
+
+<p class="tip">Three names, one list. Misspell <code class="language-plaintext highlighter-rouge">naem:</code> in step 2 and the run does not
+start: the parser knows what <code class="language-plaintext highlighter-rouge">greet@1</code> accepts without executing any of
+it. See <a href="#checked-before-anything-runs">checked before anything runs</a>.</p><hr />
+<h2 id="where-plugins-come-from">
+  
+  
+    <a href="#where-plugins-come-from" class="anchor-heading" aria-labelledby="where-plugins-come-from"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Where plugins come from
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Origin</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>bundled</strong></td>
+      <td>compiled into the extension</td>
+    </tr>
+    <tr>
+      <td><strong>folder</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;repo&gt;/.local-workflows/plugins/</code>, every open folder</td>
+    </tr>
+    <tr>
+      <td><strong>workspace</strong></td>
+      <td>beside an open <code class="language-plaintext highlighter-rouge">.code-workspace</code></td>
+    </tr>
+    <tr>
+      <td><strong>profile</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">~/.local-workflows/plugins/</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The workspace origin exists only when you opened a <code class="language-plaintext highlighter-rouge">.code-workspace</code> —
+see <a href="/getting-started/workspaces/">Workspaces</a>. Nothing is
+downloaded and nothing is signed.</p>
+
+<p>Bundled plugins register first, so one you write can never silently take
+over a bundled id — that collision is reported as a load failure. Among
+your own, <strong>folder beats workspace beats profile</strong>, so a repository that
+ships its own <code class="language-plaintext highlighter-rouge">deploy@1</code> means <strong>its</strong> deploy. Two <em>different</em>
+repositories declaring one id is still reported: neither is narrower, so
+there is no right answer to pick.</p>
+
+<p>To name a plugin call once per file and reuse it, see
+<a href="/getting-started/tasks/#naming-a-plugin-once">Naming a plugin once</a>.</p><hr />
+<h2 id="what-a-plugin-gives-back">
+  
+  
+    <a href="#what-a-plugin-gives-back" class="anchor-heading" aria-labelledby="what-a-plugin-gives-back"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What a plugin gives back
+  
+  
+</h2>
+    
+
+<p><code class="language-plaintext highlighter-rouge">artifact: NAME</code> stores the plugin’s artifacts in a run variable, readable
+anywhere later as <code class="language-plaintext highlighter-rouge">${{ run.context.NAME.key }}</code>. When a
+plugin declares exactly one artifact, the variable <em>is</em> that value.</p>
+
+<p>Run variables are <strong>flat and run-scoped</strong>. They cross stage boundaries
+for free, with no second mechanism needed.</p>
+
+<p>A task with no <code class="language-plaintext highlighter-rouge">artifact:</code> exports nothing. What a task exports is
+<em>declared</em>, never implicit.</p>
+
+<p><strong>One name, one value.</strong> If two tasks declare the same <code class="language-plaintext highlighter-rouge">artifact:</code> name
+you get a warning — and if both actually run, the second one to write it
+<strong>fails</strong>, naming both tasks. It is a warning rather than an error
+because only you know whether both can run: two branches of a condition
+declaring one name is fine, since only one of them ever writes.</p><hr />
+<h2 id="checked-before-anything-runs">
+  
+  
+    <a href="#checked-before-anything-runs" class="anchor-heading" aria-labelledby="checked-before-anything-runs"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Checked before anything runs
+  
+  
+</h2>
+    
+
+<p>Every <code class="language-plaintext highlighter-rouge">uses:</code> in a file is validated against the plugin registry before a
+single command executes: an unregistered reference, a missing required
+arg, an arg the plugin does not accept, a literal of the wrong type,
+a <code class="language-plaintext highlighter-rouge">${{ vars.X }}</code> declared nowhere, a
+<code class="language-plaintext highlighter-rouge">${{ run.context.X.key }}</code> naming an artifact the producing
+task never returns, and two tasks declaring the same <code class="language-plaintext highlighter-rouge">artifact:</code> name.</p>
+
+<p>Whole <code class="language-plaintext highlighter-rouge">${{ }}</code> expressions are left alone — their
+type is not knowable until the run resolves them — as is <code class="language-plaintext highlighter-rouge">env</code>, which
+comes from the machine.</p>
+
+<p>Everything found lands in the run panel’s <strong>Problems</strong> tab, with a count
+on the tab. Anything that names a task also marks that task’s row with
+a <code class="language-plaintext highlighter-rouge">!</code> in the step list.</p>
+
+<p>That check is possible because a plugin’s declaration lives in a
+manifest separate from its implementation — the engine knows what a
+plugin accepts without executing a line of it.</p><hr />
+<h2 id="the-six-that-ship">
+  
+  
+    <a href="#the-six-that-ship" class="anchor-heading" aria-labelledby="the-six-that-ship"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The six that ship
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">shell@1</code></td>
+      <td>a command in the OS default shell — what <code class="language-plaintext highlighter-rouge">run:</code> becomes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">pwsh@1</code></td>
+      <td>PowerShell 7+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">file@1</code></td>
+      <td>file operations</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ado-comment@1</code></td>
+      <td>add or update one comment on an Azure DevOps work item</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">http@1</code></td>
+      <td>one HTTP(S) call — a webhook, a status poll, a JSON fetch</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ai@1</code></td>
+      <td>an agent that works in the repo, on the provider you name</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>They are the only plugins that are <strong>not sandboxed</strong> — see
+<a href="#the-sandbox">the sandbox</a> for why — and <code class="language-plaintext highlighter-rouge">ai@1</code> is the only one that
+needs anything: a sign-in with whichever provider it names. Its default
+<code class="language-plaintext highlighter-rouge">ghcp</code> needs a Copilot sign-in; <code class="language-plaintext highlighter-rouge">claude</code> needs a Claude one
+(<a href="/getting-started/agent-sdks/">Agent SDKs</a> covers
+both).</p>
+<h3 id="shell1">
+  
+  
+    <a href="#shell1" class="anchor-heading" aria-labelledby="shell1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">shell@1</code>
+  
+  
+</h3>
+    
+
+<p>Runs a command line through the OS shell. <strong>Artifacts:</strong> <code class="language-plaintext highlighter-rouge">stdout</code>,
+<code class="language-plaintext highlighter-rouge">stderr</code>, <code class="language-plaintext highlighter-rouge">exitCode</code>.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">script</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td>The command line to run.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">shell</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pwsh</code> | <code class="language-plaintext highlighter-rouge">cmd</code> | <code class="language-plaintext highlighter-rouge">bash</code></td>
+      <td>OS default</td>
+      <td>Absent means whatever the OS provides — <code class="language-plaintext highlighter-rouge">cmd</code> on Windows, <code class="language-plaintext highlighter-rouge">bash</code> elsewhere.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p class="gotcha"><code class="language-plaintext highlighter-rouge">pwsh</code> must be named explicitly. A <code class="language-plaintext highlighter-rouge">$env:NAME</code> script with no <code class="language-plaintext highlighter-rouge">shell:</code>
+runs in <code class="language-plaintext highlighter-rouge">cmd</code> on Windows and comes back empty.</p>
+<h3 id="pwsh1">
+  
+  
+    <a href="#pwsh1" class="anchor-heading" aria-labelledby="pwsh1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">pwsh@1</code>
+  
+  
+</h3>
+    
+
+<p>Runs an inline PowerShell script, or a <code class="language-plaintext highlighter-rouge">.ps1</code> file. PowerShell 7+.
+<strong>Artifacts:</strong> <code class="language-plaintext highlighter-rouge">stdout</code>, <code class="language-plaintext highlighter-rouge">stderr</code>, <code class="language-plaintext highlighter-rouge">exitCode</code>.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">script</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Inline PowerShell. Mutually exclusive with <code class="language-plaintext highlighter-rouge">file</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">file</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Path to a <code class="language-plaintext highlighter-rouge">.ps1</code>, relative to the task’s working directory.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">additionalArgs</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Arguments appended when running <code class="language-plaintext highlighter-rouge">file</code>, e.g. <code class="language-plaintext highlighter-rouge">-Name "World"</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">shell</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pwsh</code></td>
+      <td> </td>
+      <td>The only value accepted. A task that wants <code class="language-plaintext highlighter-rouge">cmd</code> wants a <code class="language-plaintext highlighter-rouge">run:</code> task.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">errorActionPreference</code></td>
+      <td><code class="language-plaintext highlighter-rouge">default</code> | <code class="language-plaintext highlighter-rouge">stop</code> | <code class="language-plaintext highlighter-rouge">continue</code> | <code class="language-plaintext highlighter-rouge">silentlyContinue</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stop</code></td>
+      <td>Prepended as <code class="language-plaintext highlighter-rouge">$ErrorActionPreference</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">progressPreference</code></td>
+      <td>same values</td>
+      <td><code class="language-plaintext highlighter-rouge">silentlyContinue</code></td>
+      <td>Prepended as <code class="language-plaintext highlighter-rouge">$ProgressPreference</code>, so progress bars do not spray control characters into the log.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">failOnStderr</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>Fail the task if anything reaches stderr, even on a zero exit.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ignoreExitCode</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>Report a non-zero exit without failing the task.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p class="warning"><code class="language-plaintext highlighter-rouge">errorActionPreference</code> defaults to <code class="language-plaintext highlighter-rouge">stop</code> on purpose, and it is the
+single most load-bearing line this plugin emits. Without it a failing
+cmdlet is <em>non-terminating</em>: it writes to stderr, leaves <code class="language-plaintext highlighter-rouge">$LASTEXITCODE</code>
+alone, and the task reports <strong>success</strong>.</p>
+
+<p>It governs cmdlets only. A native command exiting non-zero is unaffected,
+so <code class="language-plaintext highlighter-rouge">git diff --quiet</code> and friends still work as questions rather than
+failures.</p>
+
+<p>The script is staged as a UTF-8 <code class="language-plaintext highlighter-rouge">.ps1</code> and invoked, rather than passed to
+<code class="language-plaintext highlighter-rouge">pwsh -Command</code> — so it is not capped by the command-line length limit,
+quotes survive intact, and it is not visible to anything that can list
+processes.</p>
+<h3 id="file1">
+  
+  
+    <a href="#file1" class="anchor-heading" aria-labelledby="file1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">file@1</code>
+  
+  
+</h3>
+    
+
+<p>Reads a file into a run variable, or writes one from a value — the
+<em>executes</em> half of “AI proposes, a human approves, a plugin executes”.
+<strong>Artifacts:</strong> <code class="language-plaintext highlighter-rouge">content</code>, <code class="language-plaintext highlighter-rouge">path</code>, <code class="language-plaintext highlighter-rouge">lines</code>.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">operation</code></td>
+      <td><code class="language-plaintext highlighter-rouge">read</code> | <code class="language-plaintext highlighter-rouge">write</code> | <code class="language-plaintext highlighter-rouge">mkdir</code></td>
+      <td><strong>required</strong></td>
+      <td>What to do with the path.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">path</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td>Relative to the workspace unless absolute.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">content</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>What to write. Required when writing, ignored when reading.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">createDirectories</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">true</code></td>
+      <td>Create parent folders when writing rather than failing on a missing one.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">read-notes</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">file@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">operation</span><span class="pi">:</span> <span class="s">read</span>
+      <span class="na">path</span><span class="pi">:</span> <span class="s">RELEASE_NOTES.md</span>
+    <span class="na">artifact</span><span class="pi">:</span> <span class="s">NOTES</span>
+
+  <span class="na">write-notes</span><span class="pi">:</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">read-notes</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">file@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">operation</span><span class="pi">:</span> <span class="s">write</span>
+      <span class="na">path</span><span class="pi">:</span> <span class="s">dist/notes.md</span>
+      <span class="na">content</span><span class="pi">:</span> <span class="s">${{ run.context.NOTES.content }}</span>
+</code></pre></div></div>
+<h3 id="ado-comment1">
+  
+  
+    <a href="#ado-comment1" class="anchor-heading" aria-labelledby="ado-comment1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">ado-comment@1</code>
+  
+  
+</h3>
+    
+
+<p>Adds or updates one comment on an Azure DevOps work item. No AI —
+plain REST against the work item comments API. <strong>Artifacts:</strong>
+<code class="language-plaintext highlighter-rouge">commentId</code>, <code class="language-plaintext highlighter-rouge">action</code> (<code class="language-plaintext highlighter-rouge">added</code> | <code class="language-plaintext highlighter-rouge">updated</code> | <code class="language-plaintext highlighter-rouge">unchanged</code>).</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">key</code> decides add vs update: it rides inside the comment as a
+short <code class="language-plaintext highlighter-rouge">[lw:key]</code> line, and each run looks for it in the item’s
+comments. Found means update, absent means add — so the same task run
+twice lands on the same comment instead of piling up duplicates. One
+work item can carry several, each under its own key.</p>
+
+<p>Auth defaults to the <strong>az CLI</strong>: a short-lived token from your existing
+<code class="language-plaintext highlighter-rouge">az login</code>, minted once per run — no PAT to create, scope, rotate or
+leak. A machine that cannot have az says <code class="language-plaintext highlighter-rouge">auth: pat</code> and supplies one
+through an env var instead.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">orgUrl</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">https://dev.azure.com/{org}</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">project</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td>The project the work item lives in.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">workItem</code></td>
+      <td><code class="language-plaintext highlighter-rouge">number</code></td>
+      <td><strong>required</strong></td>
+      <td>The work item id.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">key</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td>What decides add vs update. No <code class="language-plaintext highlighter-rouge">[</code> or <code class="language-plaintext highlighter-rouge">]</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">body</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td>The comment text.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">auth</code></td>
+      <td><code class="language-plaintext highlighter-rouge">az</code> | <code class="language-plaintext highlighter-rouge">pat</code></td>
+      <td><code class="language-plaintext highlighter-rouge">az</code></td>
+      <td><code class="language-plaintext highlighter-rouge">az</code> uses the CLI’s own login. <code class="language-plaintext highlighter-rouge">pat</code> is the fallback for a machine without az.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">patEnv</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">AZURE_DEVOPS_EXT_PAT</code></td>
+      <td>Env var holding the PAT. Read only when <code class="language-plaintext highlighter-rouge">auth: pat</code>. Needs Work Items (Read &amp; Write).</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Declare the org once and let tasks say only what changed:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">plugins</span><span class="pi">:</span>
+  <span class="na">adoComment</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ado-comment@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">orgUrl</span><span class="pi">:</span> <span class="s">https://dev.azure.com/contoso</span>
+      <span class="na">project</span><span class="pi">:</span> <span class="s">Platform</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">notify</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">adoComment</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">workItem</span><span class="pi">:</span> <span class="s">${{ params.workItem }}</span>
+      <span class="na">key</span><span class="pi">:</span> <span class="s">release-status</span>
+      <span class="na">body</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">Release ${{ vars.version }} passed staging.</span>
+</code></pre></div></div>
+<h3 id="http1">
+  
+  
+    <a href="#http1" class="anchor-heading" aria-labelledby="http1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">http@1</code>
+  
+  
+</h3>
+    
+
+<p>Calls one HTTP(S) endpoint, in-process — no curl, no shell quoting, no
+platform gotchas. <strong>Artifacts:</strong> <code class="language-plaintext highlighter-rouge">status</code>, <code class="language-plaintext highlighter-rouge">body</code>, <code class="language-plaintext highlighter-rouge">headers</code>.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">url</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">http://</code> or <code class="language-plaintext highlighter-rouge">https://</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">method</code></td>
+      <td><code class="language-plaintext highlighter-rouge">GET</code> | <code class="language-plaintext highlighter-rouge">POST</code> | <code class="language-plaintext highlighter-rouge">PUT</code> | <code class="language-plaintext highlighter-rouge">PATCH</code> | <code class="language-plaintext highlighter-rouge">DELETE</code> | <code class="language-plaintext highlighter-rouge">HEAD</code></td>
+      <td><code class="language-plaintext highlighter-rouge">GET</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">headers</code></td>
+      <td>map</td>
+      <td> </td>
+      <td>Request headers. <strong>Never put credentials here</strong> — use <code class="language-plaintext highlighter-rouge">authEnv</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">body</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Sent as-is. <code class="language-plaintext highlighter-rouge">Content-Type</code> defaults to <code class="language-plaintext highlighter-rouge">application/json</code> when a body is given and no header names one.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">authEnv</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Env var holding the full <code class="language-plaintext highlighter-rouge">Authorization</code> value, e.g. <code class="language-plaintext highlighter-rouge">Bearer &lt;token&gt;</code>. Read at call time and registered as a secret, so it is masked everywhere — a header literal would land in the resolved args a gate displays.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">timeoutMs</code></td>
+      <td><code class="language-plaintext highlighter-rouge">number</code></td>
+      <td><code class="language-plaintext highlighter-rouge">30000</code></td>
+      <td>Per-request ceiling — a dead endpoint fails the task rather than hanging it.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">failOnHttpError</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">true</code></td>
+      <td>A non-2xx answer fails the task. Say <code class="language-plaintext highlighter-rouge">false</code> when the status is data — polling, or a later <code class="language-plaintext highlighter-rouge">if:</code> reading it.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">check-deploy</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">http@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">https://ci.example.com/api/status</span>
+      <span class="na">authEnv</span><span class="pi">:</span> <span class="s">CI_TOKEN</span>
+    <span class="na">artifact</span><span class="pi">:</span> <span class="s">DEPLOY</span>
+
+  <span class="na">announce</span><span class="pi">:</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">check-deploy</span>
+    <span class="na">if</span><span class="pi">:</span> <span class="s">${{ run.context.DEPLOY.status }} == </span><span class="m">200</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">http@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">https://hooks.example.com/T000/B000</span>
+      <span class="na">method</span><span class="pi">:</span> <span class="s">POST</span>
+      <span class="na">body</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{"text":"deploy</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">green"}'</span>
+</code></pre></div></div>
+
+<p>The response body is stored as an artifact up to 1 MB — a response is
+workflow data, not a download. Bigger bodies are truncated, and the log
+says so. Credential-bearing response headers (<code class="language-plaintext highlighter-rouge">Set-Cookie</code>,
+<code class="language-plaintext highlighter-rouge">WWW-Authenticate</code>, <code class="language-plaintext highlighter-rouge">Authorization</code>, <code class="language-plaintext highlighter-rouge">Proxy-Authenticate</code>) are never
+stored — artifacts land in the run record, and the run record is
+secret-free by contract.</p>
+<h3 id="ai1">
+  
+  
+    <a href="#ai1" class="anchor-heading" aria-labelledby="ai1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">ai@1</code>
+  
+  
+</h3>
+    
+
+<p>Runs an agent session on whichever provider the task names. It reads,
+writes and works in the repo. <strong>Artifacts:</strong> <code class="language-plaintext highlighter-rouge">summary</code>, <code class="language-plaintext highlighter-rouge">files</code>.</p>
+
+<p class="warning">Put a gate on a later task if you want to review before anything
+downstream runs. This plugin changes your working tree.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Arg</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">prompt</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><strong>required</strong></td>
+      <td>What to ask the agent to do.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">provider</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ghcp</code></td>
+      <td>Which agent runtime the session runs on. The vendor is named here and nowhere else. Only registered providers are accepted — an unknown name fails, listing what exists.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">model</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>provider’s default</td>
+      <td>Which model runs the session. Usually set once in a <code class="language-plaintext highlighter-rouge">plugins:</code> entry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">context</code></td>
+      <td>map</td>
+      <td> </td>
+      <td>Named documents laid into the session before the prompt, keyed by name — usually file args, e.g. <code class="language-plaintext highlighter-rouge">{ requirements: { file: specs/requirements.md } }</code>. The session sees nothing not named here.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">attachments</code></td>
+      <td>list</td>
+      <td> </td>
+      <td>Files the session may open, as <code class="language-plaintext highlighter-rouge">[{ path, name }]</code>. Paths are <strong>absolute</strong>, and need not sit inside the working directory.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">detach</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>Return the session id without waiting for the turn — for a conversation a person will join in the editor. <code class="language-plaintext highlighter-rouge">target</code> is not checked.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cleanup</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>Delete the provider’s stored conversation once the task succeeds. A failed session is kept — it is the one most worth reopening — and a detached one is never touched.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">target</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>The file this session is expected to produce. The path is told to the agent, and the task fails if the session ends without it.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">title</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>A short human title, sent as the prompt’s first line, so the chat history names the session.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">allowedEnv</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string[]</code></td>
+      <td> </td>
+      <td>Environment variable names that <code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code> in an MCP declaration may read — <strong>names only, never values</strong>. One grant among three; <code class="language-plaintext highlighter-rouge">env.denied</code> vetoes them all. See <a href="/getting-started/settings/#env--the-gate-on-mcp-env-reads"><code class="language-plaintext highlighter-rouge">settings.json</code></a>.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>That table is only what the <em>engine</em> does with a session. Everything a
+session can be <strong>told</strong> — its tools, its servers, its standing
+instructions — is the provider’s own vocabulary, written under the
+provider’s own names. See
+<a href="#args-this-build-has-never-heard-of">args this build has never heard of</a>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">plugins</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">provider</span><span class="pi">:</span> <span class="s">ghcp</span>
+      <span class="na">model</span><span class="pi">:</span> <span class="s">claude-sonnet-4.5</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">draft</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">title</span><span class="pi">:</span> <span class="s">Draft the release notes</span>
+      <span class="na">prompt</span><span class="pi">:</span> <span class="s">Summarise the commits since the last tag.</span>
+      <span class="na">context</span><span class="pi">:</span>
+        <span class="na">changelog</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">file</span><span class="pi">:</span> <span class="nv">CHANGELOG.md</span> <span class="pi">}</span>
+    <span class="na">artifact</span><span class="pi">:</span> <span class="s">DRAFT</span>
+</code></pre></div></div>
+
+<p class="tip"><code class="language-plaintext highlighter-rouge">context</code> pastes a document’s <em>content</em> into the session. <code class="language-plaintext highlighter-rouge">attachments</code>
+only tells the agent a file exists and lets it open it. Reach for
+<code class="language-plaintext highlighter-rouge">context</code> when the agent must read something, <code class="language-plaintext highlighter-rouge">attachments</code> when it might
+want to.</p>
+<h4 id="writing-an-attachments-path">
+  
+  
+    <a href="#writing-an-attachments-path" class="anchor-heading" aria-labelledby="writing-an-attachments-path"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Writing an <code class="language-plaintext highlighter-rouge">attachments:</code> path
+  
+  
+</h4>
+    
+
+<p>An attachment path is <strong>absolute</strong>. Nothing resolves a relative one — it
+leaves the engine as you wrote it. Build one from a
+<a href="/getting-started/tasks/#directory-anchors">directory anchor</a>
+rather than typing a machine-specific path:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">vars</span><span class="pi">:</span>
+  <span class="na">notes</span><span class="pi">:</span> <span class="s">${{ home }}/ai-notes</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">draft</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">title</span><span class="pi">:</span> <span class="s">Draft the design</span>
+      <span class="na">prompt</span><span class="pi">:</span> <span class="s">Draft the design in my house style.</span>
+      <span class="na">attachments</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">path</span><span class="pi">:</span> <span class="s">${{ vars.notes }}/house-style.md</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">style</span>
+        <span class="pi">-</span> <span class="na">path</span><span class="pi">:</span> <span class="s">${{ workspaceFolder }}/docs/glossary.md</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">glossary</span>
+</code></pre></div></div>
+
+<p class="tip"><code class="language-plaintext highlighter-rouge">${{ home }}</code> is for files that are <strong>yours rather
+than the project’s</strong> — a house style you want every repository to be able
+to read. <code class="language-plaintext highlighter-rouge">${{ workspaceFolder }}</code> is for files the
+repository owns. Both are absolute, so both satisfy the contract.</p>
+<h4 id="mcp-servers--reading-systems-there-is-no-plugin-for">
+  
+  
+    <a href="#mcp-servers--reading-systems-there-is-no-plugin-for" class="anchor-heading" aria-labelledby="mcp-servers--reading-systems-there-is-no-plugin-for"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> MCP servers — reading systems there is no plugin for
+  
+  
+</h4>
+    
+
+<p>An <code class="language-plaintext highlighter-rouge">ai@1</code> session can reach any system with an MCP server — an issue
+tracker, a wiki, Azure DevOps. Declare them in
+<code class="language-plaintext highlighter-rouge">.local-workflows/settings.json</code>, under <code class="language-plaintext highlighter-rouge">ai.mcpServers</code> — every key, the
+env gate, wire names, and what the MCP sidebar view does are on
+<a href="/getting-started/settings/#aimcpservers"><code class="language-plaintext highlighter-rouge">settings.json</code></a>.</p>
+
+<p class="warning">A <code class="language-plaintext highlighter-rouge">mcpServers:</code> block in a workflow’s args is not supported. It is
+deleted before the session is created, from every direction —
+MCP servers are machine setup, not workflow definition. The
+<code class="language-plaintext highlighter-rouge">Session options:</code> line in the task log shows exactly what was sent, and
+it will not be there.</p>
+
+<p>When to use an MCP server instead of writing a plugin:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Reach for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>The same read every run, feeding a durable artefact</td>
+      <td><strong>a plugin</strong></td>
+    </tr>
+    <tr>
+      <td>Exploratory — you don’t know what you’re looking for yet</td>
+      <td><strong>an MCP server</strong></td>
+    </tr>
+    <tr>
+      <td>Attachments — a <code class="language-plaintext highlighter-rouge">.docx</code> spec, a screenshot</td>
+      <td><strong>an MCP server</strong>, clearly</td>
+    </tr>
+    <tr>
+      <td>It must run headless (schedule, CI, no Copilot sign-in)</td>
+      <td><strong>a plugin</strong></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The deciding difference is that a plugin runs without a model at all,
+fails with a message naming the variable, and returns the same thing
+twice.</p>
+<h4 id="what-the-agent-can-see">
+  
+  
+    <a href="#what-the-agent-can-see" class="anchor-heading" aria-labelledby="what-the-agent-can-see"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What the agent can see
+  
+  
+</h4>
+    
+
+<p>The session’s working directory is the task’s <code class="language-plaintext highlighter-rouge">cwd:</code>, and every folder
+open in the explorer is readable alongside it. In a multi-root workspace
+that matters: the change is in one service and the reason for it is in
+its sibling. The <code class="language-plaintext highlighter-rouge">.code-workspace</code> file itself is included when there is
+one.</p>
+<h4 id="it-enforces-no-gate">
+  
+  
+    <a href="#it-enforces-no-gate" class="anchor-heading" aria-labelledby="it-enforces-no-gate"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> It enforces no gate
+  
+  
+</h4>
+    
+
+<p>Not one. The place a human decides anything is a <code class="language-plaintext highlighter-rouge">trigger: manual</code> task
+<strong>you</strong> put in the file — the same mechanism every other task uses.</p>
+
+<p>A permission card per tool was considered and rejected: nobody reads the
+fifth one, and a run recording “approved” against an unread card is worse
+than a run recording nothing. Use <code class="language-plaintext highlighter-rouge">availableTools</code>/<code class="language-plaintext highlighter-rouge">excludedTools</code> to set
+policy once instead.</p>
+
+<p><strong>A permission the agent does ask for is answered in the conversation.</strong>
+The task registers no handler, so nothing decides on your behalf — the
+request stays pending in the session, and you open it from the run panel
+and answer it there. That is also why a task can sit waiting: a session
+nobody opens is a session nobody has answered.</p>
+<h4 id="args-this-build-has-never-heard-of">
+  
+  
+    <a href="#args-this-build-has-never-heard-of" class="anchor-heading" aria-labelledby="args-this-build-has-never-heard-of"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Args this build has never heard of
+  
+  
+</h4>
+    
+
+<p><code class="language-plaintext highlighter-rouge">ai@1</code> passes an arg it does not declare straight to the provider. The
+runtime behind it has its own session options and gains more every
+release, and restating each one here would mean a new build to expose a
+switch somebody else already shipped.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">prompt</span><span class="pi">:</span> <span class="s">Draft the release notes.</span>
+      <span class="na">contextTier</span><span class="pi">:</span> <span class="s">long_context</span>      <span class="c1"># &lt;- not ours; the runtime's</span>
+</code></pre></div></div>
+
+<p class="warning">The declared args are still checked for type. An arg that is neither
+declared nor understood by the provider is simply ignored by it — so a
+misspelling fails quietly here rather than being named, which is the
+price of the reach.</p>
+<h4 id="stopping-a-runaway-session">
+  
+  
+    <a href="#stopping-a-runaway-session" class="anchor-heading" aria-labelledby="stopping-a-runaway-session"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Stopping a runaway session
+  
+  
+</h4>
+    
+
+<p>An agent works until it decides it is done, and “done” is sometimes a
+long way off. Three brakes exist, and none of them is new vocabulary:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Brake</th>
+      <th>Where it goes</th>
+      <th>What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>the Stop button</td>
+      <td>the run panel</td>
+      <td>ends the turn cleanly. The provider is asked to interrupt, given a moment to finish the sentence, then cut off — and the task reports <strong>cancelled</strong>, not failed</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">timeout:</code></td>
+      <td>on the task, beside <code class="language-plaintext highlighter-rouge">uses:</code></td>
+      <td>the same stop, pulled automatically. See the <a href="/getting-started/tasks/">task keys</a> — <code class="language-plaintext highlighter-rouge">timeout: 10m</code> reads as ten minutes</td>
+    </tr>
+    <tr>
+      <td>a turn cap</td>
+      <td>the provider’s own vocabulary, through the passthrough</td>
+      <td><code class="language-plaintext highlighter-rouge">maxTurns: 20</code> with <code class="language-plaintext highlighter-rouge">provider: claude</code> caps how many turns the session may take. Its name and meaning are the provider’s, like every passthrough arg</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>An unattended pipeline wants at least one of the last two on every
+agent task: the Stop button assumes someone is watching. And remember
+that a timeout counts as a <em>retryable</em> failure — a <code class="language-plaintext highlighter-rouge">retries:</code> on the
+same task will start the session again, which on an agent task is
+usually the opposite of what the timeout was for.</p>
+<h4 id="one-plugin-every-vendor">
+  
+  
+    <a href="#one-plugin-every-vendor" class="anchor-heading" aria-labelledby="one-plugin-every-vendor"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> One plugin, every vendor
+  
+  
+</h4>
+    
+
+<p>The vendor is <code class="language-plaintext highlighter-rouge">provider:</code>, not the plugin’s name. A second vendor is a
+second value — and a file that runs two of them declares two <code class="language-plaintext highlighter-rouge">plugins:</code>
+entries over the same <code class="language-plaintext highlighter-rouge">ai@1</code>. There is deliberately no read-only preset:
+it would have to mean something specific per vendor, and a safety setting
+whose meaning changes with <code class="language-plaintext highlighter-rouge">provider:</code> is worse than none. A session that
+must not touch the repository says exactly that in <code class="language-plaintext highlighter-rouge">excludedTools:</code>, and
+the gate below it is what the workflow actually rests on.</p><hr />
+<h2 id="writing-a-plugin">
+  
+  
+    <a href="#writing-a-plugin" class="anchor-heading" aria-labelledby="writing-a-plugin"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Writing a plugin
+  
+  
+</h2>
+    
+
+<p>Plain JavaScript. No build step, no dependency on this extension,
+nothing to register — drop a folder in and any task can <code class="language-plaintext highlighter-rouge">uses:</code> it.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Samples/HelloWorld/.local-workflows/plugins/greetV1/</code> in the repository
+is a complete working example — a manifest, an implementation, a declared
+secret and a returned artifact. Copy the <strong>folder</strong> to
+<code class="language-plaintext highlighter-rouge">~/.local-workflows/plugins/</code> and it is available in every workspace as
+<code class="language-plaintext highlighter-rouge">uses: greet@1</code>.</p>
+
+<p>Two layouts: a single <code class="language-plaintext highlighter-rouge">my-plugin.js</code>, or a <code class="language-plaintext highlighter-rouge">my-plugin/</code> folder with an
+<code class="language-plaintext highlighter-rouge">index.js</code>. Prefer the folder — see <a href="#the-sandbox">the sandbox</a>.
+<strong>A folder must be named <code class="language-plaintext highlighter-rouge">&lt;id&gt;V&lt;major&gt;</code></strong> — <code class="language-plaintext highlighter-rouge">greetV1</code> — and the folder’s
+major and the manifest’s major must agree; a name that disagrees fails at
+load, saying so.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.local-workflows/plugins/greetV1/
+  plugin.json
+  index.js
+  node_modules/        # optional - vendored npm packages
+</code></pre></div></div>
+<h3 id="pluginjson">
+  
+  
+    <a href="#pluginjson" class="anchor-heading" aria-labelledby="pluginjson"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">plugin.json</code>
+  
+  
+</h3>
+    
+
+<p>Says what it <em>is</em>. Id and version live here and nowhere else, so the
+engine can validate a task without executing any of it.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"greet"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Greet"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Greets someone by name."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">"patch"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"excited"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boolean"</span><span class="p">,</span><span class="w"> </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"artifacts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"greeting"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"execution"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.js"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"secrets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GREET_TOKEN"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>lowercase letters, digits, hyphens</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>falls back to <code class="language-plaintext highlighter-rouge">id</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">description</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">version</code></td>
+      <td><code class="language-plaintext highlighter-rouge">{ major, minor, patch }</code>, integers, major ≥ 1</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args[]</code></td>
+      <td><strong>ordered</strong> array — order is information when a form is drawn from it</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">artifacts[]</code></td>
+      <td>keys the plugin always produces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">artifactsFrom</code></td>
+      <td>name of a <code class="language-plaintext highlighter-rouge">string[]</code> arg whose value <strong>is</strong> the artifact keys, for a plugin that cannot know them in advance</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">secrets[]</code></td>
+      <td>env var names readable through <code class="language-plaintext highlighter-rouge">ctx.secret()</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">secretsFrom</code></td>
+      <td>name of a <code class="language-plaintext highlighter-rouge">string</code> arg holding a further env var name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">passthrough</code></td>
+      <td><code class="language-plaintext highlighter-rouge">true</code> forwards undeclared args instead of rejecting them — see below</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">execution.target</code></td>
+      <td>entry point; default <code class="language-plaintext highlighter-rouge">index.js</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Each <code class="language-plaintext highlighter-rouge">args[]</code> entry:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>required</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">type</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">number</code> | <code class="language-plaintext highlighter-rouge">boolean</code> | <code class="language-plaintext highlighter-rouge">string[]</code> | <code class="language-plaintext highlighter-rouge">object</code> | <code class="language-plaintext highlighter-rouge">array</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">label</code> / <code class="language-plaintext highlighter-rouge">description</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">required</code></td>
+      <td>default <code class="language-plaintext highlighter-rouge">false</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">default</code></td>
+      <td>applied when the task omits the arg</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">options[]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> type only — checked when the file is read <em>and</em> again when an expression resolves</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">multiline</code></td>
+      <td>rendering hint: an editor rather than a one-line box</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Load-time errors (refused when the manifest loads, never mid-run):
+<code class="language-plaintext highlighter-rouge">options</code> on a non-<code class="language-plaintext highlighter-rouge">string</code> arg · <code class="language-plaintext highlighter-rouge">options</code> empty · <code class="language-plaintext highlighter-rouge">default</code> outside
+<code class="language-plaintext highlighter-rouge">options</code> · <code class="language-plaintext highlighter-rouge">secretsFrom</code> naming a missing or non-<code class="language-plaintext highlighter-rouge">string</code> arg · folder
+name disagreeing with <code class="language-plaintext highlighter-rouge">version.major</code>.</p>
+
+<p>What declaring args buys — real errors before the task runs: a missing
+<code class="language-plaintext highlighter-rouge">required</code> arg fails naming it, a type mismatch fails naming the arg and
+the expected type, an undeclared arg fails so a typo is caught. <code class="language-plaintext highlighter-rouge">object</code>
+is a map you interpret yourself — validate what is inside it in
+<code class="language-plaintext highlighter-rouge">execute</code> and fail before doing any work.</p>
+
+<p class="warning"><strong><code class="language-plaintext highlighter-rouge">passthrough: true</code></strong> is for a plugin that is a <strong>doorway</strong> to
+something with its own, larger surface — <code class="language-plaintext highlighter-rouge">ai@1</code> and an agent runtime is
+the case that made it exist. Default to leaving it off: it buys reach
+and costs the message a person actually needs. Without it, <code class="language-plaintext highlighter-rouge">retires: 3</code>
+fails saying “no input named ‘retires’. It accepts: target, retries,
+dryRun”. With it, that typo travels silently to whatever is behind you.
+Args you <em>do</em> declare are still validated either way.</p>
+<h3 id="the-implementation">
+  
+  
+    <a href="#the-implementation" class="anchor-heading" aria-labelledby="the-implementation"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The implementation
+  
+  
+</h3>
+    
+
+<p>Plain CommonJS, one export:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">async</span> <span class="nf">execute</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="kd">const</span> <span class="nx">greeting</span> <span class="o">=</span> <span class="s2">`Hello, </span><span class="p">${</span><span class="nx">args</span><span class="p">.</span><span class="nx">name</span><span class="p">}${</span><span class="nx">args</span><span class="p">.</span><span class="nx">excited</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">!</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+
+        <span class="nx">ctx</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">greeting</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="p">{</span> <span class="na">success</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">artifacts</span><span class="p">:</span> <span class="p">{</span> <span class="nx">greeting</span> <span class="p">}</span> <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">args</code> arrives resolved and already checked — templates expanded and
+values validated against your manifest, before a line of your code runs.</p>
+<h3 id="what-you-return">
+  
+  
+    <a href="#what-you-return" class="anchor-heading" aria-labelledby="what-you-return"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What you return
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">success</code></td>
+      <td>required</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">artifacts</code></td>
+      <td>stored under the task’s <code class="language-plaintext highlighter-rouge">artifact:</code>. <strong>No secrets.</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">message</code></td>
+      <td>short reason, shown in the run panel on failure</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">messages</code></td>
+      <td>turns appended to the task’s <code class="language-plaintext highlighter-rouge">session:</code>, in order</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">session</code></td>
+      <td><code class="language-plaintext highlighter-rouge">{ id }</code> of a provider-owned conversation</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3 id="what-ctx-gives-you">
+  
+  
+    <a href="#what-ctx-gives-you" class="anchor-heading" aria-labelledby="what-ctx-gives-you"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What <code class="language-plaintext highlighter-rouge">ctx</code> gives you
+  
+  
+</h3>
+    
+
+<p>Deliberately narrow — a plugin that reached for <code class="language-plaintext highlighter-rouge">fs</code> and <code class="language-plaintext highlighter-rouge">net</code> directly
+could never be constrained later without breaking every plugin ever
+written.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">runId</code>, <code class="language-plaintext highlighter-rouge">taskId</code>, <code class="language-plaintext highlighter-rouge">attempt</code></td>
+      <td><code class="language-plaintext highlighter-rouge">attempt</code> is <code class="language-plaintext highlighter-rouge">1</code>, higher on retry</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cwd</code>, <code class="language-plaintext highlighter-rouge">root</code></td>
+      <td><code class="language-plaintext highlighter-rouge">root</code> is the run’s starting directory — the project the definition belongs to. It is <strong>not</strong> a template anchor; there is no <code class="language-plaintext highlighter-rouge">${{ root }}</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">env</code></td>
+      <td>resolved <strong>non-secret</strong> environment</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">session</code></td>
+      <td>this task’s turns, oldest first</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">secret(name)</code></td>
+      <td>uncached, auto-masked</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">log(text, stream?)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stdout</code> | <code class="language-plaintext highlighter-rouge">stderr</code> | <code class="language-plaintext highlighter-rouge">system</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">reportSession(id)</code></td>
+      <td>report an external conversation as it opens</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cancelled</code>, <code class="language-plaintext highlighter-rouge">onCancel(fn)</code></td>
+      <td>cooperative cancellation</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>There is no route from <code class="language-plaintext highlighter-rouge">ctx</code> to the engine, the run store, or another
+task, and no <code class="language-plaintext highlighter-rouge">ask()</code> — approval is <code class="language-plaintext highlighter-rouge">trigger: manual</code> on the task that
+acts, which blocks <em>between</em> tasks, holds nothing in memory, and
+survives closing the editor.</p>
+<h3 id="secrets">
+  
+  
+    <a href="#secrets" class="anchor-heading" aria-labelledby="secrets"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Secrets
+  
+  
+</h3>
+    
+
+<p>You read a secret only through <code class="language-plaintext highlighter-rouge">ctx.secret()</code>, and only for names
+declared in <code class="language-plaintext highlighter-rouge">secrets</code>. There is no browsing <code class="language-plaintext highlighter-rouge">process.env</code> for more — a
+sandboxed plugin has no access to the environment, so anything
+undeclared is simply absent. Values are read at call time, never cached,
+and registered with the run’s masker on the way out, so they are
+redacted if they ever reach a log.</p>
+
+<p>When the <em>workflow</em> names the variable — one person’s token is in
+<code class="language-plaintext highlighter-rouge">ADO_PAT</code>, another’s in <code class="language-plaintext highlighter-rouge">WORK_ADO_PAT</code> — declare an arg to hold the name
+and point <code class="language-plaintext highlighter-rouge">secretsFrom</code> at it:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"patEnv"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADO_PAT"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Environment variable holding the token."</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+
+    </span><span class="nl">"secretsFrom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"patEnv"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nf">secret</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">patEnv</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The host resolves the name before building the sandbox’s secret map, so
+a plugin still receives a fixed set and never a way to ask for more.
+Fail with a message naming the variable. Never prompt for it.</p>
+<h3 id="the-sandbox">
+  
+  
+    <a href="#the-sandbox" class="anchor-heading" aria-labelledby="the-sandbox"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The sandbox
+  
+  
+</h3>
+    
+
+<p>User plugins only; bundled plugins are not sandboxed — <code class="language-plaintext highlighter-rouge">pwsh@1</code>’s whole
+job is to run a shell command, and sandboxing the escape hatch would be
+theatre. The line is trust, not capability: bundled ships with the
+engine, yours arrived with a repository. (It is also why a user plugin
+cannot wrap the Copilot SDK — that needs to spawn the CLI, and the
+sandbox denies <code class="language-plaintext highlighter-rouge">child_process</code>.)</p>
+
+<p>Three layers, and only one of them is enforced below JavaScript:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>What it stops</th>
+      <th>Where</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>A separate process</strong></td>
+      <td>reaching the engine, the run store, other sessions, VS Code</td>
+      <td>a fresh worker per call</td>
+    </tr>
+    <tr>
+      <td><strong>Node’s permission model</strong></td>
+      <td>reading outside the plugin’s own root, writing anywhere, spawning, native addons</td>
+      <td><code class="language-plaintext highlighter-rouge">--permission --allow-fs-read=&lt;plugin root&gt;</code></td>
+    </tr>
+    <tr>
+      <td><strong>A module allowlist</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">require("fs")</code>, <code class="language-plaintext highlighter-rouge">net</code>, <code class="language-plaintext highlighter-rouge">http</code>, <code class="language-plaintext highlighter-rouge">dns</code>, <code class="language-plaintext highlighter-rouge">child_process</code>, <code class="language-plaintext highlighter-rouge">vm</code>, …</td>
+      <td>inside the worker</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The permission model is the load-bearing one — Node enforces it, so no
+JavaScript trick gets around it, and that is measured rather than
+assumed: with the flags removed, the escape tests land three escapes the
+allowlist alone does not catch. Because the allowlist alone is not
+enough, <strong>the sandbox fails closed</strong>: a runtime that will not accept the
+permission flags gets user plugins refused, never loaded unconfined.</p>
+
+<p>A plugin may <code class="language-plaintext highlighter-rouge">require</code> these builtins and no others — all pure
+computation:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assert  buffer  crypto  events  path  punycode
+querystring  string_decoder  url  util  zlib
+</code></pre></div></div>
+
+<p><strong>Anything absent is denied</strong>, so a module added to Node in a future
+version is denied by default rather than allowed by oversight. A plugin
+runs in a <strong>fresh process per call</strong> — nothing it leaves behind can
+reach the next task.</p>
+
+<p>The boundary is the plugin’s own root:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Layout</th>
+      <th>Root</th>
+      <th>Can read</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">plugins/my-pluginV1/</code> (folder)</td>
+      <td>the folder</td>
+      <td>anything in it, including its <code class="language-plaintext highlighter-rouge">node_modules</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">plugins/greet.js</code> (single file)</td>
+      <td>that one file</td>
+      <td><strong>nothing but itself</strong></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p class="gotcha">A loose file is granted the one file, not the folder it sits in — that
+folder is everybody else’s plugin, and a relative <code class="language-plaintext highlighter-rouge">require</code> needs no
+<code class="language-plaintext highlighter-rouge">fs</code>, so the allowlist would never see it. Anything with data files
+beside it needs a folder.</p>
+
+<p><strong>npm dependencies:</strong> give the plugin a folder, <code class="language-plaintext highlighter-rouge">npm install</code> inside it,
+and <code class="language-plaintext highlighter-rouge">require</code> normally — its own <code class="language-plaintext highlighter-rouge">node_modules</code> is inside the permitted
+root. A dependency is held to exactly the same rules: a library cannot
+<code class="language-plaintext highlighter-rouge">require("fs")</code> on the plugin’s behalf. Ship <code class="language-plaintext highlighter-rouge">node_modules</code> with the
+plugin; nothing here downloads anything, by design.</p>
+<h3 id="reloading">
+  
+  
+    <a href="#reloading" class="anchor-heading" aria-labelledby="reloading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Reloading
+  
+  
+</h3>
+    
+
+<p>Plugins are read when the engine first starts. After editing one, reload
+the window (<strong>Developer: Reload Window</strong>) to pick it up. A plugin that
+fails to load is surfaced as a warning naming the file and the reason —
+never silently skipped, because a missing plugin looks exactly like a
+workflow bug.</p><hr />
+<h2 id="why-these-six-and-no-more">
+  
+  
+    <a href="#why-these-six-and-no-more" class="anchor-heading" aria-labelledby="why-these-six-and-no-more"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why these six and no more
+  
+  
+</h2>
+    
+
+<p>There is no marketplace, nothing is downloaded, and nothing is signed.
+The six that ship are what the engine needs to be useful on its own: a
+shell, a better shell, the filesystem, a work item’s comment thread,
+an HTTP endpoint, and an agent. Anything past that is a plugin you
+write — a folder, a manifest, and a JavaScript file.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

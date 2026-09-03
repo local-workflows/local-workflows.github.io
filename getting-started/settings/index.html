@@ -1,0 +1,1321 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(9)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(9) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(9) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(9) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>settings.json | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="settings.json" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The engine’s one configuration file, the whole feature on one page - SDD settings, per-plugin defaults, MCP servers, the env gate, every key and every error it can raise." />
+<meta name="twitter:description" property="og:description" content="The engine’s one configuration file, the whole feature on one page - SDD settings, per-plugin defaults, MCP servers, the env gate, every key and every error it can raise." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/settings/" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/settings/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="settings.json" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-03T19:45:46+00:00","description":"The engine’s one configuration file, the whole feature on one page - SDD settings, per-plugin defaults, MCP servers, the env gate, every key and every error it can raise.","headline":"settings.json","url":"https://local-workflows.github.io/getting-started/settings/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/Samples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Samples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><span>settings.json</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="settingsjson">
+  
+  
+    <a href="#settingsjson" class="anchor-heading" aria-labelledby="settingsjson"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">settings.json</code>
+  
+  
+</h1>
+    
+
+<p>The engine’s one configuration file. One shape, read from at most two
+places, merged per key. This page is the whole file — every key, every
+default, and every error it can raise.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#the-two-scopes" id="markdown-toc-the-two-scopes">The two scopes</a></li>
+  <li><a href="#the-whole-file" id="markdown-toc-the-whole-file">The whole file</a></li>
+  <li><a href="#sdd" id="markdown-toc-sdd"><code class="language-plaintext highlighter-rouge">sdd</code></a>    <ol>
+      <li><a href="#sddstyle" id="markdown-toc-sddstyle"><code class="language-plaintext highlighter-rouge">sdd.style</code></a></li>
+      <li><a href="#sddspecsdir--where-specs-live" id="markdown-toc-sddspecsdir--where-specs-live"><code class="language-plaintext highlighter-rouge">sdd.specsDir</code> — where specs live</a></li>
+      <li><a href="#sddsource" id="markdown-toc-sddsource"><code class="language-plaintext highlighter-rouge">sdd.source</code></a></li>
+      <li><a href="#sddcheckpoints" id="markdown-toc-sddcheckpoints"><code class="language-plaintext highlighter-rouge">sdd.checkpoints</code></a></li>
+      <li><a href="#sdduses--what-runs-the-ai-phases" id="markdown-toc-sdduses--what-runs-the-ai-phases"><code class="language-plaintext highlighter-rouge">sdd.uses</code> — what runs the AI phases</a></li>
+      <li><a href="#one-phase-different-settings--not-here" id="markdown-toc-one-phase-different-settings--not-here">One phase, different settings — not here</a></li>
+    </ol>
+  </li>
+  <li><a href="#---expressions" id="markdown-toc----expressions"><code class="language-plaintext highlighter-rouge">${{ }}</code> — expressions</a></li>
+  <li><a href="#ai--per-plugin-defaults" id="markdown-toc-ai--per-plugin-defaults"><code class="language-plaintext highlighter-rouge">ai</code> — per-plugin defaults</a>    <ol>
+      <li><a href="#making-a-provider-the-default" id="markdown-toc-making-a-provider-the-default">Making a provider the default</a></li>
+    </ol>
+  </li>
+  <li><a href="#aimcpservers" id="markdown-toc-aimcpservers"><code class="language-plaintext highlighter-rouge">ai.mcpServers</code></a>    <ol>
+      <li><a href="#requireswarmstartup" id="markdown-toc-requireswarmstartup"><code class="language-plaintext highlighter-rouge">requiresWarmStartup</code></a></li>
+      <li><a href="#command-is-made-runnable-for-you" id="markdown-toc-command-is-made-runnable-for-you"><code class="language-plaintext highlighter-rouge">command</code> is made runnable for you</a></li>
+      <li><a href="#it-is-a-fourth-source-not-a-replacement" id="markdown-toc-it-is-a-fourth-source-not-a-replacement">It is a fourth source, not a replacement</a></li>
+      <li><a href="#a-server-signed-in-once-stays-signed-in" id="markdown-toc-a-server-signed-in-once-stays-signed-in">A server signed in once stays signed in</a></li>
+      <li><a href="#the-mcp-servers-view" id="markdown-toc-the-mcp-servers-view">The MCP Servers view</a></li>
+    </ol>
+  </li>
+  <li><a href="#aiacpagents" id="markdown-toc-aiacpagents"><code class="language-plaintext highlighter-rouge">ai.acpAgents</code></a></li>
+  <li><a href="#env--the-gate-on-mcp-env-reads" id="markdown-toc-env--the-gate-on-mcp-env-reads"><code class="language-plaintext highlighter-rouge">env</code> — the gate on MCP env reads</a></li>
+  <li><a href="#defaultfolderstoignorescanning" id="markdown-toc-defaultfolderstoignorescanning"><code class="language-plaintext highlighter-rouge">defaultFoldersToIgnoreScanning</code></a></li>
+  <li><a href="#every-error-the-sdd-section-can-raise" id="markdown-toc-every-error-the-sdd-section-can-raise">Every error the <code class="language-plaintext highlighter-rouge">sdd:</code> section can raise</a></li>
+</ol><hr />
+<h2 id="the-two-scopes">
+  
+  
+    <a href="#the-two-scopes" class="anchor-heading" aria-labelledby="the-two-scopes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The two scopes
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Scope</th>
+      <th>Where</th>
+      <th>Applies to</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Workspace</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;workspace root&gt;/.local-workflows/settings.json</code> — committed, reviewed in PRs</td>
+      <td>everyone on this repository or workspace</td>
+    </tr>
+    <tr>
+      <td>Profile</td>
+      <td><code class="language-plaintext highlighter-rouge">~/.local-workflows/settings.json</code></td>
+      <td>you, in every workspace</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Merged per key, workspace wins.</strong> A personal MCP server declared in
+your profile follows you into every repository; a team server with the
+same name shadows it. For <code class="language-plaintext highlighter-rouge">ai.mcpServers</code> the merge unit is one
+<strong>server</strong>: an entry is taken whole, never merged field by field — half
+a server declaration from each scope is not a server anybody wrote.</p>
+
+<p>Every field has a default and both files are optional. A fresh install
+writes nothing and works.</p>
+
+<p class="warning"><strong>A malformed file fails loudly and names itself</strong> — the error opens with
+the file’s full path. Plain JSON: no comments, no trailing commas. The
+one silent path is absence — a scope that declares nothing is the normal
+case.</p><hr />
+<h2 id="the-whole-file">
+  
+  
+    <a href="#the-whole-file" class="anchor-heading" aria-labelledby="the-whole-file"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The whole file
+  
+  
+</h2>
+    
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"sdd"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kiro"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ado"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"checkpoints"</span><span class="p">:</span><span class="w"> </span><span class="s2">"required"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stages"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"design"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"claude-opus-5"</span><span class="p">,</span><span class="w"> </span><span class="nl">"reasoningEffort"</span><span class="p">:</span><span class="w"> </span><span class="s2">"high"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"ai"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ai@1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ado"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@azure-devops/mcp@2.9.0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"contoso"</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"--authentication"</span><span class="p">,</span><span class="w"> </span><span class="s2">"azcli"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"autoApprove"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"wit_work_item"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wit_query"</span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"acpAgents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"kiro"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kiro-cli"</span><span class="p">,</span><span class="w"> </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"acp"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"allowed"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ADO_PAT"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"denied"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"defaultFoldersToIgnoreScanning"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"node_modules"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dist"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Four top-level keys, and no others. An unknown one is an error, not
+tolerance: a misspelled <code class="language-plaintext highlighter-rouge">env</code> that silently gates nothing is a security
+setting that looks applied and is not.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>What it is</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sdd</code></td>
+      <td>everything <a href="/getting-started/sdd/">spec-driven development</a> reads</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ai</code></td>
+      <td>per-plugin default args, plus MCP servers and ACP agents</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">env</code></td>
+      <td>the gate on <code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code> in an MCP declaration</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">defaultFoldersToIgnoreScanning</code></td>
+      <td>folders the workspace scan skips when there is no <code class="language-plaintext highlighter-rouge">.gitignore</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Not in this file: the workspace-root pointer (<code class="language-plaintext highlighter-rouge">localWorkflows.workspaceRoot</code>, kept in the
+<code class="language-plaintext highlighter-rouge">.code-workspace</code> — see
+<a href="/getting-started/workspaces/">Workspaces</a>), and anything
+about a run — params, vars and env belong to the file being run.</p><hr />
+<h2 id="sdd">
+  
+  
+    <a href="#sdd" class="anchor-heading" aria-labelledby="sdd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">sdd</code>
+  
+  
+</h2>
+    
+
+<p><strong>It never reaches an AI.</strong> The extension reads it and hands each phase
+only the values that phase needs. Model choice, style id, and source
+settings stay in the engine.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Values</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sdd.style</code></td>
+      <td><code class="language-plaintext highlighter-rouge">kiro</code>, <code class="language-plaintext highlighter-rouge">spec-kit</code>, or a <a href="/getting-started/sdd/custom-style/">style you wrote</a></td>
+      <td><code class="language-plaintext highlighter-rouge">kiro</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sdd.specsDir</code></td>
+      <td>where spec folders live — workspace-relative, or absolute</td>
+      <td><code class="language-plaintext highlighter-rouge">.local-workflows/specs</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sdd.source</code></td>
+      <td><code class="language-plaintext highlighter-rouge">manual</code> | <code class="language-plaintext highlighter-rouge">ado</code> | <code class="language-plaintext highlighter-rouge">gh</code> | <code class="language-plaintext highlighter-rouge">file</code></td>
+      <td>unset — ＋ New Spec asks each time</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sdd.checkpoints</code></td>
+      <td><code class="language-plaintext highlighter-rouge">required</code> | <code class="language-plaintext highlighter-rouge">optional</code> | <code class="language-plaintext highlighter-rouge">none</code></td>
+      <td><code class="language-plaintext highlighter-rouge">required</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sdd.uses</code></td>
+      <td>a plugin reference</td>
+      <td><code class="language-plaintext highlighter-rouge">ai@1</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p class="warning"><strong><code class="language-plaintext highlighter-rouge">sdd:</code> is a closed set.</strong> Those five keys and no others — a sixth is a
+hard error naming the valid ones, because a misspelled setting that
+silently does nothing is worse than one that refuses to load. Plugin
+args do not go here; they go under <code class="language-plaintext highlighter-rouge">ai."ai@1"</code> for every phase, or on a
+stage’s <code class="language-plaintext highlighter-rouge">ai:</code> in your
+<a href="/getting-started/sdd/custom-style/">style</a> for one phase.</p>
+<h3 id="sddstyle">
+  
+  
+    <a href="#sddstyle" class="anchor-heading" aria-labelledby="sddstyle"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">sdd.style</code>
+  
+  
+</h3>
+    
+
+<p>The process: its phases, its gates, its prompts, and the spec types in
+the ＋ New Spec menu. <code class="language-plaintext highlighter-rouge">kiro</code> and <code class="language-plaintext highlighter-rouge">spec-kit</code> ship; your own works the same
+way.</p>
+<h3 id="sddspecsdir--where-specs-live">
+  
+  
+    <a href="#sddspecsdir--where-specs-live" class="anchor-heading" aria-labelledby="sddspecsdir--where-specs-live"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">sdd.specsDir</code> — where specs live
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">.local-workflows/specs</code> under the workspace root by default. Point
+<code class="language-plaintext highlighter-rouge">sdd.specsDir</code> somewhere else to move them: a relative path anchors to
+the workspace (<code class="language-plaintext highlighter-rouge">docs/specs</code>), an absolute one stands alone — a vault
+outside the repository, shared between projects
+(<code class="language-plaintext highlighter-rouge">D:/team/spec-vault</code>).</p>
+
+<p>In a plain folder the workspace root is the repository itself. With a
+<code class="language-plaintext highlighter-rouge">.code-workspace</code> open it is whichever folder
+<code class="language-plaintext highlighter-rouge">localWorkflows.workspaceRoot</code> names — by default the folder the
+<code class="language-plaintext highlighter-rouge">.code-workspace</code> file sits in. One feature spanning five repositories
+is one spec, not five.</p>
+<h3 id="sddsource">
+  
+  
+    <a href="#sddsource" class="anchor-heading" aria-labelledby="sddsource"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">sdd.source</code>
+  
+  
+</h3>
+    
+
+<p>Where the work item behind a spec comes from: written by hand
+(<code class="language-plaintext highlighter-rouge">manual</code>), Azure DevOps (<code class="language-plaintext highlighter-rouge">ado</code>), GitHub (<code class="language-plaintext highlighter-rouge">gh</code>), or a file on disk
+(<code class="language-plaintext highlighter-rouge">file</code>).</p>
+
+<p>This is the one key with no default on purpose. Unset means the file
+does not say, and ＋ New Spec asks each time — which is the difference
+between a team that has standardised and one that has not.</p>
+
+<p><code class="language-plaintext highlighter-rouge">file</code> opens a native file picker either way — chosen in the menu or set
+here. The source can be standardised; the files are per-spec. The picked
+files — one or several — are <strong>copied into the spec folder</strong> and named in
+<code class="language-plaintext highlighter-rouge">intake.md</code>, so they need not be in the repository to start with and end
+up in it regardless. Copied rather than linked: the ask goes into git with
+the documents drawn from it, and a name that collides gets a numeric
+suffix rather than overwriting.</p>
+<h3 id="sddcheckpoints">
+  
+  
+    <a href="#sddcheckpoints" class="anchor-heading" aria-labelledby="sddcheckpoints"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">sdd.checkpoints</code>
+  
+  
+</h3>
+    
+
+<p>Whether the plan gets “run the tests and stop” barriers between groups
+of tasks. Read by the tasks prompt when the plan is written; nothing
+else branches on it.</p>
+<h3 id="sdduses--what-runs-the-ai-phases">
+  
+  
+    <a href="#sdduses--what-runs-the-ai-phases" class="anchor-heading" aria-labelledby="sdduses--what-runs-the-ai-phases"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">sdd.uses</code> — what runs the AI phases
+  
+  
+</h3>
+    
+
+<p>Names the plugin, <code class="language-plaintext highlighter-rouge">ai@1</code> by default. Nobody writes it until a second AI
+plugin exists. <strong>The plugin’s args come from <code class="language-plaintext highlighter-rouge">ai."&lt;plugin ref&gt;"</code></strong> — the
+lookup is by the reference <code class="language-plaintext highlighter-rouge">sdd.uses</code> names, so a team that points it at
+a different plugin gets <em>that</em> plugin’s defaults.</p>
+<h3 id="one-phase-different-settings--not-here">
+  
+  
+    <a href="#one-phase-different-settings--not-here" class="anchor-heading" aria-labelledby="one-phase-different-settings--not-here"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> One phase, different settings — not here
+  
+  
+</h3>
+    
+
+<p>There used to be a <code class="language-plaintext highlighter-rouge">sdd.stages.&lt;id&gt;</code> block for this. <strong>It moved to the
+style</strong>, where a phase is already described:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># .local-workflows/styles/&lt;your-style&gt;/style.yml</span>
+<span class="na">stages</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">design</span>
+    <span class="na">ai</span><span class="pi">:</span>
+      <span class="na">model</span><span class="pi">:</span> <span class="s">gpt-5</span>
+      <span class="na">reasoningEffort</span><span class="pi">:</span> <span class="s">high</span>
+</code></pre></div></div>
+
+<p>The merge is <strong>per key, not per block</strong>: <code class="language-plaintext highlighter-rouge">design</code> above keeps whatever
+<code class="language-plaintext highlighter-rouge">ai."ai@1"</code> set and changes only what it names. Naming one setting never
+silently drops the others.</p>
+
+<p>Why it moved: only a style knows which of its phases is the hard one, so
+that belongs beside the phase rather than in a second file. Two files
+answering “why is this phase on that model” meant reading both to know.</p>
+
+<p><code class="language-plaintext highlighter-rouge">sdd.uses</code> did <strong>not</strong> move — which plugin runs a phase is yours, not the
+style’s, and a style naming one would not run for a team on a different
+plugin. Neither did the defaults below: <code class="language-plaintext highlighter-rouge">ai."&lt;plugin&gt;"</code> still sets what
+every phase starts from.</p>
+
+<p class="warning">A <code class="language-plaintext highlighter-rouge">sdd.stages</code> block still in your file is a hard error naming where the
+settings went, rather than a key that sits there looking applied.</p>
+
+<p class="note">The keys are the plugin’s, and <code class="language-plaintext highlighter-rouge">ai@1</code> is a passthrough — so beyond
+<code class="language-plaintext highlighter-rouge">provider</code> and <code class="language-plaintext highlighter-rouge">model</code>, what belongs there is whatever the <strong>provider</strong>
+understands. <code class="language-plaintext highlighter-rouge">reasoningEffort</code>, <code class="language-plaintext highlighter-rouge">contextTier</code>, <code class="language-plaintext highlighter-rouge">reasoningSummary</code> and
+<code class="language-plaintext highlighter-rouge">enableExperimentalMode</code> are <code class="language-plaintext highlighter-rouge">ghcp</code>’s; <code class="language-plaintext highlighter-rouge">reasoningEffort</code> in particular is
+only valid on a model whose capabilities report it, which <code class="language-plaintext highlighter-rouge">auto</code> does not
+— so pin a model when you set it.</p><hr />
+<h2 id="---expressions">
+  
+  
+    <a href="#---expressions" class="anchor-heading" aria-labelledby="---expressions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">${{ }}</code> — expressions
+  
+  
+</h2>
+    
+
+<p>Anywhere in this file, and anywhere in a
+<a href="/getting-started/sdd/custom-style/">style</a>’s <code class="language-plaintext highlighter-rouge">style.yml</code>.
+The same notation <code class="language-plaintext highlighter-rouge">tasks.yml</code> uses, resolved before a single key is
+read — so it works under any key, at any depth, in either file.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"sdd"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"specsDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${{ workspaceFolder }}/docs/specs"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"ai"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ai@1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${{ env.TEAM_MODEL }}"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong>What is readable.</strong> The four anchors — <code class="language-plaintext highlighter-rouge">workspaceFolder</code>,
+<code class="language-plaintext highlighter-rouge">workspaceConfig</code>, <code class="language-plaintext highlighter-rouge">home</code>, <code class="language-plaintext highlighter-rouge">cwd</code> — plus <code class="language-plaintext highlighter-rouge">env.NAME</code>. <code class="language-plaintext highlighter-rouge">cwd</code> equals the
+workspace root here: nothing is running, so there is no working
+directory of its own.</p>
+
+<p><strong>What is not.</strong> <code class="language-plaintext highlighter-rouge">vars</code>, <code class="language-plaintext highlighter-rouge">params</code> and <code class="language-plaintext highlighter-rouge">run.context</code> belong to a <em>run</em>,
+and these files are read before there is one. Asking for one is an
+error that says so, not a silent blank.</p>
+
+<p><strong>A value that is nothing but an expression keeps its type.</strong>
+<code class="language-plaintext highlighter-rouge">"model": "${{ env.MODEL }}"</code> stays a string; a
+templated number stays a number.</p>
+
+<p><strong>The env gate follows the destination, not the spelling.</strong> There is
+one spelling now, so which rule applies is decided by where the value
+goes:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Where</th>
+      <th>Rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inside <code class="language-plaintext highlighter-rouge">ai.mcpServers</code> or <code class="language-plaintext highlighter-rouge">ai.acpAgents</code></td>
+      <td>the <a href="#env--the-gate-on-mcp-env-reads">full gate</a> — <code class="language-plaintext highlighter-rouge">env.allowed</code> (or a workflow’s <code class="language-plaintext highlighter-rouge">env:</code>, or <code class="language-plaintext highlighter-rouge">allowedEnv:</code>) must grant the name</td>
+    </tr>
+    <tr>
+      <td>anywhere else in this file, and in <code class="language-plaintext highlighter-rouge">style.yml</code></td>
+      <td>no grant needed; <code class="language-plaintext highlighter-rouge">env.denied</code> still vetoes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tasks.yml</code></td>
+      <td>no grant needed; unchanged</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p class="warning">A declaration under <code class="language-plaintext highlighter-rouge">ai.mcpServers</code> or <code class="language-plaintext highlighter-rouge">ai.acpAgents</code> is handed to a
+third-party process, so it is granted a name. A value the engine
+consumes itself is only vetoed. <strong><code class="language-plaintext highlighter-rouge">env.denied</code> wins everywhere</strong> — it
+is the one thing that is a veto rather than a default.</p>
+
+<p><strong>An unresolvable expression fails loudly, naming the file.</strong> It is
+never left as literal text — a typo’d
+<code class="language-plaintext highlighter-rouge">${{ workspaceFoldr }}</code> becoming part of a real path
+is the failure this exists to prevent.</p>
+
+<p><strong>With no workspace open</strong> there is nothing for <code class="language-plaintext highlighter-rouge">workspaceFolder</code> to
+mean, so a file that writes an expression is refused rather than
+resolved to an empty string. A file that writes none is unaffected,
+which is nearly every file.</p><hr />
+<h2 id="ai--per-plugin-defaults">
+  
+  
+    <a href="#ai--per-plugin-defaults" class="anchor-heading" aria-labelledby="ai--per-plugin-defaults"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">ai</code> — per-plugin defaults
+  
+  
+</h2>
+    
+
+<p>Every key under <code class="language-plaintext highlighter-rouge">ai:</code> that is not <code class="language-plaintext highlighter-rouge">mcpServers</code> is a <strong>plugin
+reference</strong>, spelled exactly as a task would spell it, holding that
+plugin’s default args everywhere it runs:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"ai"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ai@1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>A workflow file’s own <code class="language-plaintext highlighter-rouge">plugins:</code> entry, an SDD stage entry, or a task’s
+own <code class="language-plaintext highlighter-rouge">args:</code> win over it — one key at a time, not one block at a time.</p>
+
+<p>One default is worth knowing on its own: <code class="language-plaintext highlighter-rouge">model: auto</code> — the provider
+picks. A pinned model name goes stale, and a team that has not formed
+an opinion should not be made to hold one.</p>
+<h3 id="making-a-provider-the-default">
+  
+  
+    <a href="#making-a-provider-the-default" class="anchor-heading" aria-labelledby="making-a-provider-the-default"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Making a provider the default
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">provider</code> is just another arg here, and this is the one place that
+changes it for <strong>every</strong> <code class="language-plaintext highlighter-rouge">ai@1</code> task and every SDD phase at once —
+tasks.yml workflows and SDD both read the same <code class="language-plaintext highlighter-rouge">ai."ai@1"</code> defaults
+before anything more specific overrides them.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"ai"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ai@1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kiro"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Nothing ships this way — <code class="language-plaintext highlighter-rouge">ai@1</code>’s own manifest defaults <code class="language-plaintext highlighter-rouge">provider</code> to
+<code class="language-plaintext highlighter-rouge">ghcp</code>, and this file states no opinion until you write one. Writing
+<code class="language-plaintext highlighter-rouge">"provider": "ghcp"</code> here yourself would be a no-op, restating what the
+manifest already does; the reason to write this key at all is to name a
+<em>different</em> default, <code class="language-plaintext highlighter-rouge">kiro</code> or otherwise.</p>
+
+<p><strong>This only reaches <code class="language-plaintext highlighter-rouge">ai@1</code>.</strong> The key it lives under is a plugin
+reference (<code class="language-plaintext highlighter-rouge">ai."ai@1"</code>, exactly), and a phase whose style overrides
+<code class="language-plaintext highlighter-rouge">sdd.uses</code> to a different plugin gets <em>that</em> plugin’s own defaults
+instead — a <code class="language-plaintext highlighter-rouge">provider</code> written here would reach nothing for it. Point a
+default at whichever plugin <code class="language-plaintext highlighter-rouge">sdd.uses</code> actually names, if it is not
+<code class="language-plaintext highlighter-rouge">ai@1</code>.</p>
+
+<p>A single stage, or a single task, still wins over this with its own
+<code class="language-plaintext highlighter-rouge">provider:</code> — the precedence above applies here exactly as it does to
+<code class="language-plaintext highlighter-rouge">model</code>.</p><hr />
+<h2 id="aimcpservers">
+  
+  
+    <a href="#aimcpservers" class="anchor-heading" aria-labelledby="aimcpservers"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">ai.mcpServers</code>
+  
+  
+</h2>
+    
+
+<p>MCP servers for every <code class="language-plaintext highlighter-rouge">ai@1</code> session, in the standard <code class="language-plaintext highlighter-rouge">mcpServers</code> entry
+shape every MCP README shows — copied unedited, plus four engine keys:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"ai"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ado"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@azure-devops/mcp@2.9.0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"contoso"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"ADO_PAT"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${{ env.ADO_PAT }}"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"autoApprove"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"wit_work_item"</span><span class="p">,</span><span class="w"> </span><span class="s2">"wit_query"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"disabledTools"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"wit_work_item_write"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"requiresWarmStartup"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">command</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>the executable for a stdio server. Write it portably — <code class="language-plaintext highlighter-rouge">npx</code>, not <code class="language-plaintext highlighter-rouge">npx.cmd</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">array</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">url</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>the endpoint for an http server</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">type</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">stdio</code>, <code class="language-plaintext highlighter-rouge">sse</code> or <code class="language-plaintext highlighter-rouge">http</code>. Inferred when absent — a <code class="language-plaintext highlighter-rouge">command</code> means <code class="language-plaintext highlighter-rouge">stdio</code>, a <code class="language-plaintext highlighter-rouge">url</code> means <code class="language-plaintext highlighter-rouge">http</code>, so <code class="language-plaintext highlighter-rouge">sse</code> must be said. <code class="language-plaintext highlighter-rouge">local</code> is an accepted alias for <code class="language-plaintext highlighter-rouge">stdio</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">env</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>environment for the server process. <code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code> is expanded under <a href="#env--the-gate-on-mcp-env-reads">the gate</a></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">headers</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">timeout</code></td>
+      <td><code class="language-plaintext highlighter-rouge">number</code></td>
+      <td>milliseconds. Copilot’s own <strong>per-tool-call</strong> timeout (default 180000) — not a connection or handshake timeout, and not what <code class="language-plaintext highlighter-rouge">requiresWarmStartup</code> addresses. Copilot has a long-standing bug where this value is silently ignored (<a href="https://github.com/github/copilot-cli/issues/172">github/copilot-cli#172</a>, still open); a server with genuinely slow individual tool calls may time out regardless of what is set here</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">disabled</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">true</code> skips the server entirely</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">autoApprove</code></td>
+      <td><code class="language-plaintext highlighter-rouge">array</code></td>
+      <td>only these tools. Absent means every tool</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">disabledTools</code></td>
+      <td><code class="language-plaintext highlighter-rouge">array</code></td>
+      <td>never these tools. <strong>A name in both lists is denied</strong> — deny wins</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">requiresWarmStartup</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">true</code> probes this server once before a session starts. See below</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The last four are the engine’s own and are stripped before the runtime
+ever sees the server: <code class="language-plaintext highlighter-rouge">autoApprove</code> becomes the SDK’s per-server
+allowlist, <code class="language-plaintext highlighter-rouge">disabledTools</code> session-level exclusions under their wire names.</p>
+<h3 id="requireswarmstartup">
+  
+  
+    <a href="#requireswarmstartup" class="anchor-heading" aria-labelledby="requireswarmstartup"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">requiresWarmStartup</code>
+  
+  
+</h3>
+    
+
+<p>Some stdio servers’ first spawn on a machine is slow enough to lose the
+race against the vendor CLI’s own (short, fixed) startup timeout — a
+<code class="language-plaintext highlighter-rouge">command: npx</code> server whose package is not yet in the local cache is the
+common case: <code class="language-plaintext highlighter-rouge">npx</code> resolves and installs it over the network before the
+server ever answers the MCP handshake. Lose that race and the session
+starts anyway, silently missing the server — the agent reports it has no
+tools for it, and nothing in the log says why.</p>
+
+<p><code class="language-plaintext highlighter-rouge">requiresWarmStartup: true</code> opts a server into a preflight: before a
+session starts, the engine spawns it, completes the handshake, and kills
+it — off the vendor CLI’s clock rather than racing it — once per exact
+declaration (command, args, env, everything), remembered in the profile
+folder so every later task skips straight past it. A version bump or any
+other change to the declaration earns its own fresh probe automatically.
+A server that will not come up within the probe’s timeout fails the task
+loudly, naming the server, before the vendor CLI is ever started.</p>
+
+<p class="gotcha">Leave it unset for servers that already start fast — most of them,
+including GH’s built-in server, Playwright, and Chrome DevTools. Setting
+it on one of those adds seconds to every task for a race that was never
+close.</p>
+
+<p class="gotcha"><strong>Wire names.</strong> An MCP tool’s wire name is <code class="language-plaintext highlighter-rouge">&lt;serverKey&gt;-&lt;toolName&gt;</code> — the
+server declared as <code class="language-plaintext highlighter-rouge">ado</code> above surfaces <code class="language-plaintext highlighter-rouge">wit_work_item</code> as
+<code class="language-plaintext highlighter-rouge">ado-wit_work_item</code>. <code class="language-plaintext highlighter-rouge">autoApprove</code> and <code class="language-plaintext highlighter-rouge">disabledTools</code> take the <strong>bare</strong>
+name and the engine adds the prefix; a task writing its own
+<code class="language-plaintext highlighter-rouge">availableTools:</code>/<code class="language-plaintext highlighter-rouge">excludedTools:</code> must write the full wire name itself,
+and one that writes the bare name there matches nothing, silently.</p>
+<h3 id="command-is-made-runnable-for-you">
+  
+  
+    <a href="#command-is-made-runnable-for-you" class="anchor-heading" aria-labelledby="command-is-made-runnable-for-you"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">command</code> is made runnable for you
+  
+  
+</h3>
+    
+
+<p>On Windows there is no <code class="language-plaintext highlighter-rouge">npx</code> — there is <code class="language-plaintext highlighter-rouge">npx.cmd</code>, a batch shim, and
+process creation does not consult <code class="language-plaintext highlighter-rouge">PATHEXT</code>. So the declaration stays
+portable and the engine makes it run: a command with no file extension is
+resolved through the shell on Windows. A command that already carries
+one — <code class="language-plaintext highlighter-rouge">node.exe</code>, an absolute path — is left exactly as written.</p>
+<h3 id="it-is-a-fourth-source-not-a-replacement">
+  
+  
+    <a href="#it-is-a-fourth-source-not-a-replacement" class="anchor-heading" aria-labelledby="it-is-a-fourth-source-not-a-replacement"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> It is a fourth source, not a replacement
+  
+  
+</h3>
+    
+
+<p>The Copilot CLI’s own discovery files still apply:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">~/.copilot/mcp-config.json</code></td>
+      <td>every session on this machine</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.mcp.json</code> in the workspace</td>
+      <td>this repository — commit it</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.github/mcp.json</code> in the workspace</td>
+      <td>same, GitHub’s preferred spot</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><code class="language-plaintext highlighter-rouge">ai.mcpServers</code> is layered on top of those explicitly. The difference
+worth caring about is that it is the only one the extension can show you,
+toggle for you, and merge across scopes.</p>
+
+<p class="warning">The editor’s own <code class="language-plaintext highlighter-rouge">mcp.json</code> — user-level or <code class="language-plaintext highlighter-rouge">.vscode/mcp.json</code> — is
+<strong>not</strong> among the CLI’s files and is not bridged across. A server that
+answers in the chat panel says nothing about a task.</p>
+
+<p class="warning">A <code class="language-plaintext highlighter-rouge">mcpServers:</code> block in a workflow’s or a task’s <code class="language-plaintext highlighter-rouge">args:</code> is <strong>not</strong>
+supported. It is deleted before the session is created, from every
+direction — MCP servers are machine setup, not workflow definition.</p>
+<h3 id="a-server-signed-in-once-stays-signed-in">
+  
+  
+    <a href="#a-server-signed-in-once-stays-signed-in" class="anchor-heading" aria-labelledby="a-server-signed-in-once-stays-signed-in"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A server signed in once stays signed in
+  
+  
+</h3>
+    
+
+<p>A server that authenticates over OAuth has nobody to ask during a run —
+no window belongs to the task. Tokens are kept where the runtime keeps
+them rather than discarded with the session, so one interactive sign-in
+holds for every task after it.</p>
+<h3 id="the-mcp-servers-view">
+  
+  
+    <a href="#the-mcp-servers-view" class="anchor-heading" aria-labelledby="the-mcp-servers-view"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The MCP Servers view
+  
+  
+</h3>
+    
+
+<p>The sidebar’s <strong>MCP Servers</strong> section is a view over these two files,
+collapsed by default and hidden entirely until a scope declares a server.
+Every server both scopes declare shows up, labelled with which file
+declared it. Ticking a checkbox writes <code class="language-plaintext highlighter-rouge">disabled</code>, <code class="language-plaintext highlighter-rouge">autoApprove</code> or
+<code class="language-plaintext highlighter-rouge">disabledTools</code> <strong>back into that same file</strong>, so what the panel shows and
+what a session resolves can never be two different truths.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Local Workflows: Start MCP Server (Discover Tools)</strong></td>
+      <td>spawn (or reach) the server, handshake, list its tools, disconnect</td>
+    </tr>
+    <tr>
+      <td><strong>Local Workflows: Reload MCP Servers</strong></td>
+      <td>re-read both files</td>
+    </tr>
+    <tr>
+      <td><strong>Local Workflows: Open MCP Config</strong></td>
+      <td>open the file that declared the selected server</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p class="note"><strong>Start does not leave anything running.</strong> The Copilot CLI spawns its own
+server per session, so a probed server is not a process your tasks talk
+to — discovery is the honest version of “start”.</p><hr />
+<h2 id="aiacpagents">
+  
+  
+    <a href="#aiacpagents" class="anchor-heading" aria-labelledby="aiacpagents"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">ai.acpAgents</code>
+  
+  
+</h2>
+    
+
+<p>Agents that speak the <a href="https://agentclientprotocol.com">Agent Client Protocol</a>
+(ACP), registered as a provider under the id you give them — a task’s
+<code class="language-plaintext highlighter-rouge">provider: kiro</code> is this key, not a name the extension ships with.
+<code class="language-plaintext highlighter-rouge">ghcp</code> and <code class="language-plaintext highlighter-rouge">claude</code> are separate, built-in providers with their own
+vendor SDKs; this is the general-purpose door for anything else that
+speaks ACP.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"ai"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"acpAgents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"kiro"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kiro-cli"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"acp"</span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">command</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code>, required</td>
+      <td>the executable that speaks ACP on stdio when run with <code class="language-plaintext highlighter-rouge">args</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td><code class="language-plaintext highlighter-rouge">array</code></td>
+      <td>arguments that put it into ACP mode — <code class="language-plaintext highlighter-rouge">["acp"]</code> for Kiro</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">env</code></td>
+      <td><code class="language-plaintext highlighter-rouge">object</code></td>
+      <td>environment for the agent process. <code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code> is expanded under <a href="#env--the-gate-on-mcp-env-reads">the gate</a>, same rule as <code class="language-plaintext highlighter-rouge">ai.mcpServers</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Once declared, <code class="language-plaintext highlighter-rouge">provider: kiro</code> on an <code class="language-plaintext highlighter-rouge">ai@1</code> stage or task runs on it —
+same session shape as <code class="language-plaintext highlighter-rouge">ghcp</code> or <code class="language-plaintext highlighter-rouge">claude</code>: a response, and any tool call
+the agent makes is auto-approved unattended, same as the other two
+providers. <code class="language-plaintext highlighter-rouge">ai.mcpServers</code> reaches it too, forwarded on the same terms
+— see <a href="/getting-started/acp/#mcp-servers">Agent Client Protocol</a>.</p>
+
+<p class="warning"><strong>The id cannot be <code class="language-plaintext highlighter-rouge">ghcp</code> or <code class="language-plaintext highlighter-rouge">claude</code>.</strong> Those two are checked first,
+always — an entry under either name is never reached, silently. Reaching
+either vendor through ACP instead of its built-in provider needs a
+different id.</p>
+
+<p>Per-agent setup, gotchas and worked examples (Kiro, Claude and GitHub
+Copilot via ACP, and adding one this page doesn’t name):
+<a href="/getting-started/acp/">Agent Client Protocol</a>.</p><hr />
+<h2 id="env--the-gate-on-mcp-env-reads">
+  
+  
+    <a href="#env--the-gate-on-mcp-env-reads" class="anchor-heading" aria-labelledby="env--the-gate-on-mcp-env-reads"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">env</code> — the gate on MCP env reads
+  
+  
+</h2>
+    
+
+<p><code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code> inside any string value of an MCP
+declaration reads the machine’s environment — but only if something a
+reviewer can see grants the name. A committed settings file arrives with
+the repository, so nothing reads your environment by default.</p>
+
+<p><strong>This gate is about MCP declarations, not about the notation.</strong> The
+same <code class="language-plaintext highlighter-rouge">${{ env.NAME }}</code> elsewhere in this file needs
+no grant — see <a href="#---expressions">expressions</a>. What earns the gate is that
+the value is handed to a third-party server process.</p>
+
+<p><strong>Three grants, one veto:</strong></p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Granted by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">env.allowed</code></td>
+      <td>this file — reviewed in the same PR as the servers that use it</td>
+    </tr>
+    <tr>
+      <td>the workflow’s own <code class="language-plaintext highlighter-rouge">env:</code> block, and <code class="language-plaintext highlighter-rouge">.env</code> values</td>
+      <td>the file the task lives in. Its <em>value</em> also wins over the machine’s</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">allowedEnv:</code> on the <code class="language-plaintext highlighter-rouge">ai@1</code> task</td>
+      <td>the workflow’s author, seen by its reviewer</td>
+    </tr>
+    <tr>
+      <td><strong><code class="language-plaintext highlighter-rouge">env.denied</code></strong></td>
+      <td><strong>always wins.</strong> A name written here is unreadable no matter what any repository says</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>A name nothing grants fails the task with an error saying how to grant
+it — rather than expanding to an empty string and starting a server that
+cannot authenticate.</p>
+
+<p class="note">Names only, never values. Nothing here ever holds a secret.</p><hr />
+<h2 id="defaultfolderstoignorescanning">
+  
+  
+    <a href="#defaultfolderstoignorescanning" class="anchor-heading" aria-labelledby="defaultfolderstoignorescanning"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">defaultFoldersToIgnoreScanning</code>
+  
+  
+</h2>
+    
+
+<p>Folders the workspace scan skips when the repository has no <code class="language-plaintext highlighter-rouge">.gitignore</code>
+to say so itself. Names, not globs. With a <code class="language-plaintext highlighter-rouge">.gitignore</code>, the scan follows
+that instead and this is not consulted.</p>
+
+<p>Declaring it replaces the built-in list for that scope rather than adding
+to it. The built-in list is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node_modules  .git  .vscode  .idea  TestResults
+bin  obj  dist  out  coverage  build  target
+logs  tmp  temp
+</code></pre></div></div><hr />
+<h2 id="every-error-the-sdd-section-can-raise">
+  
+  
+    <a href="#every-error-the-sdd-section-can-raise" class="anchor-heading" aria-labelledby="every-error-the-sdd-section-can-raise"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Every error the <code class="language-plaintext highlighter-rouge">sdd:</code> section can raise
+  
+  
+</h2>
+    
+
+<p>All raised when the file is read, not in the middle of a run:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>The file says</th>
+      <th>The error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>anything that is not valid JSON</td>
+      <td><code class="language-plaintext highlighter-rouge">'&lt;path&gt;' is not valid JSON: ... Plain JSON only - no comments.</code></td>
+    </tr>
+    <tr>
+      <td>a top-level key that is not <code class="language-plaintext highlighter-rouge">sdd</code>, <code class="language-plaintext highlighter-rouge">ai</code>, <code class="language-plaintext highlighter-rouge">env</code> or <code class="language-plaintext highlighter-rouge">defaultFoldersToIgnoreScanning</code></td>
+      <td><code class="language-plaintext highlighter-rouge">'&lt;path&gt;' has an unknown setting '&lt;key&gt;'. Valid sections: ...</code></td>
+    </tr>
+    <tr>
+      <td>a key under <code class="language-plaintext highlighter-rouge">sdd:</code> that is not one of the five</td>
+      <td><code class="language-plaintext highlighter-rouge">settings.json has an unknown key 'sdd.&lt;key&gt;'. Valid: style, specsDir, source, checkpoints, uses.</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sdd.stages:</code>, which moved to the style</td>
+      <td><code class="language-plaintext highlighter-rouge">settings.json has an unknown key 'sdd.stages'. Per-phase settings moved to the style: a stage's 'ai:' in style.yml says what that phase runs on, and 'sdd.uses' still says which plugin runs every phase.</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sdd.style:</code> or <code class="language-plaintext highlighter-rouge">sdd.uses:</code> that is not text</td>
+      <td><code class="language-plaintext highlighter-rouge">settings.json 'sdd.style' must be text.</code></td>
+    </tr>
+    <tr>
+      <td>a <code class="language-plaintext highlighter-rouge">sdd.source:</code> or <code class="language-plaintext highlighter-rouge">sdd.checkpoints:</code> value not in its list</td>
+      <td><code class="language-plaintext highlighter-rouge">settings.json has 'sdd.source: x' - expected one of 'manual', 'ado', 'gh', 'file'.</code></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><code class="language-plaintext highlighter-rouge">sdd.stages</code> gets a message of its own rather than the plain list,
+because somebody carrying that block has per-phase settings that used to
+work — and a list of valid keys would leave them guessing which one
+replaced theirs.</p>
+
+<p>A key inside <code class="language-plaintext highlighter-rouge">ai."&lt;plugin&gt;"</code> is <strong>not</strong> checked here — those are plugin
+args by design, and the plugin validates its own. The JSON schema the
+extension contributes for <code class="language-plaintext highlighter-rouge">settings.json</code> is what flags a genuinely
+misplaced key while you type.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

@@ -1,0 +1,30 @@
+# Local Workflows
+
+> Local Workflows is a VS Code extension for running AI-assisted work one small unit at a time — you declare the units, each AI step starts from a clean context, tasks that don't need AI don't use it, and a human-authored file decides what happens to every AI output. Pipelines in YAML, specs in Markdown, all in your repository.
+
+Every page below is the full documentation page as plain Markdown -
+fetch these, not the HTML.
+
+## Docs
+
+- [Home](https://local-workflows.github.io/index.md): Local Workflows is a VS Code extension for running AI-assisted work one small unit at a time — you declare the units, each AI step starts from a clean context, tasks that don't need AI don't use it, and a human-authored file decides what happens to every AI output. Pipelines in YAML, specs in Markdown, all in your repository.
+- [AI problems and solutions](https://local-workflows.github.io/ai-problems.md): The problems developers actually hit when working with AI models — messy context, vague prompts, inconsistent quality, unreviewed actions — and the working practices that solve them. Standalone; applies to any AI tool.
+- [Compared with alternatives](https://local-workflows.github.io/why.md)
+- [Getting started](https://local-workflows.github.io/getting-started/index.md)
+- [Getting started - Install](https://local-workflows.github.io/getting-started/install.md)
+- [Getting started - Agent SDKs](https://local-workflows.github.io/getting-started/agent-sdks.md): The two built-in ai@1 providers - GitHub Copilot and Claude - each wired to its vendor's own SDK. Setup, authentication, and what a session is given.
+- [Getting started - Tasks](https://local-workflows.github.io/getting-started/tasks.md): tasks.yml, the whole feature on one page - a five-minute build-up from an empty repository, then every key, every rule, and a complete example.
+- [Getting started - Workflows](https://local-workflows.github.io/getting-started/workflows.md): workflows/*.yml, the whole feature on one page - build a release pipeline with an AI draft and a human gate, then every key, every rule, and a complete example.
+- [Getting started - Variables](https://local-workflows.github.io/getting-started/variables.md): Every built-in variable on one page - the four directory anchors, params, vars, env and run.context, the one resolution order, and the exact grammar an expression allows.
+- [Getting started - Spec-driven development](https://local-workflows.github.io/getting-started/sdd/index.md): Spec-driven development, the whole feature - your first spec from a one-line piece of work to an approved plan, the rules underneath, the two shipped styles, and writing your own.
+- [Getting started - Spec-driven development - Kiro](https://local-workflows.github.io/getting-started/sdd/kiro.md)
+- [Getting started - Spec-driven development - Kiro - Prompts](https://local-workflows.github.io/getting-started/sdd/kiro-prompts.md)
+- [Getting started - Spec-driven development - Spec Kit](https://local-workflows.github.io/getting-started/sdd/spec-kit.md)
+- [Getting started - Spec-driven development - Spec Kit - Prompts](https://local-workflows.github.io/getting-started/sdd/spec-kit-prompts.md)
+- [Getting started - Spec-driven development - Writing your own style](https://local-workflows.github.io/getting-started/sdd/custom-style.md)
+- [Getting started - Plugins](https://local-workflows.github.io/getting-started/plugins.md): Plugins, the whole feature on one page - what a plugin is, every arg of the six that ship, and writing your own in plain JavaScript with every manifest key, the ctx API, and the sandbox.
+- [Getting started - package.json scripts](https://local-workflows.github.io/getting-started/scripts.md): The Scripts sidebar section - your existing npm scripts listed beside everything else, run with the right package manager, worked out per package.
+- [Getting started - settings.json](https://local-workflows.github.io/getting-started/settings.md): The engine's one configuration file, the whole feature on one page - SDD settings, per-plugin defaults, MCP servers, the env gate, every key and every error it can raise.
+- [Getting started - Agent Client Protocol (ACP)](https://local-workflows.github.io/getting-started/acp.md): Adding an agent this build has no dedicated provider for - Kiro, or anything else that speaks the Agent Client Protocol - as `provider:` on an `ai@1` task.
+- [Getting started - Workspaces](https://local-workflows.github.io/getting-started/workspaces.md)
+- [Troubleshooting](https://local-workflows.github.io/troubleshooting.md)

@@ -1,0 +1,1232 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(3)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(3) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(3) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(3) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Tasks | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Tasks" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="tasks.yml, the whole feature on one page - a five-minute build-up from an empty repository, then every key, every rule, and a complete example." />
+<meta name="twitter:description" property="og:description" content="tasks.yml, the whole feature on one page - a five-minute build-up from an empty repository, then every key, every rule, and a complete example." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/tasks/" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/tasks/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Tasks" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-03T19:45:46+00:00","description":"tasks.yml, the whole feature on one page - a five-minute build-up from an empty repository, then every key, every rule, and a complete example.","headline":"Tasks","url":"https://local-workflows.github.io/getting-started/tasks/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/Samples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Samples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Tasks</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="tasks">
+  
+  
+    <a href="#tasks" class="anchor-heading" aria-labelledby="tasks"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Tasks
+  
+  
+</h1>
+    
+
+<p>Short commands you run all day: build, lint, reset the database. You keep
+them in one file, <code class="language-plaintext highlighter-rouge">.local-workflows/tasks.yml</code>, and you run them from the
+sidebar. This page is the whole feature — a five-minute build-up first,
+then every key and rule. Read it top to bottom to learn it, or jump to
+<a href="#reference-tasksyml">the reference</a> to look something up.</p>
+
+<p>A <code class="language-plaintext highlighter-rouge">tasks.yml</code> is a <strong>library of commands</strong>, each runnable on its own. The
+other format, one pipeline run as a whole, is
+<a href="/getting-started/workflows/">Workflows</a>.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#1-create-the-file" id="markdown-toc-1-create-the-file">1. Create the file</a></li>
+  <li><a href="#2-run-it" id="markdown-toc-2-run-it">2. Run it</a></li>
+  <li><a href="#3-add-a-second-task-and-an-order" id="markdown-toc-3-add-a-second-task-and-an-order">3. Add a second task, and an order</a></li>
+  <li><a href="#4-branch-it" id="markdown-toc-4-branch-it">4. Branch it</a></li>
+  <li><a href="#5-know-which-shell-you-are-in" id="markdown-toc-5-know-which-shell-you-are-in">5. Know which shell you are in</a></li>
+  <li><a href="#6-add-values" id="markdown-toc-6-add-values">6. Add values</a></li>
+  <li><a href="#7-break-it-on-purpose" id="markdown-toc-7-break-it-on-purpose">7. Break it on purpose</a></li>
+  <li><a href="#every-task-runs-a-plugin" id="markdown-toc-every-task-runs-a-plugin">Every task runs a plugin</a></li>
+  <li><a href="#reference-tasksyml" id="markdown-toc-reference-tasksyml">Reference: <code class="language-plaintext highlighter-rouge">tasks.yml</code></a>    <ol>
+      <li><a href="#top-level-keys" id="markdown-toc-top-level-keys">Top-level keys</a></li>
+      <li><a href="#a-task" id="markdown-toc-a-task">A task</a></li>
+      <li><a href="#complete-example" id="markdown-toc-complete-example">Complete example</a></li>
+    </ol>
+  </li>
+  <li><a href="#values-and-templating" id="markdown-toc-values-and-templating">Values and templating</a>    <ol>
+      <li><a href="#directory-anchors" id="markdown-toc-directory-anchors">Directory anchors</a></li>
+      <li><a href="#typed-values" id="markdown-toc-typed-values">Typed values</a></li>
+      <li><a href="#if-grammar" id="markdown-toc-if-grammar"><code class="language-plaintext highlighter-rouge">if:</code> grammar</a></li>
+      <li><a href="#runcontext" id="markdown-toc-runcontext"><code class="language-plaintext highlighter-rouge">run.context</code></a></li>
+      <li><a href="#file-inputs" id="markdown-toc-file-inputs">File inputs</a></li>
+    </ol>
+  </li>
+  <li><a href="#naming-a-plugin-once" id="markdown-toc-naming-a-plugin-once">Naming a plugin once</a></li>
+  <li><a href="#the-list-in-the-sidebar" id="markdown-toc-the-list-in-the-sidebar">The list in the sidebar</a></li>
+  <li><a href="#errors-and-silent-failures" id="markdown-toc-errors-and-silent-failures">Errors and silent failures</a></li>
+</ol><hr />
+<h2 id="1-create-the-file">
+  
+  
+    <a href="#1-create-the-file" class="anchor-heading" aria-labelledby="1-create-the-file"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. Create the file
+  
+  
+</h2>
+    
+
+<p>Local Workflows reads one folder: <code class="language-plaintext highlighter-rouge">.local-workflows/</code>, next to your code.
+Create a file in it called <code class="language-plaintext highlighter-rouge">tasks.yml</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">hello</span><span class="pi">:</span> <span class="s">echo Hello World</span>
+</code></pre></div></div>
+
+<p>That is a complete, valid pipeline. <code class="language-plaintext highlighter-rouge">tasks:</code> is a map keyed by task id,
+and a bare string is shorthand for <code class="language-plaintext highlighter-rouge">run:</code> — so <code class="language-plaintext highlighter-rouge">hello</code> is a task that
+runs one command.</p>
+
+<p>You can skip the typing: open the <strong>Local Workflows</strong> view with no
+workflow files present and its empty state offers to create exactly this,
+as does the <strong>Local Workflows: Initialize tasks.yml</strong> command.</p>
+
+<p class="note"><code class="language-plaintext highlighter-rouge">version: 1</code> is optional in a <code class="language-plaintext highlighter-rouge">tasks.yml</code> and worth writing anyway. It is
+what lets a future build migrate your file instead of guessing at its
+shape.</p><hr />
+<h2 id="2-run-it">
+  
+  
+    <a href="#2-run-it" class="anchor-heading" aria-labelledby="2-run-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2. Run it
+  
+  
+</h2>
+    
+
+<p>Click the <strong>Local Workflows</strong> icon in the Activity Bar. Your file appears,
+expandable into its tasks.</p>
+
+<p>Click the <code class="language-plaintext highlighter-rouge">hello</code> row. <strong>Nothing runs.</strong> Clicking only ever <em>opens</em> —
+the panel shows you what would run, step by step, before you commit
+to it. Starting a run is always the explicit ▶ icon on the row, or the
+<strong>Run</strong> button in the panel.</p>
+
+<p>Hit ▶. The run panel streams the output, one row per command, with the
+task turning green when it exits 0.</p>
+
+<p class="warning">A task can be a database reset or a destructive cleanup, so an
+accidental click must never start one. That is why clicking opens and
+only ▶ runs. The <strong>Tasks</strong> row above your tasks has no ▶ at all — there
+is no “run the whole file”, by design.</p><hr />
+<h2 id="3-add-a-second-task-and-an-order">
+  
+  
+    <a href="#3-add-a-second-task-and-an-order" class="anchor-heading" aria-labelledby="3-add-a-second-task-and-an-order"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3. Add a second task, and an order
+  
+  
+</h2>
+    
+
+<p>One task is not a pipeline. Add a second, and declare that it depends on
+the first:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+
+  <span class="na">setup</span><span class="pi">:</span> <span class="s">echo Restoring dependencies...</span>
+
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+    <span class="na">desc</span><span class="pi">:</span> <span class="s">Compiles the app</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">setup</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">needs:</code> is the whole ordering model. It takes one id or a list of them.</p>
+
+<p>Now run <code class="language-plaintext highlighter-rouge">build</code> on its own. <strong><code class="language-plaintext highlighter-rouge">setup</code> runs first</strong> — running any task
+pulls in its full transitive <code class="language-plaintext highlighter-rouge">needs:</code> chain, and only that subset. Tasks
+are composable <em>and</em> independently runnable; there is no separate
+“job” concept to learn, and nothing in the file runs on its own until
+you ask for it.</p>
+
+<p><code class="language-plaintext highlighter-rouge">name:</code> is the label in the tree, <code class="language-plaintext highlighter-rouge">desc:</code> is its tooltip. Both optional;
+without <code class="language-plaintext highlighter-rouge">name:</code>, the id is shown.</p><hr />
+<h2 id="4-branch-it">
+  
+  
+    <a href="#4-branch-it" class="anchor-heading" aria-labelledby="4-branch-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. Branch it
+  
+  
+</h2>
+    
+
+<p>Dependencies form a graph, not a chain. Two tasks that both <code class="language-plaintext highlighter-rouge">needs:
+setup</code> are declaring only that each needs <code class="language-plaintext highlighter-rouge">setup</code> first — nothing about
+each other:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+
+  <span class="na">setup</span><span class="pi">:</span> <span class="s">echo Restoring dependencies...</span>
+
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">setup</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+
+  <span class="na">lint</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Lint</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">setup</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="s">echo Linting...</span>
+
+  <span class="na">test</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Test</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">build</span><span class="pi">,</span> <span class="nv">lint</span><span class="pi">]</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="s">echo Running tests...</span>
+</code></pre></div></div>
+
+<p>Run <code class="language-plaintext highlighter-rouge">test</code>. The panel lists the steps in dependency order — <code class="language-plaintext highlighter-rouge">setup</code>,
+then <code class="language-plaintext highlighter-rouge">build</code>, then <code class="language-plaintext highlighter-rouge">lint</code>, then <code class="language-plaintext highlighter-rouge">test</code> — and colours each row as it
+finishes. Click any row to open its log in the side panel.</p>
+
+<p class="note"><strong>Execution is one task at a time, always.</strong> <code class="language-plaintext highlighter-rouge">needs:</code> declares ordering
+constraints, not concurrency: a CI job runs beside its siblings because
+it gets its own machine and its own workspace, and that isolation is
+the entire reason two things overlapping is safe. This engine runs
+everything on one machine, in one working tree — two tasks overlapping
+there is a footgun (both touching <code class="language-plaintext highlighter-rouge">node_modules</code>, both writing the same
+folder), not a feature. What the graph buys you instead is composition:
+<code class="language-plaintext highlighter-rouge">build</code> and <code class="language-plaintext highlighter-rouge">lint</code> stay independently runnable, and a failure in one
+skips only its own dependents.</p><hr />
+<h2 id="5-know-which-shell-you-are-in">
+  
+  
+    <a href="#5-know-which-shell-you-are-in" class="anchor-heading" aria-labelledby="5-know-which-shell-you-are-in"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5. Know which shell you are in
+  
+  
+</h2>
+    
+
+<p>A task with no <code class="language-plaintext highlighter-rouge">shell:</code> runs through whatever the OS already provides —
+<code class="language-plaintext highlighter-rouge">cmd</code> on Windows, <code class="language-plaintext highlighter-rouge">bash</code> elsewhere. <strong>Never <code class="language-plaintext highlighter-rouge">pwsh</code> by default.</strong></p>
+
+<p>So the moment you write PowerShell syntax — <code class="language-plaintext highlighter-rouge">$env:NAME</code>,
+<code class="language-plaintext highlighter-rouge">Get-Location</code>, a <code class="language-plaintext highlighter-rouge">.ps1</code> invocation — say so:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">setup</span>
+    <span class="na">shell</span><span class="pi">:</span> <span class="s">pwsh</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="s">echo "Compiling in $env:BUILD_CONFIGURATION configuration..."</span>
+</code></pre></div></div>
+
+<p class="gotcha">This is the single most common first-run failure: a <code class="language-plaintext highlighter-rouge">$env:</code> reference
+that silently comes back empty because the task ran in <code class="language-plaintext highlighter-rouge">cmd</code>.</p><hr />
+<h2 id="6-add-values">
+  
+  
+    <a href="#6-add-values" class="anchor-heading" aria-labelledby="6-add-values"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6. Add values
+  
+  
+</h2>
+    
+
+<p>Two blocks, and they are deliberately not one:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">vars:</code></strong> — values to substitute into <em>this file</em>. Never exported to
+anything you spawn. Typed: a number stays a number.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">env:</code></strong> — the environment a process is spawned with. Exported.
+Strings only.</li>
+</ul>
+
+<p>Put a value in <code class="language-plaintext highlighter-rouge">vars:</code> when you want to <em>use</em> it, and in <code class="language-plaintext highlighter-rouge">env:</code> only when
+something you run needs to <em>read</em> it. Both can be set at the file level
+and overridden per task.</p>
+
+<p>Substitution is <code class="language-plaintext highlighter-rouge">${{ }}</code>, and four directory anchors are always
+available: <code class="language-plaintext highlighter-rouge">${{ workspaceFolder }}</code> (where the editor opened),
+<code class="language-plaintext highlighter-rouge">${{ workspaceConfig }}</code> (that folder’s own <code class="language-plaintext highlighter-rouge">.local-workflows</code>),
+<code class="language-plaintext highlighter-rouge">${{ cwd }}</code> (where this command actually runs), and <code class="language-plaintext highlighter-rouge">${{ home }}</code> (your
+home directory, for files that are yours rather than the
+project’s).</p>
+
+<p class="gotcha">The set is closed. A name outside it - <code class="language-plaintext highlighter-rouge">${{ root }}</code>, say - fails
+with the list of what is available rather than resolving to somewhere on
+the machine.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+
+<span class="na">vars</span><span class="pi">:</span>
+  <span class="na">platform</span><span class="pi">:</span> <span class="s">linux-x64</span>
+  <span class="na">artifact</span><span class="pi">:</span> <span class="s">myapp-${{ vars.platform }}</span>    <span class="c1"># a var may read a sibling var</span>
+
+<span class="na">env</span><span class="pi">:</span>
+  <span class="na">BUILD_CONFIGURATION</span><span class="pi">:</span> <span class="s">Release</span>
+  <span class="na">ARTIFACT_NAME</span><span class="pi">:</span> <span class="s">${{ vars.artifact }}</span>     <span class="c1"># env: may read vars</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+
+  <span class="na">setup</span><span class="pi">:</span> <span class="s">echo Restoring dependencies...</span>
+
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Build</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">setup</span>
+    <span class="na">shell</span><span class="pi">:</span> <span class="s">pwsh</span>
+    <span class="na">env</span><span class="pi">:</span>
+      <span class="na">BUILD_CONFIGURATION</span><span class="pi">:</span> <span class="s">Debug</span>          <span class="c1"># overrides the file-level value</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="s">echo "Compiling $env:ARTIFACT_NAME in $env:BUILD_CONFIGURATION..."</span>
+
+  <span class="na">package</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Package</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">build</span>
+    <span class="na">shell</span><span class="pi">:</span> <span class="s">pwsh</span>
+    <span class="na">cwd</span><span class="pi">:</span> <span class="s">${{ cwd }}/dist</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="s">echo "Packaging from $(Get-Location)..."</span>
+</code></pre></div></div>
+
+<p>Resolution runs one way only, so nothing can chase its own tail: anchors,
+then <code class="language-plaintext highlighter-rouge">vars:</code>, then <code class="language-plaintext highlighter-rouge">env:</code>, then <code class="language-plaintext highlighter-rouge">cwd:</code> and <code class="language-plaintext highlighter-rouge">run:</code>. <code class="language-plaintext highlighter-rouge">vars:</code> cannot read
+<code class="language-plaintext highlighter-rouge">env:</code> — vars are the file’s own constants, env is machine-dependent, and
+letting constants depend on the environment inverts which of the two is
+stable.</p>
+
+<p class="tip"><strong>You rarely need an anchor for your own files.</strong> A task in a
+<code class="language-plaintext highlighter-rouge">.local-workflows/</code> folder <em>starts</em> in the project that folder belongs to -
+not in the folder the file sits in. So <code class="language-plaintext highlighter-rouge">scripts/build.ps1</code> means the same
+thing from <code class="language-plaintext highlighter-rouge">tasks.yml</code> and from <code class="language-plaintext highlighter-rouge">workflows/deploy.yml</code>, and
+<code class="language-plaintext highlighter-rouge">packages/api/.local-workflows/tasks.yml</code> starts its tasks in
+<code class="language-plaintext highlighter-rouge">packages/api</code>. No <code class="language-plaintext highlighter-rouge">../</code>, and no anchor.</p><hr />
+<h2 id="7-break-it-on-purpose">
+  
+  
+    <a href="#7-break-it-on-purpose" class="anchor-heading" aria-labelledby="7-break-it-on-purpose"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 7. Break it on purpose
+  
+  
+</h2>
+    
+
+<p>Add a task that fails, and run it:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">error-demo</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Error Demo</span>
+    <span class="na">shell</span><span class="pi">:</span> <span class="s">pwsh</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+      <span class="s">echo 'About to fail on purpose...'</span>
+      <span class="s">exit 1</span>
+</code></pre></div></div>
+
+<p>The node turns red, the error surfaces in the panel, and anything that
+<code class="language-plaintext highlighter-rouge">needs:</code> it is marked <strong>Skipped</strong> rather than run. A failed prerequisite
+stops its dependents; it does not stop unrelated branches.</p>
+
+<p>Try a typo, too — <code class="language-plaintext highlighter-rouge">nees: setup</code>. It fails <strong>before anything executes</strong>,
+naming the unknown key. The same is true of an unresolvable
+<code class="language-plaintext highlighter-rouge">${{ }}</code>: it is caught by pre-run validation, not
+discovered halfway through a build.</p>
+
+<p>That is the whole loop: <strong>edit <code class="language-plaintext highlighter-rouge">tasks.yml</code> → click a task → hit ▶ →
+watch it run locally, instantly.</strong> Everything below is the reference for
+what a task can carry.</p>
+
+<p class="note">The repository’s <code class="language-plaintext highlighter-rouge">Samples/HelloWorld/.local-workflows/tasks.yml</code>
+exercises every feature in one file, with a comment on each explaining
+what it is there to demonstrate.</p><hr />
+<h2 id="every-task-runs-a-plugin">
+  
+  
+    <a href="#every-task-runs-a-plugin" class="anchor-heading" aria-labelledby="every-task-runs-a-plugin"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Every task runs a plugin
+  
+  
+</h2>
+    
+
+<p>A task declares what it runs in one of two ways, and they are the same
+thing: a plain string (or <code class="language-plaintext highlighter-rouge">run:</code>) is sugar for the <code class="language-plaintext highlighter-rouge">shell@1</code>
+<a href="/getting-started/plugins/">plugin</a> with the command as its
+<code class="language-plaintext highlighter-rouge">script:</code>. <code class="language-plaintext highlighter-rouge">uses:</code> names any other plugin, and <code class="language-plaintext highlighter-rouge">args:</code> is what that
+plugin consumes. There is no second execution path underneath — which is
+why even a <code class="language-plaintext highlighter-rouge">run:</code> task’s stdout and exit code can be captured with
+<code class="language-plaintext highlighter-rouge">artifact:</code> like any other plugin’s.</p>
+
+<p><code class="language-plaintext highlighter-rouge">run:</code> and <code class="language-plaintext highlighter-rouge">uses:</code> on one task is an error: <em>a task runs one thing.</em></p><hr />
+<h2 id="reference-tasksyml">
+  
+  
+    <a href="#reference-tasksyml" class="anchor-heading" aria-labelledby="reference-tasksyml"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Reference: <code class="language-plaintext highlighter-rouge">tasks.yml</code>
+  
+  
+</h2>
+    
+
+<p>Lives at <code class="language-plaintext highlighter-rouge">.local-workflows/tasks.yml</code>. The top-level key must be
+<code class="language-plaintext highlighter-rouge">tasks:</code> — a file keyed on anything else parses into no tasks, with no
+error.</p>
+<h3 id="top-level-keys">
+  
+  
+    <a href="#top-level-keys" class="anchor-heading" aria-labelledby="top-level-keys"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Top-level keys
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">version</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1</code> when absent</td>
+      <td>Schema version. Optional here; a wrong value is an error.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Never shown anywhere. Leave it out.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vars</code></td>
+      <td>map</td>
+      <td> </td>
+      <td>See <a href="#values-and-templating">Values and templating</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">env</code></td>
+      <td>map</td>
+      <td> </td>
+      <td>See <a href="#values-and-templating">Values and templating</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dotenv</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">string[]</code></td>
+      <td> </td>
+      <td>See <a href="#values-and-templating">Values and templating</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">plugins</code></td>
+      <td>map</td>
+      <td> </td>
+      <td>File-local plugin aliases — see <a href="#naming-a-plugin-once">Naming a plugin once</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tasks</code></td>
+      <td>map</td>
+      <td> </td>
+      <td>The tasks, keyed by id. The id is what <code class="language-plaintext highlighter-rouge">needs:</code> names, and the shown name when a task has no <code class="language-plaintext highlighter-rouge">name:</code>.</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3 id="a-task">
+  
+  
+    <a href="#a-task" class="anchor-heading" aria-labelledby="a-task"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A task
+  
+  
+</h3>
+    
+
+<p>A plain string value is shorthand for <code class="language-plaintext highlighter-rouge">run:</code> in the OS default shell.
+The task level is a <strong>closed set</strong> — an unknown key is a hard error.
+<code class="language-plaintext highlighter-rouge">run:</code> and <code class="language-plaintext highlighter-rouge">uses:</code> are mutually exclusive. A task with neither is legal:
+it succeeds and logs <code class="language-plaintext highlighter-rouge">Task has nothing to run</code>.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>the task’s id</td>
+      <td>Shown in the panel and tree.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">desc</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>One line, shown as the tooltip.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">needs</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">string[]</code></td>
+      <td> </td>
+      <td>Task ids that must finish first. The only ordering a <code class="language-plaintext highlighter-rouge">tasks.yml</code> has. Running a task runs its transitive <code class="language-plaintext highlighter-rouge">needs:</code> chain first.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">run</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>A command line (block scalar for multiline). Desugars to <code class="language-plaintext highlighter-rouge">shell@1</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">uses</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">id@version</code>, or a bare name declared in <code class="language-plaintext highlighter-rouge">plugins:</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">args</code></td>
+      <td>map</td>
+      <td> </td>
+      <td>Everything the plugin consumes. Plugin inputs never sit at task level.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">shell</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pwsh</code> | <code class="language-plaintext highlighter-rouge">cmd</code> | <code class="language-plaintext highlighter-rouge">bash</code></td>
+      <td>OS default</td>
+      <td>OS default is <code class="language-plaintext highlighter-rouge">cmd</code> on Windows, <code class="language-plaintext highlighter-rouge">bash</code> elsewhere. <code class="language-plaintext highlighter-rouge">pwsh</code> is never the default and must be named.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">session</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Names an AI conversation. Tasks sharing the name share one thread, in order. Run-scoped.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">trigger</code></td>
+      <td><code class="language-plaintext highlighter-rouge">auto</code> | <code class="language-plaintext highlighter-rouge">manual</code></td>
+      <td><code class="language-plaintext highlighter-rouge">auto</code></td>
+      <td><code class="language-plaintext highlighter-rouge">manual</code> stops the run until a human approves in the run panel. Survives closing the editor.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">artifact</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>Stores the task’s outputs as run variable <code class="language-plaintext highlighter-rouge">NAME</code>. Read later as <code class="language-plaintext highlighter-rouge">${{ run.context.NAME.key }}</code>; a plugin with exactly one artifact reads as <code class="language-plaintext highlighter-rouge">${{ run.context.NAME }}</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">if</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">boolean</code> | <code class="language-plaintext highlighter-rouge">number</code></td>
+      <td> </td>
+      <td>Runs the task only when true. False is a skip, not a failure. See <a href="#if-grammar"><code class="language-plaintext highlighter-rouge">if:</code> grammar</a>. The literal <code class="language-plaintext highlighter-rouge">always()</code> marks a cleanup task: it still runs after a failure, a rejected gate, or a Stop — see <a href="/getting-started/workflows/#cleanup-that-always-runs">Cleanup that always runs</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">continueOnError</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td><code class="language-plaintext highlighter-rouge">false</code></td>
+      <td>Run carries on past this task’s failure. Task still reports Failed. Does not excuse a rejected gate or a duplicate <code class="language-plaintext highlighter-rouge">artifact:</code> name.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">timeout</code></td>
+      <td><code class="language-plaintext highlighter-rouge">number</code> | <code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>none</td>
+      <td>Bare number = seconds. <code class="language-plaintext highlighter-rouge">500ms</code>, <code class="language-plaintext highlighter-rouge">30s</code>, <code class="language-plaintext highlighter-rouge">5m</code>, <code class="language-plaintext highlighter-rouge">1h</code> accepted. A timeout counts as a retryable failure.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">retries</code></td>
+      <td><code class="language-plaintext highlighter-rouge">integer</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>Extra attempts: <code class="language-plaintext highlighter-rouge">retries: 1</code> = two runs total.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cwd</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>file’s project folder</td>
+      <td>Relative to the file’s own folder unless absolute.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vars</code> / <code class="language-plaintext highlighter-rouge">env</code> / <code class="language-plaintext highlighter-rouge">dotenv</code></td>
+      <td> </td>
+      <td> </td>
+      <td>Per-task overrides, merged over the file’s.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>There is no whole-file run — a <code class="language-plaintext highlighter-rouge">tasks.yml</code> is a library, not a
+pipeline. For one runnable entry that covers the file, write a task
+whose <code class="language-plaintext highlighter-rouge">needs:</code> names what it should cover.</p>
+<h3 id="complete-example">
+  
+  
+    <a href="#complete-example" class="anchor-heading" aria-labelledby="complete-example"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Complete example
+  
+  
+</h3>
+    
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+
+<span class="na">vars</span><span class="pi">:</span>
+  <span class="na">config</span><span class="pi">:</span> <span class="s">Release</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">setup</span><span class="pi">:</span> <span class="s">npm ci</span>                        <span class="c1"># bare string = run: in the OS default shell</span>
+
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="s">setup</span>
+    <span class="na">shell</span><span class="pi">:</span> <span class="s">pwsh</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="s">./build.ps1 -Configuration ${{ vars.config }}</span>
+
+  <span class="na">draft-notes</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">prompt</span><span class="pi">:</span> <span class="s">Summarise the commits since the last tag.</span>
+    <span class="na">artifact</span><span class="pi">:</span> <span class="s">NOTES</span>
+
+  <span class="na">all</span><span class="pi">:</span>                                 <span class="c1"># pure composition node - runs its needs: chain</span>
+    <span class="na">needs</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">build</span><span class="pi">,</span> <span class="nv">draft-notes</span><span class="pi">]</span>
+</code></pre></div></div><hr />
+<h2 id="values-and-templating">
+  
+  
+    <a href="#values-and-templating" class="anchor-heading" aria-labelledby="values-and-templating"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Values and templating
+  
+  
+</h2>
+    
+
+<p>Shared by both file formats — everything here means the same thing in a
+<a href="/getting-started/workflows/">workflow</a>. Declarable at file
+and task level only — a workflow’s <code class="language-plaintext highlighter-rouge">stages:</code> carry no <code class="language-plaintext highlighter-rouge">vars:</code>/<code class="language-plaintext highlighter-rouge">env:</code> of
+their own — and nearer wins, merged per key.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Block</th>
+      <th>Exported to spawned processes?</th>
+      <th>Typed?</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vars</code></td>
+      <td>no</td>
+      <td>yes — a whole-value <code class="language-plaintext highlighter-rouge">${{ vars.x }}</code> keeps its YAML type</td>
+      <td>Template values for this file only. May read anchors and sibling vars, <strong>never</strong> <code class="language-plaintext highlighter-rouge">env:</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">env</code></td>
+      <td>yes</td>
+      <td>no — coerced to text</td>
+      <td>The process environment. May read anchors and <code class="language-plaintext highlighter-rouge">vars:</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dotenv</code></td>
+      <td>yes</td>
+      <td>no</td>
+      <td>One <code class="language-plaintext highlighter-rouge">.env</code> path or a list, resolved relative to the file, layered <strong>under</strong> <code class="language-plaintext highlighter-rouge">env:</code>. Later file wins; declared <code class="language-plaintext highlighter-rouge">env:</code> wins over both. A missing file is skipped with a log line, never an error.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Resolution order</strong> (one-directional, no cycles):</p>
+
+<ol>
+  <li>Directory anchors — <code class="language-plaintext highlighter-rouge">workspaceFolder</code>, <code class="language-plaintext highlighter-rouge">workspaceConfig</code>, <code class="language-plaintext highlighter-rouge">cwd</code>, <code class="language-plaintext highlighter-rouge">home</code></li>
+  <li><code class="language-plaintext highlighter-rouge">vars:</code> — may read anchors and each other</li>
+  <li><code class="language-plaintext highlighter-rouge">dotenv:</code> files, then <code class="language-plaintext highlighter-rouge">env:</code> — may read anchors and <code class="language-plaintext highlighter-rouge">vars</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cwd:</code>, <code class="language-plaintext highlighter-rouge">run:</code>, task <code class="language-plaintext highlighter-rouge">args:</code> — may read everything plus <code class="language-plaintext highlighter-rouge">run.context.*</code></li>
+</ol>
+
+<p><strong>Casing convention</strong>: camelCase for <code class="language-plaintext highlighter-rouge">vars:</code> and <code class="language-plaintext highlighter-rouge">params:</code> — the same
+case the built-in anchors use, so the template side reads alike.
+<code class="language-plaintext highlighter-rouge">env:</code> names are UPPER_SNAKE, because that is the operating system’s
+own convention (<code class="language-plaintext highlighter-rouge">PATH</code>, <code class="language-plaintext highlighter-rouge">HOME</code>) and an env var is read by processes
+outside this file. <code class="language-plaintext highlighter-rouge">artifact:</code> names are UPPER too (<code class="language-plaintext highlighter-rouge">NOTES</code>,
+<code class="language-plaintext highlighter-rouge">run.context.NOTES.content</code>), so a value that crossed a task boundary
+stands out from a local var at a glance. The case tells you where a
+name lives.</p>
+<h3 id="directory-anchors">
+  
+  
+    <a href="#directory-anchors" class="anchor-heading" aria-labelledby="directory-anchors"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Directory anchors
+  
+  
+</h3>
+    
+
+<p>The set is closed; any other name is an error listing what exists.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Anchor</th>
+      <th>Resolves to</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ workspaceFolder }}</code></td>
+      <td>where the editor opened</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ workspaceConfig }}</code></td>
+      <td><code class="language-plaintext highlighter-rouge">workspaceFolder</code>’s own <code class="language-plaintext highlighter-rouge">.local-workflows/</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ cwd }}</code></td>
+      <td>where this task runs; inside a <code class="language-plaintext highlighter-rouge">cwd:</code> expression it means the inherited value, so <code class="language-plaintext highlighter-rouge">cwd: ${{ cwd }}/dist</code> works</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">${{ home }}</code></td>
+      <td>the user’s home directory; constant for the whole run</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>A file inside <code class="language-plaintext highlighter-rouge">.local-workflows/</code> starts its tasks in the folder
+<strong>holding</strong> <code class="language-plaintext highlighter-rouge">.local-workflows/</code>, however deep it sits. A profile-level
+definition starts in the open workspace.</p>
+<h3 id="typed-values">
+  
+  
+    <a href="#typed-values" class="anchor-heading" aria-labelledby="typed-values"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Typed values
+  
+  
+</h3>
+    
+
+<p>A value that is <em>nothing but</em> one <code class="language-plaintext highlighter-rouge">${{ }}</code> expression keeps its type;
+inside a larger string it is stringified. <code class="language-plaintext highlighter-rouge">retries: ${{ vars.n }}</code> hands
+over a number; <code class="language-plaintext highlighter-rouge">tag: v${{ vars.n }}</code> a string.</p>
+<h3 id="if-grammar">
+  
+  
+    <a href="#if-grammar" class="anchor-heading" aria-labelledby="if-grammar"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">if:</code> grammar
+  
+  
+</h3>
+    
+
+<p>Resolved first, then evaluated as text. A value alone is true unless
+empty, <code class="language-plaintext highlighter-rouge">false</code> or <code class="language-plaintext highlighter-rouge">0</code>. <code class="language-plaintext highlighter-rouge">==</code> and <code class="language-plaintext highlighter-rouge">!=</code> compare two sides; a leading <code class="language-plaintext highlighter-rouge">!</code>
+negates; quotes optional. <strong>No <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, no functions.</strong> A condition that
+cannot be resolved fails the task; a false one skips it. A skipped task
+never opens its gate.</p>
+<h3 id="runcontext">
+  
+  
+    <a href="#runcontext" class="anchor-heading" aria-labelledby="runcontext"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">run.context</code>
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">artifact: NOTES</code> on one task → <code class="language-plaintext highlighter-rouge">${{ run.context.NOTES }}</code> or
+<code class="language-plaintext highlighter-rouge">${{ run.context.NOTES.key }}</code> in a later one — in a workflow, across
+stage barriers included. The <code class="language-plaintext highlighter-rouge">context</code> segment is mandatory. Two tasks
+declaring the same <code class="language-plaintext highlighter-rouge">artifact:</code> name: validation warns, and if both run,
+the second to write <strong>fails</strong>.</p>
+<h3 id="file-inputs">
+  
+  
+    <a href="#file-inputs" class="anchor-heading" aria-labelledby="file-inputs"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> File inputs
+  
+  
+</h3>
+    
+
+<p>Any built-in plugin arg also accepts a whole-value <code class="language-plaintext highlighter-rouge">${{ }}</code> expression or
+a file input:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">args</span><span class="pi">:</span>
+  <span class="na">prompt</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">file</span><span class="pi">:</span> <span class="nv">prompts/draft.md</span> <span class="pi">}</span>          <span class="c1"># required; missing file fails, naming the path</span>
+  <span class="na">notes</span><span class="pi">:</span>  <span class="pi">{</span> <span class="nv">file</span><span class="pi">:</span> <span class="nv">notes.md</span><span class="pi">,</span> <span class="nv">optional</span><span class="pi">:</span> <span class="nv">true</span> <span class="pi">}</span>  <span class="c1"># missing resolves to ""</span>
+</code></pre></div></div><hr />
+<h2 id="naming-a-plugin-once">
+  
+  
+    <a href="#naming-a-plugin-once" class="anchor-heading" aria-labelledby="naming-a-plugin-once"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Naming a plugin once
+  
+  
+</h2>
+    
+
+<p>A <code class="language-plaintext highlighter-rouge">plugins:</code> map gives a <code class="language-plaintext highlighter-rouge">uses:</code> reference plus default args a local
+name:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">plugins</span><span class="pi">:</span>
+  <span class="na">announce</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">pwsh@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">script</span><span class="pi">:</span> <span class="s">Write-Output 'Announcing...'</span>
+
+<span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">notify</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">announce</span>                <span class="c1"># the alias's defaults</span>
+  <span class="na">notify-loud</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">announce</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">script</span><span class="pi">:</span> <span class="s">Write-Output 'LOUDLY!'</span>   <span class="c1"># the task's arg wins</span>
+</code></pre></div></div>
+
+<p>An entry accepts only <code class="language-plaintext highlighter-rouge">uses:</code> and <code class="language-plaintext highlighter-rouge">args:</code>; the task’s own <code class="language-plaintext highlighter-rouge">args:</code> win per
+key. An alias may not point at another alias, and an entry name must not
+contain <code class="language-plaintext highlighter-rouge">@</code> — a bare name is what tells an alias apart from a real
+<code class="language-plaintext highlighter-rouge">id@version</code> where it is used. Two entries may name the same plugin with
+different defaults, which is how one file runs <code class="language-plaintext highlighter-rouge">ai@1</code> on two providers.</p><hr />
+<h2 id="the-list-in-the-sidebar">
+  
+  
+    <a href="#the-list-in-the-sidebar" class="anchor-heading" aria-labelledby="the-list-in-the-sidebar"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The list in the sidebar
+  
+  
+</h2>
+    
+
+<p>Tasks are listed in the order you wrote them. The <strong>Tasks</strong> heading
+carries one icon — <strong>Sort Tasks A-Z</strong> / <strong>Sort Tasks in File Order</strong>,
+also in the Command Palette. A-Z sorts by the shown label (<code class="language-plaintext highlighter-rouge">name:</code>, else
+the id), case-insensitively, across every scope at once; equal labels
+keep file order. The choice is saved per workspace and written nowhere in
+your repository.</p>
+
+<p>Every <code class="language-plaintext highlighter-rouge">.local-workflows/tasks.yml</code> in the tree counts, however deep — a
+monorepo keeps one beside each package it builds. Tasks also come from
+the workspace and your profile: see
+<a href="/getting-started/workspaces/">the three scopes</a>. When more
+than one scope has tasks, rows sit under <strong>Folder / Workspace / Profile</strong>
+headings, narrowest first, and a wider task is hidden when a narrower one
+claims the same id.</p><hr />
+<h2 id="errors-and-silent-failures">
+  
+  
+    <a href="#errors-and-silent-failures" class="anchor-heading" aria-labelledby="errors-and-silent-failures"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Errors and silent failures
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Top-level key not <code class="language-plaintext highlighter-rouge">tasks:</code></td>
+      <td>parses to zero tasks, <strong>no error</strong></td>
+    </tr>
+    <tr>
+      <td>Unknown task key</td>
+      <td>hard error</td>
+    </tr>
+    <tr>
+      <td>The same alias declared twice in <code class="language-plaintext highlighter-rouge">plugins:</code></td>
+      <td>hard error</td>
+    </tr>
+    <tr>
+      <td>Unquoted scalar containing <code class="language-plaintext highlighter-rouge">": "</code></td>
+      <td>parses as a nested map</td>
+    </tr>
+    <tr>
+      <td>Task with no <code class="language-plaintext highlighter-rouge">run:</code>/<code class="language-plaintext highlighter-rouge">uses:</code></td>
+      <td>legal; logs <code class="language-plaintext highlighter-rouge">Task has nothing to run</code></td>
+    </tr>
+    <tr>
+      <td>Task with no <code class="language-plaintext highlighter-rouge">run:</code>/<code class="language-plaintext highlighter-rouge">uses:</code>/<code class="language-plaintext highlighter-rouge">needs:</code></td>
+      <td>warning</td>
+    </tr>
+    <tr>
+      <td>Failed task</td>
+      <td>dependents skipped transitively</td>
+    </tr>
+    <tr>
+      <td>Duplicate <code class="language-plaintext highlighter-rouge">artifact:</code> name, both tasks run</td>
+      <td>the second to write fails; validation warned</td>
+    </tr>
+    <tr>
+      <td>Unresolvable <code class="language-plaintext highlighter-rouge">${{ }}</code> expression</td>
+      <td>fails immediately, naming the expression</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">shell: cmd</code> off Windows</td>
+      <td>validation error before running</td>
+    </tr>
+  </tbody>
+</table></div>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

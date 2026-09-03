@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "../HelloWorld"
+        }
+    ],
+    "settings": {
+        // The one setting the extension keeps in the editor. Empty means
+        // the folder this .code-workspace file sits in is the root - its
+        // .local-workflows holds the window's settings, specs and plugins.
+        "localWorkflows.workspaceRoot": ""
+    }
+}

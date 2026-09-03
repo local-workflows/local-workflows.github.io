@@ -1,0 +1,28 @@
+version: 1
+
+# Workspace-level tasks: shared by every repository the
+# `.code-workspace` lists, and belonging to none of them.
+#
+# Because they belong to no repository, pressing play on one of these
+# asks which folder to run it in. The answer is used for that run and
+# stored nowhere - `git clean -fdx` is a different act in each
+# repository, and a remembered answer is the one nobody re-reads.
+#
+# A repository that declares a task of the same id wins: its own is the
+# one that runs, and this copy is hidden rather than reported.
+tasks:
+
+  git-status:
+    name: Git status
+    desc: What has changed in the folder you pick.
+    run: git status --short --branch
+
+  git-pull:
+    name: Git pull
+    desc: Rebase the folder you pick onto its upstream.
+    run: git pull --rebase
+
+  where-am-i:
+    name: Where am I
+    desc: Prints the folder this run was aimed at - the pick, not the workspace.
+    run: echo ${{ cwd }}

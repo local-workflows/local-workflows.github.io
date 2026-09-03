@@ -1,0 +1,293 @@
+version: 1
+
+name: Release Pipeline
+desc: Exercises every shape the workflow format can express.
+
+# ============================================================================
+# COVERAGE
+#
+# This file is the reference example: if the format can express it, it is
+# in here somewhere. Each case is marked [n] beside the thing that shows it.
+#
+# Structure
+#   [1]  stage -> task, the whole hierarchy - there is nothing else
+#   [2]  stages run in sequence; a stage is a barrier
+#   [3]  tasks run in list order; the file reads exactly as it runs
+#   [4]  `desc:` on a stage and a task
+#
+# Data and configuration
+#   [5]  workflow-level `env:`
+#   [6]  task-level `env:` overriding it - there is no level between a
+#        task and the file: a task merges directly over the file
+#   [7]  `${{ env.NAME }}` templating
+#   [8]  `${{ workspaceFolder }}` - the workspace the run works in
+#   [9]  `cwd:` on a task
+#   [10] `artifact:` producing a run variable
+#   [11] `${{ run.context.NAME.key }}` consuming one, across a stage barrier
+#   [12] `vars:` - template values that are NOT exported to any process
+#   [13] a var reading another var, in any declaration order
+#   [14] `env:` reading a var (env is resolved after vars, never before)
+#   [15] typed passthrough - a whole-value var keeps its YAML type
+#   [16] task-level `vars:` overriding the file's
+#   [17] `${{ workspaceConfig }}` - the workspace's own .local-workflows
+#   [18] `${{ cwd }}` - the directory this task actually runs in
+#   [19] `dotenv:` - .env files layered under `env:`, missing = skipped
+#
+# Plugins
+#   [20] pwsh@1 with an inline `script:`
+#   [21] pwsh@1 running a `.ps1` file with `additionalArgs:`
+#   [22] pwsh@1 with `ignoreExitCode` - a non-zero exit that is expected
+#   [23] `uses: ai` resolved through a `plugins:` entry - ai@1, asked
+#        for a draft that a person then reads
+#   [24] `trigger: manual`, a human gate - the run stops for a person,
+#        survives a restart, and resumes where it stopped
+#   [25] `timeout:` and `retries:` on a task
+#
+# Every case above runs today. The `release` stage at the bottom is the
+# whole product in one place: a model drafts, a person reads the draft at
+# a gate, and a separate task publishes.
+#
+# There is deliberately no parallelism anywhere in this format - one
+# machine, one working tree, one thing at a time. See
+# docs/dev/sequential-workflows.plan.md for the reasoning.
+#
+# [23] needs an agent runtime (Copilot or Claude) signed in on this
+# machine - no API key and nothing in this file. Without one the task
+# fails saying so, the panel marks it, and the stages before it still do
+# their work - nothing else depends on it.
+#
+# See approve-a-deploy.yml for a smaller gate you can click in isolation.
+# ============================================================================
+
+# [12] Template values. These are substituted into this file and go no
+# further - nothing under `vars:` is ever exported to a spawned process.
+# Put a value here when you want to *use* it; put it under `env:` only
+# when something you run needs to *read* it.
+#
+# Resolution order is strictly: anchors -> vars -> env -> everything
+# else. So a var can read another var but never an env var; try it and
+# the error says so rather than muttering "unknown variable".
+vars:
+  platform: linux-x64
+  artifact: myapp-${{ vars.platform }}     # [13] reads a sibling
+  retries: 3                               # stays a number - see [15]
+
+# [19] `.env` files, layered *under* the `env:` below. A later file wins
+# over an earlier one; a declared `env:` value wins over both. A missing
+# file is skipped with a line in the log, not an error - `.env` is the
+# one file nobody commits.
+dotenv:
+  - .env.example
+  - .env
+
+# [5] Workflow-level env, inherited by every task unless overridden.
+env:
+  BUILD_CONFIGURATION: Release
+  SCRIPTS_DIR: ${{ workspaceFolder }}/scripts  # [8]
+  ARTIFACT_NAME: ${{ vars.artifact }}     # [14] env may read vars
+
+# [23] A file-local name for the AI task, declared once; a task then just
+# says `uses: ai`.
+#
+# `ai@1` is one plugin for every vendor - the vendor is the `provider:`
+# argument, so swapping one runtime for another is that one word, and a
+# file that wanted two of them would declare a second entry here rather
+# than a second plugin.
+#
+# **This session can write to the repository.** `ai@1` withholds nothing
+# on its own, so the guarantee the release stage rests on is the gate
+# below it, not this block: nothing is published until a person has read
+# the draft. To narrow what the drafting session may touch, name the
+# tools in `excludedTools:` - the runtime's own name, passed straight
+# through, since `ai@1` declares no arg for it.
+plugins:
+  ai:
+    uses: ai@1
+
+stages:
+
+  # ==========================================================================
+  # [1][3] The simplest possible stage: tasks, in order.
+  # ==========================================================================
+  - name: prepare
+    desc: Bring sources and dependencies down.              # [4]
+    tasks:
+
+      - name: Fetch sources
+        desc: Would be a git clone in a real pipeline.      # [4]
+        uses: pwsh@1                                        # [20]
+        args:
+          script: Write-Output 'Fetching sources...'
+
+      # [17][18] The directory anchors. `workspaceFolder` is where the
+      # run works; `workspaceConfig` is its `.local-workflows`. `cwd`
+      # is where the task actually runs - it starts at this file's
+      # own project, so a file in packages/ still runs beside its
+      # code without an anchor to spell it.
+      - name: Show where we are
+        uses: pwsh@1
+        args:
+          script: "Write-Output 'workspaceFolder=${{ workspaceFolder }} workspaceConfig=${{ workspaceConfig }} cwd=${{ cwd }} dotenv=' ; Write-Output $env:DEMO_GREETING"
+
+  # ==========================================================================
+  # [2][3] Checks, one after another - the list order is the run order,
+  # and the next stage is a barrier no failure crosses.
+  # ==========================================================================
+  - name: verify
+    desc: Tests, lint and scans, in the order written.
+    tasks:
+
+      - name: Run unit tests
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Running unit tests...'
+
+      - name: Collect results
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Collecting test results...'
+
+      - name: Analyse sources
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Analysing sources...'
+
+      - name: Scan dependencies
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Scanning dependencies...'
+
+      - name: Evaluate thresholds
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Evaluating quality thresholds...'
+
+  # ==========================================================================
+  # [6][9][10][16][21][22] The build, packaged and signed.
+  # ==========================================================================
+  - name: package
+    desc: Build, package and sign, one platform at a time.
+    tasks:
+
+      - name: Compile
+        uses: pwsh@1
+        args:
+          script: Write-Output "Building ${{ vars.platform }} in $env:BUILD_CONFIGURATION..."   # [7]
+
+      # [6][16] This task's own env and vars, over the file's - there is
+      # no level in between any more.
+      - name: Compile (Windows flavour)
+        vars:
+          platform: win-x64
+        env:
+          BUILD_CONFIGURATION: Debug
+        uses: pwsh@1
+        args:
+          script: Write-Output "Building ${{ vars.platform }} in $env:BUILD_CONFIGURATION..."
+
+      # [9][21] A real .ps1 file on disk, with arguments, run from the
+      # scripts folder rather than the workflow's own.
+      - name: Run packaging script
+        cwd: ${{ env.SCRIPTS_DIR }}
+        uses: pwsh@1
+        args:
+          file: hello.ps1
+          additionalArgs: -Name "Windows packaging"
+
+      # [10] Its stdout becomes the run variable SIGNED.
+      - name: Sign packages
+        uses: pwsh@1
+        args:
+          script: Write-Output 'sha256:9f2b7c'
+        artifact: SIGNED
+
+      # [22][15] A non-zero exit that is expected and must not fail the
+      # stage. `ignoreExitCode` is declared as a boolean by the plugin,
+      # and `${{ vars.tolerateNotaryFailure }}` is the *whole* value -
+      # so it arrives as a real boolean, not the string "true".
+      - name: Probe optional notary
+        desc: Exits non-zero when no notary is configured - that is fine.
+        vars:
+          tolerateNotaryFailure: true
+        uses: pwsh@1
+        args:
+          script: exit 3
+          ignoreExitCode: ${{ vars.tolerateNotaryFailure }}
+
+  # ==========================================================================
+  # [11] Reading across a stage barrier.
+  # ==========================================================================
+  - name: stage-artifacts
+    desc: Upload, verify and index, then the changelog.
+    tasks:
+
+      - name: Upload packages
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Uploading packages...'
+
+      # [11] Reads the run variable produced in the *previous* stage.
+      - name: Check checksums
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Verifying against ${{ run.context.SIGNED.stdout }}'
+
+      - name: Refresh package index
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Refreshing the package index...'
+
+      - name: Generate changelog
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Generating changelog...'
+
+  # ==========================================================================
+  # [23][24] The split this whole engine exists for.
+  #
+  #   a model proposes  ->  a human approves  ->  a plugin executes
+  #
+  # The drafting task cannot act and the acting task cannot draft. That
+  # is not a limitation waiting to be lifted: it is the reason a person
+  # is asked at all. Nothing is ever done on the strength of what a model
+  # said without someone having read it first.
+  # ==========================================================================
+  - name: release
+    desc: AI drafts, a human approves, a plugin publishes.
+    tasks:
+
+      # [23] `uses: ai` becomes ai@1 at parse time. What makes this half
+      # of the split honest is not the task - it is that nothing acts on
+      # what the model said until the gate below has been approved.
+      #
+      # `artifact: NOTES` stores what it drafted, so the next task can
+      # read ${{ run.context.NOTES.summary }}.
+      - name: Draft the notes
+        uses: ai
+        args:
+          prompt: Give me the release notes from the commits on this branch. Nothing else. No suggestions etc. Clean.
+        artifact: NOTES
+
+      # [24] The run stops here until a human reads the draft above
+      # and clicks Approve. The task that *acts* is the one gated,
+      # and the gate shows the resolved text - the actual sentence
+      # the model wrote, not `${{ run.context.NOTES.summary }}`.
+      #
+      # Nothing is executing while it waits - no process, no timer -
+      # so closing VS Code does not lose it. Reopen and run
+      # "Local Workflows: Show Runs Waiting for Approval".
+      - name: Approve the release
+        uses: pwsh@1
+        trigger: manual
+        args:
+          script: |
+            Write-Output "Publishing: ${{ run.context.NOTES.summary }}"
+
+      # [25] A limit, and one extra go if it fails. A bare number
+      # would mean seconds; `retries: 1` is one *extra* attempt.
+      - name: Announce
+        uses: pwsh@1
+        timeout: 30s
+        retries: 1
+        args:
+          script: "Write-Output 'Announced: https://example.com/releases/latest'"

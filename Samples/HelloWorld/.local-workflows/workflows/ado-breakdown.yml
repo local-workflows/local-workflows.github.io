@@ -1,0 +1,295 @@
+# Break an Azure DevOps work item down into tasks, and create them.
+#
+# Three steps, in order, each one waiting for a person:
+#
+#   1. validate   - fetch the work item and check its Conditions of
+#                   Acceptance are present, testable and complete
+#   2. breakdown  - propose the task list, following the process in
+#                   .local-workflows/docs/task-breakdown.md
+#   3. create     - create those tasks in ADO as children of the work item
+#
+# Every step is `trigger: manual`, so the run stops before each one and
+# shows you the resolved command or prompt - the actual work item id, the
+# actual COA verdict - not the template. Approving a template is
+# approving a promise rather than a command.
+#
+# The split this file is built on: **the model proposes, a person
+# approves, a plugin executes.** Steps 1 and 2 write files and nothing
+# else. The only task that touches Azure DevOps is step 3, and it is a
+# PowerShell task reading a file a person has already read.
+#
+# What it needs, once, before the first run:
+#
+#   az extension add --name azure-devops
+#   az devops login                      (or set AZURE_DEVOPS_EXT_PAT)
+#
+# The AI steps need GitHub Copilot and the editor's GitHub sign-in - no
+# API key, and nothing credential-shaped in this file.
+
+version: 1
+
+name: ADO Breakdown
+desc: Validate a work item's COAs, break it down, and create the tasks in Azure DevOps.
+
+params:
+
+  # No default, so the run cannot start without one. This is the whole
+  # input: everything below is derived from it.
+  workItem:
+    desc: Azure DevOps work item id to break down (e.g. 4821)
+
+  # Defaults, so you are asked once and the answer is remembered per
+  # workspace. Change either in the run panel's Params tab.
+  org:
+    desc: Azure DevOps organization URL
+    default: https://dev.azure.com/contoso
+
+  project:
+    desc: Azure DevOps project the work item lives in
+    default: Contoso
+
+# What the run is called in the list. Six runs of this workflow are told
+# apart by the work item they were for.
+label: AB#${{ params.workItem }} breakdown
+
+vars:
+
+  # Params are known before anything runs, so vars may read them.
+  out: .local-workflows/out
+  workItemFile: ${{ vars.out }}/AB${{ params.workItem }}-work-item.json
+  coaFile: ${{ vars.out }}/AB${{ params.workItem }}-coa.md
+  planFile: ${{ vars.out }}/AB${{ params.workItem }}-tasks.md
+
+  # An attachment must be an absolute path, which is what `workspaceConfig`
+  # is for - the workspace's own .local-workflows, wherever this file sits.
+  processDoc: ${{ workspaceConfig }}/docs/task-breakdown.md
+
+  # The work item type created for each line of the plan.
+  taskType: Task
+
+  # Process-dependent: Agile and CMMI carry OriginalEstimate on a Task,
+  # Scrum carries Microsoft.VSTS.Scheduling.RemainingWork instead. One
+  # line to change, which is why it is here and not buried in the script.
+  estimateField: Microsoft.VSTS.Scheduling.OriginalEstimate
+
+plugins:
+
+  # Named once here so a task just says `uses: ai`. The vendor is the
+  # `provider:` argument - swapping it is this one word.
+  ai:
+    uses: ai@1
+
+stages:
+
+  # ==========================================================================
+  # STEP 1 - validate the Conditions of Acceptance.
+  #
+  # The fetch is deterministic PowerShell, not the agent: the work item is
+  # read by the CLI and written to disk, and the session is handed that
+  # file. What the model saw is then a file you can open.
+  # ==========================================================================
+  - name: validate
+    desc: Fetch the work item and check its COAs.
+
+    tasks:
+
+      - name: Make the output folder
+        uses: file@1
+        args:
+          operation: mkdir
+          path: ${{ vars.out }}
+
+      # GATE 1. The panel shows the resolved command, so you approve
+      # `--id 4821 --project Contoso` - the actual work item, before
+      # anything reaches Azure DevOps.
+      - name: Fetch the work item
+        desc: Reads it with the CLI and writes the JSON to disk.
+        trigger: manual
+        uses: pwsh@1
+        args:
+          script: |
+            az boards work-item show `
+                --id ${{ params.workItem }} `
+                --org '${{ params.org }}' `
+                --project '${{ params.project }}' `
+                --output json | Set-Content -Path '${{ vars.workItemFile }}' -Encoding utf8
+
+            if ($LASTEXITCODE -ne 0) {
+                throw 'Could not read AB#${{ params.workItem }}. Is the azure-devops extension installed and are you signed in?'
+            }
+
+            Write-Output 'Wrote ${{ vars.workItemFile }}'
+
+      # A file arg reads the document before the session starts, so a
+      # missing file fails here with the path named rather than
+      # letting the model reason about nothing.
+      #
+      # `target:` is the honesty check: the task fails if the session
+      # ends without that file on disk. The task's word is the file,
+      # not the agent's.
+      - name: Check the Conditions of Acceptance
+        desc: Writes a verdict you read before approving the breakdown.
+        uses: ai
+        session: breakdown
+        args:
+          title: AB#${{ params.workItem }} - COA check
+          context:
+            workItem:
+              file: ${{ vars.workItemFile }}
+          target: ${{ vars.coaFile }}
+          prompt: |
+            The context above is an Azure DevOps work item as JSON.
+
+            Read its Conditions of Acceptance - the acceptance criteria
+            field, plus anything in the description that reads as one.
+
+            Judge them on three things only:
+
+              1. Present. Are there any at all?
+              2. Testable. Could someone tell, without asking the author,
+                 whether each one is met? Name every one that could not.
+              3. Complete. Does anything in the description have no COA
+                 covering it? Name it.
+
+            Write the verdict to ${{ vars.coaFile }} as Markdown:
+            a one line VERDICT (READY or NOT READY), then a numbered
+            finding per problem, then nothing else.
+
+            Do not rewrite the work item. Do not propose tasks. Do not
+            change anything in Azure DevOps. Report only.
+        artifact: COA
+
+  # ==========================================================================
+  # STEP 2 - propose the breakdown.
+  #
+  # The process lives in a file, attached to the session. Changing how work
+  # is broken down is an edit to that document, not to this workflow.
+  # ==========================================================================
+  - name: breakdown
+    desc: Propose the task list, following the documented process.
+
+    tasks:
+
+      # GATE 2. The COA verdict is in the prompt, so what the panel
+      # shows you at this gate is the finding itself - you approve the
+      # breakdown while looking at what step 1 concluded.
+      #
+      # Same `session:` as the task above, so this turn is handed
+      # everything that one produced: it can see its own reasoning
+      # about the COAs rather than being told the conclusion.
+      - name: Propose the task breakdown
+        desc: Follows .local-workflows/docs/task-breakdown.md and writes the plan.
+        trigger: manual
+        uses: ai
+        session: breakdown
+        args:
+          title: AB#${{ params.workItem }} - task breakdown
+          context:
+            workItem:
+              file: ${{ vars.workItemFile }}
+            coa:
+              file: ${{ vars.coaFile }}
+          attachments:
+            - path: ${{ vars.processDoc }}
+              name: process
+          target: ${{ vars.planFile }}
+          prompt: |
+            The COA check said:
+
+            ${{ run.context.COA.summary }}
+
+            Break this work item down into tasks.
+
+            The attachment named 'process' is the breakdown process.
+            Follow it exactly - including its output format, which the
+            next step parses line by line. A line that does not match
+            it is a task that never gets created.
+
+            Write the plan to ${{ vars.planFile }}.
+
+            Do not create anything in Azure DevOps. Writing that file
+            is the whole job.
+        artifact: PLAN
+
+  # ==========================================================================
+  # STEP 3 - create the tasks.
+  #
+  # The only task in this file that changes anything outside the repo, and
+  # the only one that is not an agent. It reads the plan a person has read
+  # and calls the CLI - it cannot invent a task, because it can only create
+  # what is written on a line.
+  # ==========================================================================
+  - name: create
+    desc: Create the proposed tasks in Azure DevOps.
+
+    tasks:
+
+      # GATE 3. Open the plan file and read it before approving.
+      # Nothing is executing while this waits - no process, no timer -
+      # so closing VS Code does not lose it. Reopen and run
+      # "Local Workflows: Show Runs Waiting for Approval".
+      - name: Create the tasks under the work item
+        desc: One child work item per '- TASK |' line in the plan.
+        trigger: manual
+        timeout: 5m
+        uses: pwsh@1
+        args:
+          script: |
+            $planPath = '${{ vars.planFile }}'
+            $parentId = '${{ params.workItem }}'
+            $created  = 0
+
+            if (-not (Test-Path -Path $planPath)) {
+                throw "No plan at $planPath - step 2 did not produce one."
+            }
+
+            foreach ($line in (Get-Content -Path $planPath)) {
+
+                if ($line -notmatch '^\s*-\s*TASK\s*\|') { continue }
+
+                $parts = ($line -replace '^\s*-\s*TASK\s*\|', '') -split '\|'
+
+                if ($parts.Count -lt 3) {
+                    throw "Malformed TASK line, expected title | hours | description: $line"
+                }
+
+                $title = $parts[0].Trim()
+                $hours = $parts[1].Trim()
+                $desc  = $parts[2].Trim()
+
+                # Only sent when the plan gave one, so a task with no
+                # estimate is created rather than failing the whole run.
+                $estimate = @()
+                if ($hours) { $estimate = @('--fields', "${{ vars.estimateField }}=$hours") }
+
+                $child = az boards work-item create `
+                    --title $title `
+                    --type '${{ vars.taskType }}' `
+                    --description $desc `
+                    @estimate `
+                    --org '${{ params.org }}' `
+                    --project '${{ params.project }}' `
+                    --output json | ConvertFrom-Json
+
+                if ($LASTEXITCODE -ne 0) { throw "Could not create '$title'." }
+
+                $childId = $child.id
+
+                az boards work-item relation add `
+                    --id $childId `
+                    --relation-type parent `
+                    --target-id $parentId `
+                    --org '${{ params.org }}' `
+                    --output none
+
+                if ($LASTEXITCODE -ne 0) { throw "Created $childId but could not link it to AB#$parentId." }
+
+                Write-Output "created AB#$childId - $title"
+                $created++
+            }
+
+            Write-Output "$created task(s) created under AB#$parentId"
+        artifact: CREATED
+
+      - name: Report
+        run: echo ${{ run.context.CREATED.stdout }}

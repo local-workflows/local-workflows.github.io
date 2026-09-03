@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(11)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(11) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(11) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(11) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Workspaces | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Workspaces" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<meta name="twitter:description" property="og:description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/workspaces/" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/workspaces/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Workspaces" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-03T19:45:46+00:00","description":"Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar.","headline":"Workspaces","url":"https://local-workflows.github.io/getting-started/workspaces/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/Samples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Samples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Workspaces</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="workspaces">
+  
+  
+    <a href="#workspaces" class="anchor-heading" aria-labelledby="workspaces"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Workspaces
+  
+  
+</h1>
+    
+
+<p>How the extension decides which folder things belong to — especially
+when several repositories are open at once.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#two-ways-to-open-a-project" id="markdown-toc-two-ways-to-open-a-project">Two ways to open a project</a></li>
+  <li><a href="#the-three-scopes" id="markdown-toc-the-three-scopes">The three scopes</a></li>
+  <li><a href="#where-the-workspace-folder-is" id="markdown-toc-where-the-workspace-folder-is">Where the workspace folder is</a></li>
+  <li><a href="#which-folder-a-run-uses" id="markdown-toc-which-folder-a-run-uses">Which folder a run uses</a></li>
+  <li><a href="#specs-across-repositories" id="markdown-toc-specs-across-repositories">Specs across repositories</a></li>
+  <li><a href="#run-history" id="markdown-toc-run-history">Run history</a></li>
+  <li><a href="#what-a-plain-folder-sees" id="markdown-toc-what-a-plain-folder-sees">What a plain folder sees</a></li>
+</ol><hr />
+<h2 id="two-ways-to-open-a-project">
+  
+  
+    <a href="#two-ways-to-open-a-project" class="anchor-heading" aria-labelledby="two-ways-to-open-a-project"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Two ways to open a project
+  
+  
+</h2>
+    
+
+<p>VS Code opens either <strong>a folder</strong> or <strong>a <code class="language-plaintext highlighter-rouge">.code-workspace</code> file</strong> — a
+JSON file that lists several folders, usually one repository each. This
+extension behaves differently in the two, and the difference is worth
+knowing before you hit it.</p>
+
+<p>Open a folder and there are two scopes: the folder’s own
+<code class="language-plaintext highlighter-rouge">.local-workflows/</code> is the project’s, and your profile at
+<code class="language-plaintext highlighter-rouge">~/.local-workflows/</code> sits behind it.</p>
+
+<p>Open a <code class="language-plaintext highlighter-rouge">.code-workspace</code> and a third scope appears in the middle: the
+workspace itself. It belongs to no single repository and it is not your
+personal settings. It is where a team keeps what all their repositories
+share.</p><hr />
+<h2 id="the-three-scopes">
+  
+  
+    <a href="#the-three-scopes" class="anchor-heading" aria-labelledby="the-three-scopes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The three scopes
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Scope</th>
+      <th>Where</th>
+      <th>Who it is for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Folder</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;repo&gt;/.local-workflows/</code>, anywhere in the tree</td>
+      <td>this repository</td>
+    </tr>
+    <tr>
+      <td><strong>Workspace</strong></td>
+      <td>beside the open <code class="language-plaintext highlighter-rouge">.code-workspace</code></td>
+      <td>every repository in it</td>
+    </tr>
+    <tr>
+      <td><strong>Profile</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">~/.local-workflows/</code></td>
+      <td>you, everywhere</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>All three hold the same things — <code class="language-plaintext highlighter-rouge">tasks.yml</code>, <code class="language-plaintext highlighter-rouge">settings.json</code>,
+<code class="language-plaintext highlighter-rouge">workflows/</code>, <code class="language-plaintext highlighter-rouge">plugins/</code>, <code class="language-plaintext highlighter-rouge">styles/</code>. Two entries are single-scope:
+<code class="language-plaintext highlighter-rouge">specs/</code> is workspace-only and <code class="language-plaintext highlighter-rouge">db/</code> (run history) is profile-only. The
+workspace scope is not special; it just sits in the middle.</p>
+
+<p><strong>The narrowest scope wins.</strong> If a repository declares a task named
+<code class="language-plaintext highlighter-rouge">deploy</code>, the repository’s <code class="language-plaintext highlighter-rouge">deploy</code> runs. Copies with the same name in
+the workspace or your profile are skipped, with no error — that is what
+the scopes are for. A workspace copy beats a profile copy the same way.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>folder      →  beats  →  workspace  →  beats  →  profile
+</code></pre></div></div>
+
+<p>The sidebar lists the scopes in this same order, so what you read is
+what runs.</p><hr />
+<h2 id="where-the-workspace-folder-is">
+  
+  
+    <a href="#where-the-workspace-folder-is" class="anchor-heading" aria-labelledby="where-the-workspace-folder-is"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Where the workspace folder is
+  
+  
+</h2>
+    
+
+<p>By default, next to the <code class="language-plaintext highlighter-rouge">.code-workspace</code> file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>D:\Work\team\team.code-workspace
+D:\Work\team\.local-workflows\        &lt;- the workspace scope
+D:\Work\repos\api\.local-workflows\   &lt;- a folder scope
+D:\Work\repos\web\.local-workflows\   &lt;- another
+</code></pre></div></div>
+
+<p>If you want it somewhere else — say the <code class="language-plaintext highlighter-rouge">.code-workspace</code> lives in a
+config repository, or the shared files belong elsewhere — set the place
+in the workspace file itself:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"folders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"../repos/api"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"../repos/web"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"localWorkflows.workspaceRoot"</span><span class="p">:</span><span class="w"> </span><span class="s2">"../shared"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Relative paths start from the folder that holds the <code class="language-plaintext highlighter-rouge">.code-workspace</code>,
+just like its own <code class="language-plaintext highlighter-rouge">folders:</code> entries. They do not start from where you
+launched the editor — that would make the same file mean different
+things on different machines.</p>
+
+<p>This setting is optional - it is the only one this extension keeps in
+the editor, and most workspaces need it only when specs and settings
+belong somewhere other than beside the <code class="language-plaintext highlighter-rouge">.code-workspace</code> file.</p><hr />
+<h2 id="which-folder-a-run-uses">
+  
+  
+    <a href="#which-folder-a-run-uses" class="anchor-heading" aria-labelledby="which-folder-a-run-uses"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Which folder a run uses
+  
+  
+</h2>
+    
+
+<p>A multi-root workspace creates one problem.</p>
+
+<p>A task in <code class="language-plaintext highlighter-rouge">api/.local-workflows/tasks.yml</code> runs in <code class="language-plaintext highlighter-rouge">api</code>. That is clear.
+But a task from the workspace scope or your profile — <code class="language-plaintext highlighter-rouge">git clean -fdx</code>,
+say — belongs to no repository. If five are open, which one did you
+mean?</p>
+
+<p>There is no safe default, so <strong>you are asked</strong>, every time you run a
+workspace- or profile-level task. The answer is used for that one run
+and is not remembered.</p>
+
+<p>Not remembering is deliberate. A remembered answer means you stop seeing
+the question — and you notice that the morning you run a migration
+against last week’s checkout.</p>
+
+<p>You are asked even when only one folder is possible. A dialog whose
+outcome is already decided teaches people to dismiss dialogs.</p>
+
+<p>The choices are the folders the <code class="language-plaintext highlighter-rouge">.code-workspace</code> lists, minus the
+workspace root — that one holds shared definitions and is often not a
+repository at all.</p>
+
+<p>Both ways of starting a run ask: the play icon on the row, and the Run
+button inside the panel. A panel left open since yesterday is not aimed
+at anything now, so it asks again instead of quietly reusing the last
+folder.</p>
+
+<p>Nothing else asks. A repository’s own tasks already have their folder,
+and a plain-folder window has only one possible answer and keeps using
+it.</p><hr />
+<h2 id="specs-across-repositories">
+  
+  
+    <a href="#specs-across-repositories" class="anchor-heading" aria-labelledby="specs-across-repositories"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Specs across repositories
+  
+  
+</h2>
+    
+
+<p>A developer changing five services for one feature writes <strong>one</strong> spec.
+Copying it into all five repositories would be worse than writing none,
+and picking one of the five at random would be worse still.</p>
+
+<p>So with a <code class="language-plaintext highlighter-rouge">.code-workspace</code> open, specs live under the <strong>workspace root</strong>
+rather than in each repository: <code class="language-plaintext highlighter-rouge">.local-workflows/specs</code> inside whichever
+folder <code class="language-plaintext highlighter-rouge">localWorkflows.workspaceRoot</code> names.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"localWorkflows.workspaceRoot"</span><span class="p">:</span><span class="w"> </span><span class="s2">"D:</span><span class="se">\\</span><span class="s2">Work</span><span class="se">\\</span><span class="s2">team-specs"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p class="gotcha">A backslash in JSON must be doubled — <code class="language-plaintext highlighter-rouge">"D:\Work"</code> is an invalid escape,
+and <code class="language-plaintext highlighter-rouge">"D:\team"</code> silently becomes a tab character. Forward slashes work
+too and need no escaping.</p>
+
+<p>That folder can be anywhere, including a repository the workspace does
+not list. A separate specs repository is exactly the case this exists
+for - and because the same pointer decides where <code class="language-plaintext highlighter-rouge">settings.json</code> is read
+from, the team’s process settings travel with the specs.</p>
+
+<p>Leave it out and both go beside the <code class="language-plaintext highlighter-rouge">.code-workspace</code> file - the same
+layout a single folder uses, one level up. You are not asked, and nothing
+is written into your workspace file.</p>
+
+<blockquote class="note">
+  <p><strong>Where specs live</strong> defaults to <code class="language-plaintext highlighter-rouge">.local-workflows/specs</code> under the
+workspace root; <code class="language-plaintext highlighter-rouge">sdd.specsDir</code> in
+<a href="/getting-started/settings/"><code class="language-plaintext highlighter-rouge">settings.json</code></a> moves it —
+workspace-relative or absolute. What the pointer moves is the <em>root</em>,
+and a relative <code class="language-plaintext highlighter-rouge">specsDir</code> follows it.</p>
+</blockquote>
+
+<blockquote class="warning">
+  <p>With a <code class="language-plaintext highlighter-rouge">.code-workspace</code> open, <strong>custom styles</strong> are read from the
+workspace’s <code class="language-plaintext highlighter-rouge">.local-workflows/styles/</code> instead of from each open
+repository, and <code class="language-plaintext highlighter-rouge">settings.json</code> is read from the workspace root plus
+your profile rather than from each repository. In a plain folder, both
+work exactly as they always have.</p>
+</blockquote><hr />
+<h2 id="run-history">
+  
+  
+    <a href="#run-history" class="anchor-heading" aria-labelledby="run-history"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Run history
+  
+  
+</h2>
+    
+
+<p>History is stored per workspace, under
+<code class="language-plaintext highlighter-rouge">~/.local-workflows/db/&lt;workspace&gt;/run.db</code>.</p>
+
+<p>With a <code class="language-plaintext highlighter-rouge">.code-workspace</code> open, that key is the <strong>workspace file
+itself</strong>, not one of its folders. So reordering the <code class="language-plaintext highlighter-rouge">folders:</code> array —
+an edit that changes nothing about the work — does not start a fresh
+history.</p><hr />
+<h2 id="what-a-plain-folder-sees">
+  
+  
+    <a href="#what-a-plain-folder-sees" class="anchor-heading" aria-labelledby="what-a-plain-folder-sees"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What a plain folder sees
+  
+  
+</h2>
+    
+
+<p>Nothing on this page applies. No third scope, no folder question, no
+workspace settings read, and specs go in this folder’s own
+<code class="language-plaintext highlighter-rouge">.local-workflows/specs</code>. If you
+never open a <code class="language-plaintext highlighter-rouge">.code-workspace</code>, none of this exists for you.</p>
+
+<p>The same is true of a multi-root workspace assembled in the window but
+<strong>never saved</strong> — with no file on disk it is treated as a plain folder
+until you save it.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

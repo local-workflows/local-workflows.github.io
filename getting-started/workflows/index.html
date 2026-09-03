@@ -1,0 +1,1121 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(4)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(4) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(4) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(4) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Workflows | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Workflows" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="workflows/*.yml, the whole feature on one page - build a release pipeline with an AI draft and a human gate, then every key, every rule, and a complete example." />
+<meta name="twitter:description" property="og:description" content="workflows/*.yml, the whole feature on one page - build a release pipeline with an AI draft and a human gate, then every key, every rule, and a complete example." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/workflows/" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/workflows/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Workflows" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-03T19:45:46+00:00","description":"workflows/*.yml, the whole feature on one page - build a release pipeline with an AI draft and a human gate, then every key, every rule, and a complete example.","headline":"Workflows","url":"https://local-workflows.github.io/getting-started/workflows/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Prompts</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/Samples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Samples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Workflows</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="workflows">
+  
+  
+    <a href="#workflows" class="anchor-heading" aria-labelledby="workflows"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Workflows
+  
+  
+</h1>
+    
+
+<p>One pipeline, run as a whole, with an order that is part of what it
+means. This page is the whole feature — a five-minute build-up first,
+then every key and rule. It assumes you have read
+<a href="/getting-started/tasks/">Tasks</a>; everything you learned
+there about <code class="language-plaintext highlighter-rouge">run:</code>, <code class="language-plaintext highlighter-rouge">env:</code>, <code class="language-plaintext highlighter-rouge">vars:</code>, <code class="language-plaintext highlighter-rouge">cwd:</code> and templating means the
+same thing here, because both formats run through the same task
+executor.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#which-format-you-want" id="markdown-toc-which-format-you-want">Which format you want</a></li>
+  <li><a href="#1-create-the-file" id="markdown-toc-1-create-the-file">1. Create the file</a></li>
+  <li><a href="#2-run-it" id="markdown-toc-2-run-it">2. Run it</a></li>
+  <li><a href="#3-add-a-stage-and-see-the-barrier" id="markdown-toc-3-add-a-stage-and-see-the-barrier">3. Add a stage, and see the barrier</a></li>
+  <li><a href="#4-tasks-run-in-order-and-that-is-all" id="markdown-toc-4-tasks-run-in-order-and-that-is-all">4. Tasks run in order, and that is all</a></li>
+  <li><a href="#5-park-the-run-on-a-human" id="markdown-toc-5-park-the-run-on-a-human">5. Park the run on a human</a></li>
+  <li><a href="#6-let-ai-draft-it-and-keep-the-decision-yours" id="markdown-toc-6-let-ai-draft-it-and-keep-the-decision-yours">6. Let AI draft it, and keep the decision yours</a></li>
+  <li><a href="#cleanup-that-always-runs" id="markdown-toc-cleanup-that-always-runs">Cleanup that always runs</a></li>
+  <li><a href="#reference-workflowsyml" id="markdown-toc-reference-workflowsyml">Reference: <code class="language-plaintext highlighter-rouge">workflows/*.yml</code></a>    <ol>
+      <li><a href="#top-level-keys" id="markdown-toc-top-level-keys">Top-level keys</a></li>
+      <li><a href="#a-stage" id="markdown-toc-a-stage">A stage</a></li>
+      <li><a href="#a-task-in-a-workflow" id="markdown-toc-a-task-in-a-workflow">A task in a workflow</a></li>
+      <li><a href="#params" id="markdown-toc-params"><code class="language-plaintext highlighter-rouge">params:</code></a></li>
+      <li><a href="#complete-example" id="markdown-toc-complete-example">Complete example</a></li>
+    </ol>
+  </li>
+  <li><a href="#passing-data-between-tasks" id="markdown-toc-passing-data-between-tasks">Passing data between tasks</a></li>
+  <li><a href="#a-stage-that-runs-nothing" id="markdown-toc-a-stage-that-runs-nothing">A stage that runs nothing</a></li>
+  <li><a href="#errors-and-silent-failures" id="markdown-toc-errors-and-silent-failures">Errors and silent failures</a></li>
+</ol><hr />
+<h2 id="which-format-you-want">
+  
+  
+    <a href="#which-format-you-want" class="anchor-heading" aria-labelledby="which-format-you-want"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Which format you want
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code class="language-plaintext highlighter-rouge">tasks.yml</code></th>
+      <th><code class="language-plaintext highlighter-rouge">workflows/*.yml</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Path</td>
+      <td><code class="language-plaintext highlighter-rouge">.local-workflows/tasks.yml</code></td>
+      <td><code class="language-plaintext highlighter-rouge">.local-workflows/workflows/*.yml</code></td>
+    </tr>
+    <tr>
+      <td>Is</td>
+      <td>a library of commands</td>
+      <td>one pipeline</td>
+    </tr>
+    <tr>
+      <td>Tasks are</td>
+      <td>a map, keyed by id</td>
+      <td>a list, in order</td>
+    </tr>
+    <tr>
+      <td>Ordering</td>
+      <td><code class="language-plaintext highlighter-rouge">needs:</code> between tasks</td>
+      <td><code class="language-plaintext highlighter-rouge">stages:</code>, then list order within a stage</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">needs:</code> on a task</td>
+      <td>allowed</td>
+      <td>refused — hard error</td>
+    </tr>
+    <tr>
+      <td>Runs</td>
+      <td>any task, alone (plus its <code class="language-plaintext highlighter-rouge">needs:</code> chain)</td>
+      <td>the whole file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">version:</code></td>
+      <td>optional, read as <code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>required, must be <code class="language-plaintext highlighter-rouge">1</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name:</code></td>
+      <td>ignored</td>
+      <td>the row’s label</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Reach for a workflow when the <strong>order is the point</strong> — a release that
+drafts notes, waits for a human, then publishes. Reach for <code class="language-plaintext highlighter-rouge">tasks.yml</code>
+when you have a pile of commands people run individually.</p><hr />
+<h2 id="1-create-the-file">
+  
+  
+    <a href="#1-create-the-file" class="anchor-heading" aria-labelledby="1-create-the-file"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. Create the file
+  
+  
+</h2>
+    
+
+<p>Workflows live one folder deeper:
+<code class="language-plaintext highlighter-rouge">.local-workflows/workflows/</code>. Create <code class="language-plaintext highlighter-rouge">release.yml</code> in it:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+
+<span class="na">name</span><span class="pi">:</span> <span class="s">Release</span>
+<span class="na">desc</span><span class="pi">:</span> <span class="s">Builds, then publishes.</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Compile</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+</code></pre></div></div>
+
+<p>Two levels: <strong>stages</strong> hold <strong>tasks</strong>, in the order they are written.
+Even for one command, both levels are mandatory.</p>
+
+<p class="note"><code class="language-plaintext highlighter-rouge">version:</code> cannot be omitted because this format has no legacy to forgive.
+<code class="language-plaintext highlighter-rouge">tasks.yml</code> forgives an absent version only because files written before
+versions existed have none.</p><hr />
+<h2 id="2-run-it">
+  
+  
+    <a href="#2-run-it" class="anchor-heading" aria-labelledby="2-run-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2. Run it
+  
+  
+</h2>
+    
+
+<p>The file appears in the <strong>Local Workflows</strong> view beside your tasks. Click
+it to open — it lands on the workflow’s <strong>runs list</strong>, never running
+anything — then hit ▶ to start one.</p>
+
+<p><strong>There is no way to run one task on its own.</strong> A workflow is addressed
+as a whole; that is the difference from a <code class="language-plaintext highlighter-rouge">tasks.yml</code>, where every task
+has its own ▶. If you want the parts individually runnable, they belong
+in a <code class="language-plaintext highlighter-rouge">tasks.yml</code>.</p><hr />
+<h2 id="3-add-a-stage-and-see-the-barrier">
+  
+  
+    <a href="#3-add-a-stage-and-see-the-barrier" class="anchor-heading" aria-labelledby="3-add-a-stage-and-see-the-barrier"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3. Add a stage, and see the barrier
+  
+  
+</h2>
+    
+
+<p>Stages are sequential, with a hard barrier between them. Nothing in stage
+two starts until <em>everything</em> in stage one has finished:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">stages</span><span class="pi">:</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Compile</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">release</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Publish the build</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Publishing...</span>
+</code></pre></div></div>
+
+<p>Run it. The panel draws the two stages in order, and <code class="language-plaintext highlighter-rouge">release</code> sits
+waiting until <code class="language-plaintext highlighter-rouge">verify</code> is green.</p><hr />
+<h2 id="4-tasks-run-in-order-and-that-is-all">
+  
+  
+    <a href="#4-tasks-run-in-order-and-that-is-all" class="anchor-heading" aria-labelledby="4-tasks-run-in-order-and-that-is-all"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. Tasks run in order, and that is all
+  
+  
+</h2>
+    
+
+<p>Inside a stage, tasks are a plain list, and a list already carries its
+order — the file reads exactly as it runs, top to bottom:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify</span>
+    <span class="na">desc</span><span class="pi">:</span> <span class="s">Two checks, one after the other.</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Compile</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Analyse sources</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Linting...</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Archive</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Archiving...</span>
+</code></pre></div></div>
+
+<p class="note"><strong>There is no parallelism anywhere in this format.</strong> A CI job runs
+concurrently with its siblings because it gets its own machine, its own
+workspace — that isolation is the entire reason two things overlapping
+is safe. This engine runs everything on one machine, in one working
+tree; two tasks overlapping there is a footgun (both touching
+<code class="language-plaintext highlighter-rouge">node_modules</code>, both writing the same folder), not a feature. So every
+task in a stage waits its turn, in the order the file names it.</p><hr />
+<h2 id="5-park-the-run-on-a-human">
+  
+  
+    <a href="#5-park-the-run-on-a-human" class="anchor-heading" aria-labelledby="5-park-the-run-on-a-human"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5. Park the run on a human
+  
+  
+</h2>
+    
+
+<p><code class="language-plaintext highlighter-rouge">trigger: manual</code> stops the run and waits for a person:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Publish the build</span>
+        <span class="na">trigger</span><span class="pi">:</span> <span class="s">manual</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Publishing to ${{ vars.target }}...</span>
+</code></pre></div></div>
+
+<p>Add <code class="language-plaintext highlighter-rouge">vars: { target: production }</code> at the top of the file and run it. The
+run parks, and the panel offers <strong>Approve</strong> and <strong>Reject</strong>.</p>
+
+<p>Two things worth knowing about that pause:</p>
+
+<ul>
+  <li><strong>What you are shown is the resolved command</strong> — already
+<code class="language-plaintext highlighter-rouge">echo Publishing to production...</code>, not the template. Approving a
+template would be approving a promise rather than a command.</li>
+  <li><strong>Nothing is executing while it waits.</strong> No process, no timer. Close
+VS Code, reopen it, and run <strong>Local Workflows: Show Runs Waiting for
+Approval</strong> — the run is still there.</li>
+</ul>
+
+<p>Reject it and the tasks after the gate are reported as <strong>Skipped</strong>, not
+left looking like they are still to come.</p><hr />
+<h2 id="6-let-ai-draft-it-and-keep-the-decision-yours">
+  
+  
+    <a href="#6-let-ai-draft-it-and-keep-the-decision-yours" class="anchor-heading" aria-labelledby="6-let-ai-draft-it-and-keep-the-decision-yours"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6. Let AI draft it, and keep the decision yours
+  
+  
+</h2>
+    
+
+<p>This is the shape the whole engine exists for: <strong>a model proposes, a
+human approves, a task executes.</strong></p>
+
+<p class="note">This step needs a GitHub Copilot sign-in. Everything above works without
+one — if you have not got Copilot, you already have a working workflow and
+can stop here.</p>
+
+<p>Declare what runs the AI once, at the top of the file, then the whole
+file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+
+<span class="na">name</span><span class="pi">:</span> <span class="s">Release</span>
+<span class="na">desc</span><span class="pi">:</span> <span class="s">Builds, drafts the notes, then waits for a person before publishing.</span>
+
+<span class="na">vars</span><span class="pi">:</span>
+  <span class="na">target</span><span class="pi">:</span> <span class="s">production</span>
+
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">provider</span><span class="pi">:</span> <span class="s">ghcp</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify</span>
+    <span class="na">desc</span><span class="pi">:</span> <span class="s">Two checks, one after the other.</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Compile</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Compiling...</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Analyse sources</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Linting...</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">release</span>
+    <span class="na">desc</span><span class="pi">:</span> <span class="s">AI drafts, a human approves, a task publishes.</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Draft the notes</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">ai</span>
+        <span class="na">args</span><span class="pi">:</span>
+          <span class="na">prompt</span><span class="pi">:</span> <span class="s">Draft release notes from the commits on this branch.</span>
+        <span class="na">artifact</span><span class="pi">:</span> <span class="s">NOTES</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Approve the release</span>
+        <span class="na">trigger</span><span class="pi">:</span> <span class="s">manual</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Publishing to ${{ vars.target }} - "${{ run.context.NOTES.summary }}"</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Announce</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo Announced</span>
+</code></pre></div></div>
+
+<p>Run it, and read the gate. It shows you the sentence the model actually
+wrote, because the run variable resolved before anybody was asked.</p>
+
+<p>Three lines in there are the entire argument:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">uses: ai</code></strong> is a name <em>you</em> declared. Swapping the vendor is one
+word at the top of the file; no task mentions a vendor or a model.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">artifact: NOTES</code></strong> stores what it drafted as a value. Not a
+decision — a value.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">trigger: manual</code></strong> is on the task that <em>acts</em>, and it is
+there because you put it there. <code class="language-plaintext highlighter-rouge">ai@1</code> enforces no gate of its own —
+it is an agent, and it can write to the repository. The publishing
+command is an ordinary <code class="language-plaintext highlighter-rouge">run:</code> you wrote and someone reviewed; all the
+model did was fill in <code class="language-plaintext highlighter-rouge">${{ run.context.NOTES.summary }}</code>.</li>
+</ul>
+
+<p>The model drafts; a command you wrote publishes. What the model cannot
+do is decide that the release goes out — that is the gate, and the gate
+is a line in your file. It is a split of <em>authority</em>, not of capability.
+If a session must not touch anything, say so in <code class="language-plaintext highlighter-rouge">excludedTools:</code> — see
+<a href="/getting-started/plugins/#ai1"><code class="language-plaintext highlighter-rouge">ai@1</code></a>.</p>
+
+<p class="note"><code class="language-plaintext highlighter-rouge">Samples/HelloWorld/.local-workflows/workflows/release-pipeline.yml</code>
+exercises every shape the format can express, each case numbered and
+commented. <code class="language-plaintext highlighter-rouge">approve-a-deploy.yml</code> beside it is the gate on its own, and
+<code class="language-plaintext highlighter-rouge">ado-breakdown.yml</code> is a real one end to end.</p><hr />
+<h2 id="cleanup-that-always-runs">
+  
+  
+    <a href="#cleanup-that-always-runs" class="anchor-heading" aria-labelledby="cleanup-that-always-runs"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Cleanup that always runs
+  
+  
+</h2>
+    
+
+<p>Once a task fails, a gate is rejected, or you press Stop, everything
+after it is skipped — that is the barrier doing its job. But a workflow
+that <em>started</em> something now leaks it: the containers stay up, the
+seeded test data stays seeded. <code class="language-plaintext highlighter-rouge">if: always()</code> is the one exception to
+skip-on-failure, written for exactly this:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">stages</span><span class="pi">:</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">test</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">run</span><span class="pi">:</span> <span class="s">docker compose up -d</span>
+      <span class="pi">-</span> <span class="na">run</span><span class="pi">:</span> <span class="s">npm test</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">teardown</span>
+    <span class="na">if</span><span class="pi">:</span> <span class="s">always()</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">run</span><span class="pi">:</span> <span class="s">docker compose down</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">teardown</code> runs whether <code class="language-plaintext highlighter-rouge">test</code> succeeded, failed, or was stopped. On a
+stage, <code class="language-plaintext highlighter-rouge">always()</code> brings every task in it along; on a single task, only
+that task outlives the failure — useful when the cleanup lives in the
+same stage as the work.</p>
+
+<p>Three rules keep it honest:</p>
+
+<ul>
+  <li>A failing cleanup task fails the run like any other task. <code class="language-plaintext highlighter-rouge">always()</code>
+changes <em>when</em> a task runs, never how its result is read.</li>
+  <li>A cleanup’s success never repaints the run — a run that failed and
+then cleaned up after itself is still a failed run.</li>
+  <li>After a <strong>Stop</strong>, a <code class="language-plaintext highlighter-rouge">trigger: manual</code> cleanup task is skipped rather
+than gated. A gate needs a human, and the human just said stop —
+opening a question then would hang the run on an answer that is never
+coming. After a plain failure the run is still live, so a gated
+cleanup asks as usual.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">always()</code> is a marker, not an expression — the condition grammar is
+still closed. It works the same in <code class="language-plaintext highlighter-rouge">tasks.yml</code>: a task with
+<code class="language-plaintext highlighter-rouge">if: always()</code> runs even when a task it <code class="language-plaintext highlighter-rouge">needs:</code> failed.</p><hr />
+<h2 id="reference-workflowsyml">
+  
+  
+    <a href="#reference-workflowsyml" class="anchor-heading" aria-labelledby="reference-workflowsyml"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Reference: <code class="language-plaintext highlighter-rouge">workflows/*.yml</code>
+  
+  
+</h2>
+    
+
+<p>Structure: <code class="language-plaintext highlighter-rouge">stages:</code> (ordered, each a barrier) → <code class="language-plaintext highlighter-rouge">tasks:</code> (a list;
+always sequential — file order is execution order, and there is nothing
+between a stage and a task).</p>
+<h3 id="top-level-keys">
+  
+  
+    <a href="#top-level-keys" class="anchor-heading" aria-labelledby="top-level-keys"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Top-level keys
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">version</code></td>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td><strong>required</strong></td>
+      <td>Missing or wrong is a parse error.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">Unnamed Workflow</code></td>
+      <td>The row’s label in the tree.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">desc</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td> </td>
+      <td>One line.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">label</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>falls back to <code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>What a <strong>run</strong> is called, resolved once at start. May read anchors, <code class="language-plaintext highlighter-rouge">params:</code> and file-level <code class="language-plaintext highlighter-rouge">vars:</code> — not <code class="language-plaintext highlighter-rouge">env:</code>, not <code class="language-plaintext highlighter-rouge">run.context.*</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">template</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td><code class="language-plaintext highlighter-rouge">default</code></td>
+      <td><code class="language-plaintext highlighter-rouge">inline</code> = the tasks.yml shape; anything else parses as the stages format. Rarely written.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">params</code></td>
+      <td>map</td>
+      <td> </td>
+      <td>See <a href="#params"><code class="language-plaintext highlighter-rouge">params:</code></a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vars</code> / <code class="language-plaintext highlighter-rouge">env</code> / <code class="language-plaintext highlighter-rouge">dotenv</code> / <code class="language-plaintext highlighter-rouge">plugins</code></td>
+      <td> </td>
+      <td> </td>
+      <td>Same as <code class="language-plaintext highlighter-rouge">tasks.yml</code> — see <a href="/getting-started/tasks/#values-and-templating">Values and templating</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">stages</code></td>
+      <td>list</td>
+      <td> </td>
+      <td>The stages, in order.</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3 id="a-stage">
+  
+  
+    <a href="#a-stage" class="anchor-heading" aria-labelledby="a-stage"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A stage
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Defaults to position, e.g. <code class="language-plaintext highlighter-rouge">stage-2</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">desc</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>One line.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">if</code></td>
+      <td>condition</td>
+      <td>Runs the stage only when true. The literal <code class="language-plaintext highlighter-rouge">always()</code> marks a cleanup stage — it still runs after a failure, a rejected gate, or a Stop. See <a href="#cleanup-that-always-runs">Cleanup that always runs</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">artifact</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>A path this stage produces, resolved at run time (may read params). A stage whose artifact already exists on disk is <strong>satisfied</strong>: its tasks never run. An unresolvable artifact never counts as satisfied.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tasks</code></td>
+      <td>list</td>
+      <td>The tasks, in order. Always sequential — there is no <code class="language-plaintext highlighter-rouge">jobs:</code> level and no <code class="language-plaintext highlighter-rouge">needs:</code> between tasks in a workflow file.</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3 id="a-task-in-a-workflow">
+  
+  
+    <a href="#a-task-in-a-workflow" class="anchor-heading" aria-labelledby="a-task-in-a-workflow"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A task in a workflow
+  
+  
+</h3>
+    
+
+<p>Identical to a <a href="/getting-started/tasks/#a-task"><code class="language-plaintext highlighter-rouge">tasks.yml</code> task</a>
+with two differences:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">needs:</code> is <strong>refused</strong> — a hard error. <code class="language-plaintext highlighter-rouge">needs:</code> exists only in
+<code class="language-plaintext highlighter-rouge">tasks.yml</code>; ordering here is the list order.</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code> defaults to position (<code class="language-plaintext highlighter-rouge">task-2</code>), not to a map key.</li>
+</ul>
+<h3 id="params">
+  
+  
+    <a href="#params" class="anchor-heading" aria-labelledby="params"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">params:</code>
+  
+  
+</h3>
+    
+
+<p>Values the run is asked for before it starts. Workflow files only.
+Param names must match <code class="language-plaintext highlighter-rouge">[A-Za-z_][A-Za-z0-9_]*</code> — a param called
+<code class="language-plaintext highlighter-rouge">work-item</code> could never be read back as an expression, so it is rejected
+at the declaration. Params resolve before <code class="language-plaintext highlighter-rouge">vars:</code>, so <code class="language-plaintext highlighter-rouge">vars:</code> may read
+<code class="language-plaintext highlighter-rouge">${{ params.x }}</code>.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">desc</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code></td>
+      <td>Shown in the prompt.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">required</code></td>
+      <td><code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>Default <code class="language-plaintext highlighter-rouge">true</code> — a param exists because the file cannot supply the value; opting out is what you declare. <code class="language-plaintext highlighter-rouge">required: true</code> alongside <code class="language-plaintext highlighter-rouge">default:</code> is an error.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">default</code></td>
+      <td><code class="language-plaintext highlighter-rouge">string</code> | <code class="language-plaintext highlighter-rouge">number</code> | <code class="language-plaintext highlighter-rouge">boolean</code></td>
+      <td>Makes the param optional. Must be one of <code class="language-plaintext highlighter-rouge">options:</code> when declared.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">options</code></td>
+      <td>list</td>
+      <td>The only accepted values, offered as a pick list. Read as text.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>An empty declaration (<code class="language-plaintext highlighter-rouge">ticket:</code> with nothing under it) means required, no
+description.</p>
+
+<p><strong>A run only asks for what it has no answer for.</strong> Answer once and later
+runs go straight through. The run panel’s <strong>Params</strong> tab is where an
+answer lives afterwards: every declared param with its current answer, a
+menu where <code class="language-plaintext highlighter-rouge">options:</code> closes the set, a text box otherwise. Clear a box
+and the param is un-answered, so the next run asks again — the only
+route back out of an answer. The tab never prompts; it only edits, and
+is read-only while the run is going.</p>
+<h3 id="complete-example">
+  
+  
+    <a href="#complete-example" class="anchor-heading" aria-labelledby="complete-example"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Complete example
+  
+  
+</h3>
+    
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="m">1</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">Release</span>
+<span class="na">label</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Release</span><span class="nv"> </span><span class="s">${{</span><span class="nv"> </span><span class="s">params.tag</span><span class="nv"> </span><span class="s">}}"</span>
+
+<span class="na">params</span><span class="pi">:</span>
+  <span class="na">tag</span><span class="pi">:</span>
+    <span class="na">desc</span><span class="pi">:</span> <span class="s">Version tag for this release</span>
+
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="na">ai</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">ai@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">provider</span><span class="pi">:</span> <span class="s">ghcp</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">verify</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Compile</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">npm run build</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Lint</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">npm run lint</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">publish</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Draft notes</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">ai</span>
+        <span class="na">args</span><span class="pi">:</span>
+          <span class="na">prompt</span><span class="pi">:</span> <span class="s">Draft release notes for ${{ params.tag }}.</span>
+        <span class="na">artifact</span><span class="pi">:</span> <span class="s">NOTES</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Publish</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">pwsh@1</span>
+        <span class="na">trigger</span><span class="pi">:</span> <span class="s">manual</span>            <span class="c1"># a human reads the draft first</span>
+        <span class="na">args</span><span class="pi">:</span>
+          <span class="na">script</span><span class="pi">:</span> <span class="s">./publish.ps1 -Tag "${{ params.tag }}" -Notes "${{ run.context.NOTES.summary }}"</span>
+</code></pre></div></div><hr />
+<h2 id="passing-data-between-tasks">
+  
+  
+    <a href="#passing-data-between-tasks" class="anchor-heading" aria-labelledby="passing-data-between-tasks"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Passing data between tasks
+  
+  
+</h2>
+    
+
+<p>There is no task-level <code class="language-plaintext highlighter-rouge">outputs:</code> block, deliberately. A task names a run
+variable with <code class="language-plaintext highlighter-rouge">artifact:</code>, and anything later reads it as
+<code class="language-plaintext highlighter-rouge">${{ run.context.NAME.key }}</code> — run variables are
+run-scoped, so they cross stage boundaries without a second mechanism.</p>
+
+<p>The run panel’s <strong>Artifacts</strong> tab lists them as they are produced — the
+expression that reads each one, the task that set it, and the value. A
+string renders as markdown; anything else is shown as JSON. The <strong>Env</strong>
+tab shows what the run was given: <code class="language-plaintext highlighter-rouge">params:</code>, the file’s <code class="language-plaintext highlighter-rouge">vars:</code> and
+declared <code class="language-plaintext highlighter-rouge">env:</code>, and the directory anchors. Select a task in the rail and
+the <strong>Args</strong> tab shows the <code class="language-plaintext highlighter-rouge">args:</code> that task was actually handed —
+resolved, not the templates you wrote.</p>
+
+<p>Clicking a workflow in the sidebar opens its <strong>runs list</strong> — every
+recorded run of that file, newest first, before anything else. <strong>Open</strong>
+gets you the run view with nothing started; <strong>Run</strong> starts a new one; a
+row opens that run exactly as it happened, read back off its own record,
+with a <code class="language-plaintext highlighter-rouge">← Runs</code> link back to the list. <strong>Clear history</strong> on that list
+deletes the finished runs of this file and everything under them — the
+editor asks first, there is no undo, and a run still going or parked at
+a gate is kept: a waiting run holds nothing in memory, so those rows are
+the only thing left to resume it from.</p><hr />
+<h2 id="a-stage-that-runs-nothing">
+  
+  
+    <a href="#a-stage-that-runs-nothing" class="anchor-heading" aria-labelledby="a-stage-that-runs-nothing"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A stage that runs nothing
+  
+  
+</h2>
+    
+
+<p>A task declaring neither <code class="language-plaintext highlighter-rouge">run:</code> nor <code class="language-plaintext highlighter-rouge">uses:</code> is legal. It succeeds, logs
+<code class="language-plaintext highlighter-rouge">Task has nothing to run</code>, and the walk carries on:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">sign-off</span>
+    <span class="na">tasks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">QA runs the release checklist by hand</span>
+</code></pre></div></div>
+
+<p>This is how you say <strong>the work for this phase happens somewhere the
+engine cannot reach</strong> — a deploy approved out of band, a manual QA pass.
+A stage needs a task, so a phase that genuinely runs nothing still has
+to say so.</p>
+
+<p>It is safe to offer because an empty task is only ever what the author
+actually wrote. A misspelled key is still a hard error: <code class="language-plaintext highlighter-rouge">use: pwsh@1</code>
+fails with <em>unknown key ‘use’</em> rather than quietly becoming a task that
+does nothing and reports success.</p><hr />
+<h2 id="errors-and-silent-failures">
+  
+  
+    <a href="#errors-and-silent-failures" class="anchor-heading" aria-labelledby="errors-and-silent-failures"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Errors and silent failures
+  
+  
+</h2>
+    
+
+<p>Everything on the <a href="/getting-started/tasks/#errors-and-silent-failures">tasks.yml list</a>
+applies here too. On top of it:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">version:</code> missing or not <code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>parse error naming what to write</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jobs:</code> in a stage</td>
+      <td>parse error — the level was removed; move its tasks up under the stage</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">needs:</code> on a task</td>
+      <td>hard error</td>
+    </tr>
+    <tr>
+      <td>Unknown stage/param key</td>
+      <td>hard error — both key sets are closed</td>
+    </tr>
+    <tr>
+      <td>A <code class="language-plaintext highlighter-rouge">label:</code> that fails to resolve</td>
+      <td>falls back to <code class="language-plaintext highlighter-rouge">name:</code>; the validator flags it, the run still starts</td>
+    </tr>
+  </tbody>
+</table></div>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 03-Sep-2026 07:46 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+
