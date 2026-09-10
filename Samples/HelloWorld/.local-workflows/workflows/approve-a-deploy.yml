@@ -1,0 +1,46 @@
+version: 1
+
+name: Approve a deploy
+desc: The run stops at the gate and waits for a person. Close VS Code and it is still waiting.
+
+vars:
+  target: production
+
+stages:
+
+  - name: verify
+    tasks:
+
+      # A limit and a couple of extra goes. A bare number would mean
+      # seconds; '2m' says what it is. `retries: 1` is one *extra*
+      # attempt, so this runs at most twice.
+      #
+      # A plain `run:` task - the same sugar tasks.yml has, running
+      # through the bundled shell@1 plugin. Its stdout/exitCode are
+      # real outputs, so `artifact:` stores them like any plugin's.
+      - name: Compile
+        run: echo compiled
+        timeout: 2m
+        retries: 1
+        artifact: BUILD
+
+  - name: ship
+    tasks:
+
+      # The gate. The run parks here - no process, no timer - until
+      # Approve or Reject is clicked in the run panel. Closing the
+      # window does not lose it: reopen and run
+      # "Local Workflows: Show Runs Waiting for Approval".
+      #
+      # What the panel shows is the *resolved* command, not the
+      # template: `${{ vars.target }}` is already 'production' by the
+      # time anyone is asked. Approving a template would be approving
+      # a promise rather than a command.
+      - name: Deploy to production
+        run: echo deploying to ${{ vars.target }}
+        trigger: manual
+
+      # Never runs if the gate is rejected - it is reported as
+      # skipped rather than left looking like it is still to come.
+      - name: Announce
+        run: echo announced

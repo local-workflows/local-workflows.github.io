@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SDD — run panel anatomy</title>
+<style>
+:root{
+--surface-0:#faf9f7;--surface-1:#f4f2ee;--surface-2:#ffffff;
+--text-primary:#1a1a18;--text-secondary:#5f5e5a;--text-muted:#8a8983;
+--border:rgba(0,0,0,.10);--radius:8px;
+--fill-accent:#2f7ed8;--on-accent:#fff;--bg-accent:#E6F1FB;--text-accent:#185FA5;--border-accent:#85B7EB;
+--fill-warning:#EF9F27;--bg-warning:#FAEEDA;--text-warning:#854F0B;--border-warning:#EF9F27;
+--fill-success:#639922;--bg-success:#EAF3DE;--text-success:#3B6D11;
+--bg-stale:#F3E8FA;--text-stale:#6B3FA0;--border-stale:#C9A7E8;
+--font-sans:ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif;
+--font-mono:ui-monospace,"Cascadia Code","Consolas",monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+--surface-0:#1b1b19;--surface-1:#232320;--surface-2:#2b2b28;
+--text-primary:#eceae4;--text-secondary:#a8a69f;--text-muted:#7d7b75;
+--border:rgba(255,255,255,.12);
+--fill-accent:#378ADD;--on-accent:#04294f;--bg-accent:#0C447C;--text-accent:#B5D4F4;--border-accent:#185FA5;
+--fill-warning:#EF9F27;--bg-warning:#633806;--text-warning:#FAC775;--border-warning:#BA7517;
+--fill-success:#639922;--bg-success:#27500A;--text-success:#C0DD97;
+--bg-stale:#3A2352;--text-stale:#D9BFF2;--border-stale:#6B3FA0;
+}}
+*{box-sizing:border-box}
+body{margin:0;padding:32px 20px 60px;background:var(--surface-0);color:var(--text-primary);
+font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+main{max-width:720px;margin:0 auto}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+p.lede{color:var(--text-secondary);font-size:14px;margin:0 0 8px}
+.cap{font-size:13px;color:var(--text-secondary);margin:26px 0 8px}
+.frame{background:var(--surface-1);border-radius:12px;padding:12px}
+.panel{border:.5px solid var(--border);border-radius:8px;background:var(--surface-2);padding:14px 16px}
+button{font-family:inherit;background:transparent;color:var(--text-primary);
+border:.5px solid var(--border);border-radius:var(--radius);padding:5px 12px;font-size:13px;cursor:pointer}
+.primary{background:var(--fill-accent);color:var(--on-accent);border-color:transparent}
+.primary[disabled]{opacity:.45}
+.chip{font-size:12px;padding:3px 9px;border-radius:var(--radius);border:.5px solid transparent;white-space:nowrap}
+.chip.done{background:var(--bg-success);color:var(--text-success)}
+.chip.active{background:var(--bg-accent);color:var(--text-accent)}
+.chip.pending{color:var(--text-muted);border-color:var(--border)}
+.chip.stale{background:var(--bg-stale);color:var(--text-stale)}
+.chip.skipped{color:var(--text-muted);border-color:var(--border);text-decoration:line-through;opacity:.7}
+.chip.viewing{outline:1.5px solid var(--fill-accent);outline-offset:1px}
+.sep{font-size:13px;color:var(--text-muted)}
+.doc{border:.5px solid var(--border);border-radius:var(--radius);margin-top:10px;overflow:hidden}
+.docbar{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--surface-1);border-bottom:.5px solid var(--border);font-size:12px;color:var(--text-secondary)}
+.docbody{padding:12px 16px;font-size:13px;color:var(--text-primary)}
+.docbody h3{font-size:14px;margin:10px 0 4px;font-weight:600}
+.docbody h4{font-size:13px;margin:8px 0 3px;font-weight:600}
+.docbody p,.docbody li{color:var(--text-secondary);font-size:13px;margin:3px 0}
+.docbody ol{margin:2px 0;padding-left:22px}
+.toggle{display:inline-flex;border:.5px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.toggle span{padding:2px 10px;font-size:12px}
+.toggle .on{background:var(--surface-2);color:var(--text-primary)}
+.toggle .off{color:var(--text-muted)}
+.qblock{border:.5px solid var(--border-warning);background:var(--bg-warning);border-radius:var(--radius);padding:9px 12px;margin:6px 0 10px}
+.qblock h4{color:var(--text-warning);margin:0 0 4px;font-size:13px}
+.qblock li{color:var(--text-warning)}
+.drawer{display:flex;gap:16px;align-items:center;margin-top:10px;padding-top:9px;border-top:.5px solid var(--border);font-size:12px;color:var(--text-muted)}
+.action{display:flex;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;border:.5px solid var(--border);border-radius:var(--radius);background:var(--surface-1)}
+.action .why{font-size:12px;color:var(--text-muted)}
+.blockmsg{font-size:12px;color:var(--text-warning)}
+.task{display:flex;align-items:center;gap:9px;padding:7px 10px;border:.5px solid var(--border);border-radius:var(--radius);margin:6px 0;background:var(--surface-2);font-size:13px}
+.task.run{border-color:var(--border-accent);background:var(--bg-accent)}
+.task .num{font-family:var(--font-mono);font-size:12px;color:var(--text-muted)}
+.task .st{margin-left:auto;font-size:11px;color:var(--text-muted)}
+.task .sub{padding-left:26px}
+.mono{font-family:var(--font-mono)}
+.hdr .id{font-size:12px;font-family:var(--font-mono);color:var(--text-secondary)}
+.hdr .t{font-size:16px}
+.hdr .path{font-size:12px;color:var(--text-muted);font-family:var(--font-mono)}
+.legend{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--text-muted)}
+</style>
+</head>
+<body>
+<main>
+
+<h1>SDD — run panel anatomy</h1>
+<p class="lede">The proposed skeleton: header · stepper (status + navigation) · action zone (pinned to the true
+position) · document viewer (the hero) · on-demand drawer. Three states below.</p>
+
+<div class="cap">Chip states — the whole vocabulary. Done and unlit derive from files; active from position;
+running from the live agent. Nothing else exists.</div>
+<div class="frame"><div class="panel"><div class="legend">
+<span class="chip done">✓ done</span><span>← artifact exists</span>
+<span class="chip active">active</span><span>← the position</span>
+<span class="chip active">◐ running</span><span>← agent drafting now</span>
+<span class="chip pending">unlit</span><span>← artifact missing · Start available</span>
+<span class="chip done viewing">✓ viewing</span><span>← outlined = document on screen</span>
+</div></div></div>
+
+<div class="cap">1 · Position: design — viewing requirements via chip navigation. The action zone stays pinned to the
+true position; browsing never moves the primary button.</div>
+<div class="frame"><div class="panel">
+<div class="hdr" style="margin-bottom:10px">
+  <div class="id">AB#48213</div>
+  <div class="t">Reopen an approved spec phase</div>
+  <div class="path">.local-workflows/specs/reopen-approved-spec-phase/</div>
+</div>
+<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+  <span class="chip done viewing">✓ requirements</span><span class="sep">›</span>
+  <span class="chip active">design</span><span class="sep">›</span>
+  <span class="chip pending">tasks</span><span class="sep">›</span>
+  <span class="chip pending">implement</span>
+</div>
+<div class="action">
+  <button class="primary">Start design →</button>
+  <span class="why">starting design approves requirements.md</span>
+  <button style="margin-left:auto">Revise requirements…</button>
+</div>
+<div class="doc">
+  <div class="docbar">
+    <span class="mono">requirements.md</span>
+    <span class="toggle" style="margin-left:auto"><span class="on">Preview</span><span class="off">Edit</span></span>
+    <button style="font-size:12px;padding:2px 10px">Save &amp; Revise</button>
+  </div>
+  <div class="docbody">
+    <h3>Introduction</h3>
+    <p>Reopening lets a person withdraw a phase's approval after later phases have run, without
+    discarding any work already done…</p>
+    <h3>Requirements</h3>
+    <h4>1. Reopen an approved phase</h4>
+    <p><em>User Story:</em> As a developer, I want to reopen requirements after tasks started, so that…</p>
+    <ol><li>WHEN a phase is reopened THEN the system SHALL mark downstream phases stale</li>
+    <li>IF a task is mid-run THEN the system SHALL let it finish before marking it stale</li></ol>
+    <h3>Assumptions</h3>
+    <p>· Reopen never deletes files — git is the undo · Stale phases stay openable…</p>
+  </div>
+</div>
+<div class="drawer">▸ history &amp; transcript &nbsp;·&nbsp; 2 attempts &nbsp;·&nbsp; drafted 2h ago &nbsp;·&nbsp; session: requirements</div>
+</div></div>
+
+<div class="cap">2 · Blocked — the only hard gate. The document leads with its questions; the primary action is
+disabled with the reason; Save &amp; Revise is the way through.</div>
+<div class="frame"><div class="panel">
+<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+  <span class="chip active viewing">requirements</span><span class="sep">›</span>
+  <span class="chip pending">design</span><span class="sep">›</span>
+  <span class="chip pending">tasks</span><span class="sep">›</span>
+  <span class="chip pending">implement</span>
+</div>
+<div class="action">
+  <button class="primary" disabled>Start design →</button>
+  <span class="blockmsg">⏸ blocked — 2 unanswered questions in requirements.md</span>
+  <button style="margin-left:auto">Revise requirements…</button>
+</div>
+<div class="doc">
+  <div class="docbar">
+    <span class="mono">requirements.md</span>
+    <span class="toggle" style="margin-left:auto"><span class="off">Preview</span><span class="on">Edit</span></span>
+    <button class="primary" style="font-size:12px;padding:2px 10px">Save &amp; Revise</button>
+  </div>
+  <div class="docbody">
+    <div class="qblock">
+      <h4>Open Questions</h4>
+      <ol><li>Should a reopened phase keep its previous approval timestamp, or reset it?
+      <br><span style="opacity:.8">→ answer here…</span></li>
+      <li>Is reopening allowed while a task is running?</li></ol>
+    </div>
+    <h3>Introduction</h3>
+    <p>Reopening lets a person withdraw a phase's approval…</p>
+  </div>
+</div>
+<div class="drawer">▸ history &amp; transcript &nbsp;·&nbsp; 1 attempt &nbsp;·&nbsp; drafted 10m ago</div>
+</div></div>
+
+<div class="cap">3 · Tasks — a document phase like requirements and design: same review loop, same Revise, same
+questions rule. Checkboxes render but are inert here; starting implement is what approves the plan.</div>
+<div class="frame"><div class="panel">
+<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+  <span class="chip done">✓ requirements</span><span class="sep">›</span>
+  <span class="chip done">✓ design</span><span class="sep">›</span>
+  <span class="chip active viewing">tasks</span><span class="sep">›</span>
+  <span class="chip pending">implement</span>
+</div>
+<div class="action">
+  <span style="font-size:13px;color:var(--text-secondary)">Plan drafted — approve it by starting its first task in implement</span>
+  <button style="margin-left:auto">Revise tasks…</button>
+</div>
+<div class="doc">
+  <div class="docbar">
+    <span class="mono">tasks.md</span>
+    <span class="toggle" style="margin-left:auto"><span class="on">Preview</span><span class="off">Edit</span></span>
+    <button style="font-size:12px;padding:2px 10px">Save &amp; Revise</button>
+  </div>
+  <div class="docbody">
+    <p>☐ &nbsp;<span class="num mono">1.</span> Add Stale status to step model</p>
+    <p style="padding-left:26px;font-size:12px">· touches RunStore, DefaultRunner &nbsp;<span class="mono">_Requirements: 1.1, 1.2_</span></p>
+    <p>☐ &nbsp;<span class="num mono">2.</span> Persist reopen decision in RunStore</p>
+    <p>☐ &nbsp;<span class="num mono">3.</span> Invalidate downstream steps on reopen</p>
+    <p style="padding-left:26px">☐ &nbsp;<span class="num mono">3.1</span> Cascade to expanded task nodes</p>
+    <p>☐ &nbsp;<span class="num mono">4.</span> Re-arm gate on reopened phase</p>
+  </div>
+</div>
+<div class="drawer">▸ history &amp; transcript &nbsp;·&nbsp; 1 attempt &nbsp;·&nbsp; drafted 5m ago &nbsp;·&nbsp; session: tasks</div>
+</div></div>
+
+<div class="cap">4 · Implement — pure execution, no editing. ▶ opens a fresh native Copilot agent session with the
+spec + that one task; the checkbox in tasks.md is the completion state (watched). Git is the record.</div>
+<div class="frame"><div class="panel">
+<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+  <span class="chip done">✓ requirements</span><span class="sep">›</span>
+  <span class="chip done">✓ design</span><span class="sep">›</span>
+  <span class="chip done">✓ tasks</span><span class="sep">›</span>
+  <span class="chip active viewing">implement</span>
+</div>
+<div class="action">
+  <span style="font-size:13px;color:var(--text-secondary)">2 done · 1 running · 4 queued</span>
+  <span class="why">▶ opens a fresh Copilot agent session for that one task</span>
+  <button style="margin-left:auto">Start all</button><button>Pause</button>
+  <button>Revise tasks…</button>
+</div>
+<div class="doc">
+  <div class="docbar"><span class="mono">tasks.md</span>
+    <span style="margin-left:auto;font-size:12px;color:var(--text-muted)">execution view — edit via Revise</span></div>
+  <div class="docbody">
+    <div class="task"><span style="color:var(--text-success)">☑</span><span class="num">1.</span>
+      <span>Add Stale status to step model</span><span class="st">done</span></div>
+    <div class="task"><span style="color:var(--text-success)">☑</span><span class="num">2.</span>
+      <span>Persist reopen decision in RunStore</span><span class="st">done</span></div>
+    <div class="task run"><span style="color:var(--text-accent)">◐</span><span class="num">3.</span>
+      <span>Invalidate downstream steps on reopen</span><span class="st" style="color:var(--text-accent)">running · ghcp</span></div>
+    <div class="task sub"><span>☐</span><span class="num">3.1</span>
+      <span>Cascade to expanded task nodes</span><span class="st">▶ start</span></div>
+    <div class="task"><span>☐</span><span class="num">4.</span>
+      <span>Re-arm gate on reopened phase</span><span class="st">▶ start</span></div>
+    <p style="padding-left:26px;font-size:12px">· touches RunStore, DefaultRunner &nbsp;<span class="mono">_Requirements: 1.1, 1.2_</span></p>
+    <div class="task"><span>☐</span><span class="num">5.</span>
+      <span>Show reopen history in run panel</span><span class="st">▶ start</span></div>
+  </div>
+</div>
+<div class="drawer">▸ task 3 transcript &nbsp;·&nbsp; live &nbsp;·&nbsp; 14 files read · 2 written</div>
+</div></div>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,1484 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(8)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(8) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(8) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(8) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Plugin apps | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Plugin apps" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The complete reference for a plugin’s own page in the run and spec panels - every file, every manifest key, the whole lw API with its exact shapes, handle, the plugin database, what the page cannot do, and a full working example. Written so a person or an AI can build one from this page alone." />
+<meta name="twitter:description" property="og:description" content="The complete reference for a plugin’s own page in the run and spec panels - every file, every manifest key, the whole lw API with its exact shapes, handle, the plugin database, what the page cannot do, and a full working example. Written so a person or an AI can build one from this page alone." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/plugin-apps/" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/plugin-apps/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Plugin apps" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-10T18:33:21+00:00","description":"The complete reference for a plugin’s own page in the run and spec panels - every file, every manifest key, the whole lw API with its exact shapes, handle, the plugin database, what the page cannot do, and a full working example. Written so a person or an AI can build one from this page alone.","headline":"Plugin apps","url":"https://local-workflows.github.io/getting-started/plugin-apps/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/custom-prompts/" class="nav-list-link">Custom instructions</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Instructions</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Instructions</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li><li class="nav-list-item"><a href="/getting-started/sdd/tasks-parser/" class="nav-list-link">How the tasks parser reads tasks.md</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/plugin-apps/" class="nav-list-link">Plugin apps</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/examples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Examples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 10-Sep-2026 06:35 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Plugin apps</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="plugin-apps">
+  
+  
+    <a href="#plugin-apps" class="anchor-heading" aria-labelledby="plugin-apps"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Plugin apps
+  
+  
+</h1>
+    
+
+<p><strong>A plugin can ship a page of its own. The page becomes a tab in the
+run panel and the spec panel, is there whether or not anything is
+running, and talks to the plugin’s own code and its own database.</strong></p>
+
+<p>This page is the whole contract. Everything a plugin app can rely on is
+here; anything not here is not promised.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#what-you-get" id="markdown-toc-what-you-get">What you get</a></li>
+  <li><a href="#quick-start" id="markdown-toc-quick-start">Quick start</a></li>
+  <li><a href="#the-files" id="markdown-toc-the-files">The files</a>    <ol>
+      <li><a href="#ui-in-pluginjson" id="markdown-toc-ui-in-pluginjson"><code class="language-plaintext highlighter-rouge">ui</code> in <code class="language-plaintext highlighter-rouge">plugin.json</code></a></li>
+    </ol>
+  </li>
+  <li><a href="#how-the-page-is-loaded" id="markdown-toc-how-the-page-is-loaded">How the page is loaded</a>    <ol>
+      <li><a href="#what-the-page-cannot-do" id="markdown-toc-what-the-page-cannot-do">What the page cannot do</a></li>
+    </ol>
+  </li>
+  <li><a href="#windowlw---the-whole-api" id="markdown-toc-windowlw---the-whole-api"><code class="language-plaintext highlighter-rouge">window.lw</code> - the whole API</a>    <ol>
+      <li><a href="#lwstate-and-lwonstatecb" id="markdown-toc-lwstate-and-lwonstatecb"><code class="language-plaintext highlighter-rouge">lw.state</code> and <code class="language-plaintext highlighter-rouge">lw.onState(cb)</code></a></li>
+      <li><a href="#lwcallname-payload" id="markdown-toc-lwcallname-payload"><code class="language-plaintext highlighter-rouge">lw.call(name, payload?)</code></a></li>
+      <li><a href="#lwdb" id="markdown-toc-lwdb"><code class="language-plaintext highlighter-rouge">lw.db</code></a></li>
+      <li><a href="#lwruntarget-params" id="markdown-toc-lwruntarget-params"><code class="language-plaintext highlighter-rouge">lw.run(target?, params?)</code></a></li>
+    </ol>
+  </li>
+  <li><a href="#handlerequest-ctx---the-pages-back-end" id="markdown-toc-handlerequest-ctx---the-pages-back-end"><code class="language-plaintext highlighter-rouge">handle(request, ctx)</code> - the page’s back end</a></li>
+  <li><a href="#the-plugin-database" id="markdown-toc-the-plugin-database">The plugin database</a></li>
+  <li><a href="#look-and-feel" id="markdown-toc-look-and-feel">Look and feel</a></li>
+  <li><a href="#errors-and-where-they-show" id="markdown-toc-errors-and-where-they-show">Errors, and where they show</a></li>
+  <li><a href="#the-edit-loop" id="markdown-toc-the-edit-loop">The edit loop</a>    <ol>
+      <li><a href="#debug-true---no-sandbox" id="markdown-toc-debug-true---no-sandbox"><code class="language-plaintext highlighter-rouge">debug: true</code> - no sandbox</a></li>
+    </ol>
+  </li>
+  <li><a href="#full-example-greet1" id="markdown-toc-full-example-greet1">Full example: <code class="language-plaintext highlighter-rouge">greet@1</code></a></li>
+  <li><a href="#checklist-for-writing-one" id="markdown-toc-checklist-for-writing-one">Checklist for writing one</a></li>
+  <li><a href="#what-this-is-not" id="markdown-toc-what-this-is-not">What this is not</a></li>
+</ol><hr />
+<h2 id="what-you-get">
+  
+  
+    <a href="#what-you-get" class="anchor-heading" aria-labelledby="what-you-get"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What you get
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Where it shows</strong></td>
+      <td>A tab in the run panel of every <code class="language-plaintext highlighter-rouge">tasks.yml</code> and workflow, and in every spec panel, beside Logs / Artifacts / Problems. One tab per plugin that declares a <code class="language-plaintext highlighter-rouge">ui</code>. <code class="language-plaintext highlighter-rouge">ui.surface</code> narrows it to one kind of panel.</td>
+    </tr>
+    <tr>
+      <td><strong>When it shows</strong></td>
+      <td>From the moment the panel opens. Before a run, during, after. It does not depend on a step being selected.</td>
+    </tr>
+    <tr>
+      <td><strong>What it is</strong></td>
+      <td>Your <code class="language-plaintext highlighter-rouge">index.html</code>, drawn in an iframe inside the panel. You own the whole document.</td>
+    </tr>
+    <tr>
+      <td><strong>What it stays</strong></td>
+      <td>Alive while other tabs are open. Switching tabs hides it; it is not rebuilt.</td>
+    </tr>
+    <tr>
+      <td><strong>How it talks</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">window.lw</code> - five calls, listed below. Nothing else leaves the iframe.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Everything else about a plugin - <code class="language-plaintext highlighter-rouge">plugin.json</code>, <code class="language-plaintext highlighter-rouge">execute</code>, args,
+artifacts, secrets, the sandbox - is on <a href="/getting-started/plugins/">Plugins</a>.
+This page only adds the app.</p>
+
+<p>A bundled plugin can ship one too: <code class="language-plaintext highlighter-rouge">ado-release@1</code>’s <em>ADO releases</em>
+tab is written against exactly this contract, and is the worked
+example of a page that picks something and starts a run with it - see
+<a href="#lwruntarget-params"><code class="language-plaintext highlighter-rouge">lw.run</code></a>.</p><hr />
+<h2 id="quick-start">
+  
+  
+    <a href="#quick-start" class="anchor-heading" aria-labelledby="quick-start"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Quick start
+  
+  
+</h2>
+    
+
+<p>Four files. Copy them, run <strong>Local Workflows: Reload Plugins</strong>, open any
+task - the tab is there.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.local-workflows/plugins/boardV1/
+  plugin.json
+  index.js
+  ui/
+    index.html
+    app.js
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">plugin.json</code></strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"board"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">"patch"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"ui"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Board"</span><span class="p">,</span><span class="w"> </span><span class="nl">"entry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ui/index.html"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">index.js</code></strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="c1">// A plugin is still a task. This can be as small as this.</span>
+    <span class="k">async</span> <span class="nf">execute</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span> <span class="na">success</span><span class="p">:</span> <span class="kc">true</span> <span class="p">};</span>
+    <span class="p">},</span>
+
+    <span class="c1">// The page's back end - see "handle".</span>
+    <span class="k">async</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">if </span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">ping</span><span class="dl">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span> <span class="na">pong</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">at</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">().</span><span class="nf">toISOString</span><span class="p">()</span> <span class="p">};</span>
+
+        <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span><span class="s2">`board@1 has no handler named '</span><span class="p">${</span><span class="nx">request</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="s2">'`</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ui/index.html</code></strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Board<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>Board<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"ping"</span><span class="nt">&gt;</span>Ping index.js<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">"out"</span><span class="nt">&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;pre</span> <span class="na">id=</span><span class="s">"state"</span><span class="nt">&gt;&lt;/pre&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"app.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ui/app.js</code></strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">lw</span><span class="p">.</span><span class="nf">onState</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">state</span><span class="dl">"</span><span class="p">).</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">ping</span><span class="dl">"</span><span class="p">).</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">reply</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">lw</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="dl">"</span><span class="s2">ping</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">out</span><span class="dl">"</span><span class="p">).</span><span class="nx">textContent</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">pong at </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">at</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">out</span><span class="dl">"</span><span class="p">).</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>That is a working plugin app. The rest of this page is the exact rules.</p><hr />
+<h2 id="the-files">
+  
+  
+    <a href="#the-files" class="anchor-heading" aria-labelledby="the-files"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The files
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Required</th>
+      <th>What it is</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">plugin.json</code></td>
+      <td>yes</td>
+      <td>The manifest. <code class="language-plaintext highlighter-rouge">ui</code> is the one new key - see below.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">index.js</code></td>
+      <td>yes</td>
+      <td>The implementation: <code class="language-plaintext highlighter-rouge">execute</code> (required, as for any plugin) and <code class="language-plaintext highlighter-rouge">handle</code> (only if the page calls <code class="language-plaintext highlighter-rouge">lw.call</code>).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ui/index.html</code></td>
+      <td>yes when <code class="language-plaintext highlighter-rouge">ui</code> is declared</td>
+      <td>The page. The path is <code class="language-plaintext highlighter-rouge">ui.entry</code>; <code class="language-plaintext highlighter-rouge">ui/index.html</code> is the default.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ui/*.js</code>, <code class="language-plaintext highlighter-rouge">ui/*.css</code></td>
+      <td>no</td>
+      <td>Referenced from the page by relative name. Pulled inline by the host.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The folder must be named <code class="language-plaintext highlighter-rouge">&lt;id&gt;V&lt;major&gt;</code> - <code class="language-plaintext highlighter-rouge">boardV1</code> - like every folder
+plugin. A single-file plugin (<code class="language-plaintext highlighter-rouge">board.js</code> with no folder) cannot have an
+app: there is nowhere to put the page.</p>
+<h3 id="ui-in-pluginjson">
+  
+  
+    <a href="#ui-in-pluginjson" class="anchor-heading" aria-labelledby="ui-in-pluginjson"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">ui</code> in <code class="language-plaintext highlighter-rouge">plugin.json</code>
+  
+  
+</h3>
+    
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"ui"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Board"</span><span class="p">,</span><span class="w"> </span><span class="nl">"entry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ui/index.html"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Required</th>
+      <th>Rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">label</code></td>
+      <td>yes</td>
+      <td>The tab’s name. Non-empty string. Keep it short - it sits in a row of tabs.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">entry</code></td>
+      <td>no</td>
+      <td>Path to the page, relative to the plugin folder. Default <code class="language-plaintext highlighter-rouge">ui/index.html</code>. Must stay inside the folder: no leading <code class="language-plaintext highlighter-rouge">/</code>, no drive letter, no <code class="language-plaintext highlighter-rouge">..</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">surface</code></td>
+      <td>no</td>
+      <td>Which panel the tab belongs in: <code class="language-plaintext highlighter-rouge">run</code>, <code class="language-plaintext highlighter-rouge">spec</code> or <code class="language-plaintext highlighter-rouge">both</code>. Default <code class="language-plaintext highlighter-rouge">both</code>. A page about runs - a release picker - says <code class="language-plaintext highlighter-rouge">run</code>, and stays out of every spec panel.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>A <code class="language-plaintext highlighter-rouge">ui</code> that breaks a rule fails the plugin’s load, with a message
+naming the rule - the same way a bad <code class="language-plaintext highlighter-rouge">args[]</code> entry does.</p><hr />
+<h2 id="how-the-page-is-loaded">
+  
+  
+    <a href="#how-the-page-is-loaded" class="anchor-heading" aria-labelledby="how-the-page-is-loaded"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How the page is loaded
+  
+  
+</h2>
+    
+
+<p>Knowing this explains every “cannot” below.</p>
+
+<ol>
+  <li>The host reads <code class="language-plaintext highlighter-rouge">entry</code> from disk.</li>
+  <li>Every <code class="language-plaintext highlighter-rouge">&lt;script src="relative.js"&gt;&lt;/script&gt;</code> is replaced with the file’s text inline. Every <code class="language-plaintext highlighter-rouge">&lt;link rel="stylesheet" href="relative.css"&gt;</code> becomes <code class="language-plaintext highlighter-rouge">&lt;style&gt;</code> with the file’s text.</li>
+  <li>Every <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> gets the panel’s nonce, because the panel’s Content-Security-Policy allows scripts by nonce only.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">lw</code> client script and a small base stylesheet are put at the top of <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code> (or at the top of the page when there is no <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code>).</li>
+  <li>The result goes into an <code class="language-plaintext highlighter-rouge">&lt;iframe srcdoc="..."&gt;</code> with <code class="language-plaintext highlighter-rouge">sandbox="allow-scripts allow-forms allow-modals"</code>.</li>
+</ol>
+
+<p>So the page is <strong>one self-contained document</strong>, of its own origin, that
+inherits the panel’s policy.</p>
+<h3 id="what-the-page-cannot-do">
+  
+  
+    <a href="#what-the-page-cannot-do" class="anchor-heading" aria-labelledby="what-the-page-cannot-do"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What the page cannot do
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Cannot</th>
+      <th>Why</th>
+      <th>Do instead</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Load a script or stylesheet from a URL (<code class="language-plaintext highlighter-rouge">https://...</code>)</td>
+      <td>Policy allows nonced inline scripts only; the host inlines local files, not remote ones. A remote reference is replaced by an HTML comment saying so.</td>
+      <td>Put the file in <code class="language-plaintext highlighter-rouge">ui/</code> and reference it by name.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">fetch</code>, <code class="language-plaintext highlighter-rouge">XMLHttpRequest</code>, <code class="language-plaintext highlighter-rouge">WebSocket</code> to anywhere</td>
+      <td>Policy: <code class="language-plaintext highlighter-rouge">default-src 'none'</code>.</td>
+      <td><code class="language-plaintext highlighter-rouge">lw.call</code> to your own <code class="language-plaintext highlighter-rouge">handle</code>, which runs in Node and can do what a plugin may do.</td>
+    </tr>
+    <tr>
+      <td>Show an image by URL</td>
+      <td>Policy allows <code class="language-plaintext highlighter-rouge">data:</code> images only.</td>
+      <td>Embed as a <code class="language-plaintext highlighter-rouge">data:</code> URI.</td>
+    </tr>
+    <tr>
+      <td>Use a web font</td>
+      <td>Not allowed by the run panel’s policy.</td>
+      <td>Use <code class="language-plaintext highlighter-rouge">var(--vscode-font-family)</code>, which is what the base stylesheet already does.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">localStorage</code>, <code class="language-plaintext highlighter-rouge">sessionStorage</code>, <code class="language-plaintext highlighter-rouge">IndexedDB</code>, cookies</td>
+      <td>The iframe has no <code class="language-plaintext highlighter-rouge">allow-same-origin</code>; storage APIs throw.</td>
+      <td><code class="language-plaintext highlighter-rouge">lw.db</code> - it persists across reloads and restarts.</td>
+    </tr>
+    <tr>
+      <td>Reach the panel’s own document, its message channel, or VS Code</td>
+      <td>Different origin, no <code class="language-plaintext highlighter-rouge">allow-same-origin</code>.</td>
+      <td><code class="language-plaintext highlighter-rouge">lw.run</code> for starting things; there is no other way up, on purpose.</td>
+    </tr>
+    <tr>
+      <td>Open a new window or navigate the panel</td>
+      <td>Not in the sandbox list.</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Be told about a change by plugin code on its own</td>
+      <td><code class="language-plaintext highlighter-rouge">handle</code> is request/response; nothing pushes from Node to the page.</td>
+      <td>Poll from the page, or react to <code class="language-plaintext highlighter-rouge">lw.onState</code>, which the panel pushes.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Inline <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> and inline <code class="language-plaintext highlighter-rouge">&lt;style&gt;</code> blocks work. <code class="language-plaintext highlighter-rouge">type="module"</code>
+scripts work. Local <code class="language-plaintext highlighter-rouge">.js</code>/<code class="language-plaintext highlighter-rouge">.css</code> files work by relative name, including
+inside sub-folders of <code class="language-plaintext highlighter-rouge">ui/</code>. A path with a <code class="language-plaintext highlighter-rouge">?query</code> is read without the
+query.</p>
+
+<p class="note">Under the profile’s <code class="language-plaintext highlighter-rouge">debug: true</code> the iframe has <strong>no</strong> <code class="language-plaintext highlighter-rouge">sandbox</code>
+attribute - see <a href="#debug-true-no-sandbox">debug</a> - but the policy above
+still applies, so the “cannot” table does not change.</p><hr />
+<h2 id="windowlw---the-whole-api">
+  
+  
+    <a href="#windowlw---the-whole-api" class="anchor-heading" aria-labelledby="windowlw---the-whole-api"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">window.lw</code> - the whole API
+  
+  
+</h2>
+    
+
+<p>Defined before any of your scripts run. Frozen: you cannot add to it.</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Lw</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="nx">state</span><span class="p">:</span> <span class="nx">State</span> <span class="o">|</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="nf">onState</span><span class="p">(</span><span class="nx">cb</span><span class="p">:</span> <span class="p">(</span><span class="nx">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+    <span class="nf">call</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">payload</span><span class="p">?:</span> <span class="nx">unknown</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">unknown</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="nl">db</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nf">run</span><span class="p">(</span><span class="na">sql</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">params</span><span class="p">?:</span> <span class="nx">unknown</span><span class="p">[]</span> <span class="o">|</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">unknown</span><span class="o">&gt;</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="p">{</span> <span class="na">changes</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="nl">lastInsertRowid</span><span class="p">:</span> <span class="kr">number</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="nf">get</span><span class="p">(</span><span class="na">sql</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">params</span><span class="p">?:</span> <span class="nx">unknown</span><span class="p">[]</span> <span class="o">|</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">unknown</span><span class="o">&gt;</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">unknown</span><span class="o">&gt;</span> <span class="o">|</span> <span class="kc">undefined</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="nf">all</span><span class="p">(</span><span class="na">sql</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">params</span><span class="p">?:</span> <span class="nx">unknown</span><span class="p">[]</span> <span class="o">|</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">unknown</span><span class="o">&gt;</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">unknown</span><span class="o">&gt;</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="nf">run</span><span class="p">(</span><span class="nx">target</span><span class="p">?:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">params</span><span class="p">?:</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">unknown</span><span class="o">&gt;</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kc">null</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Every promise rejects with an <code class="language-plaintext highlighter-rouge">Error</code> whose <code class="language-plaintext highlighter-rouge">message</code> is the reason -
+always a string a person can read. Show it; do not swallow it.</p>
+<h3 id="lwstate-and-lwonstatecb">
+  
+  
+    <a href="#lwstate-and-lwonstatecb" class="anchor-heading" aria-labelledby="lwstate-and-lwonstatecb"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">lw.state</code> and <code class="language-plaintext highlighter-rouge">lw.onState(cb)</code>
+  
+  
+</h3>
+    
+
+<p>What the panel knows, pushed by the panel. <code class="language-plaintext highlighter-rouge">lw.state</code> is <code class="language-plaintext highlighter-rouge">null</code> until the
+first push. <code class="language-plaintext highlighter-rouge">lw.onState(cb)</code> calls <code class="language-plaintext highlighter-rouge">cb</code> immediately if a state exists,
+then on every change, and returns a function that unsubscribes.</p>
+
+<p>The state is a plain object. <code class="language-plaintext highlighter-rouge">state.surface</code> tells you which panel you
+are in, and the rest of the shape depends on it.</p>
+
+<p><strong>On a run panel</strong> (<code class="language-plaintext highlighter-rouge">surface: "run"</code>):</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nl">surface</span><span class="p">:</span> <span class="dl">"</span><span class="s2">run</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nl">running</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">;</span>                       <span class="c1">// a run is going</span>
+    <span class="nl">status</span><span class="p">:</span> <span class="nx">RunStatusName</span><span class="p">;</span>                  <span class="c1">// the whole run's</span>
+    <span class="nl">workflow</span><span class="p">:</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span> <span class="nl">engine</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span> <span class="nl">filePath</span><span class="p">?:</span> <span class="kr">string</span> <span class="p">};</span>
+    <span class="nl">tasks</span><span class="p">:</span> <span class="p">{</span>                                <span class="c1">// every task the definition declares</span>
+        <span class="nx">id</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+        <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+        <span class="nl">plugin</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>                    <span class="c1">// "greet@1" - the `uses:` reference</span>
+        <span class="nl">status</span><span class="p">?:</span> <span class="nx">RunStatusName</span><span class="p">;</span>             <span class="c1">// absent until the task has a status this run</span>
+    <span class="p">}[];</span>
+    <span class="nl">taskStatuses</span><span class="p">:</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">RunStatusName</span><span class="o">&gt;</span><span class="p">;</span>   <span class="c1">// by task id</span>
+    <span class="nl">artifacts</span><span class="p">:</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">unknown</span><span class="o">&gt;</span><span class="p">;</span>     <span class="c1">// `artifact: NAME` values so far, by name</span>
+    <span class="nl">logs</span><span class="p">:</span> <span class="p">{</span> <span class="na">at</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="nl">stream</span><span class="p">:</span> <span class="dl">"</span><span class="s2">stdout</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">stderr</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">system</span><span class="dl">"</span><span class="p">;</span> <span class="nl">text</span><span class="p">:</span> <span class="kr">string</span> <span class="p">}[];</span>
+                                            <span class="c1">// the log lines of the tasks that use YOUR plugin only</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>On a spec panel</strong> (<code class="language-plaintext highlighter-rouge">surface: "spec"</code>):</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nl">surface</span><span class="p">:</span> <span class="dl">"</span><span class="s2">spec</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nl">running</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">;</span>                       <span class="c1">// a phase is drafting</span>
+    <span class="nl">spec</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>                           <span class="c1">// the spec's name</span>
+    <span class="nl">stages</span><span class="p">:</span> <span class="p">{</span>                               <span class="c1">// in pipeline order</span>
+        <span class="na">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>                       <span class="c1">// the phase id - what lw.run takes</span>
+        <span class="nl">label</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+        <span class="nl">artifact</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>                  <span class="c1">// the document's path, for a document phase</span>
+        <span class="nl">exists</span><span class="p">?:</span> <span class="nx">boolean</span><span class="p">;</span>                   <span class="c1">// whether that document is on disk</span>
+        <span class="nl">sessionId</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>                 <span class="c1">// the agent session that last drafted it, if known here</span>
+        <span class="nl">openQuestions</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>              <span class="c1">// unanswered questions in its document</span>
+    <span class="p">}[];</span>
+    <span class="nl">taskStatuses</span><span class="p">:</span> <span class="nb">Record</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">RunStatusName</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="nl">gate</span><span class="p">?:</span> <span class="p">{</span> <span class="na">taskId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span> <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span> <span class="nl">stage</span><span class="p">?:</span> <span class="kr">string</span> <span class="p">};</span>   <span class="c1">// present while a phase waits for a person</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">RunStatusName</code> is one of <code class="language-plaintext highlighter-rouge">"Pending" | "Running" | "Success" | "Failed" | "Skipped" | "Waiting" | "Cancelled"</code>.</p>
+
+<p class="tip">The state is replaced whole on every push. Do not mutate it; read it.
+It arrives often while a run is going - once per log line - so keep
+your <code class="language-plaintext highlighter-rouge">onState</code> handler cheap, or compare the parts you care about before
+redrawing.</p>
+<h3 id="lwcallname-payload">
+  
+  
+    <a href="#lwcallname-payload" class="anchor-heading" aria-labelledby="lwcallname-payload"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">lw.call(name, payload?)</code>
+  
+  
+</h3>
+    
+
+<p>Runs your plugin’s <code class="language-plaintext highlighter-rouge">handle({ name, payload }, ctx)</code> and resolves with
+whatever it returned, as JSON. <code class="language-plaintext highlighter-rouge">payload</code> can be anything JSON can carry;
+<code class="language-plaintext highlighter-rouge">undefined</code> arrives as absent.</p>
+
+<p>Rejects when:</p>
+
+<ul>
+  <li>the plugin exports no <code class="language-plaintext highlighter-rouge">handle</code> - <em>“Plugin ‘board@1’ has no ‘handle(request, ctx)’”</em></li>
+  <li><code class="language-plaintext highlighter-rouge">handle</code> throws - with the thrown message</li>
+  <li>the sandbox could not start - with why</li>
+</ul>
+
+<p>A returned <code class="language-plaintext highlighter-rouge">undefined</code> arrives as <code class="language-plaintext highlighter-rouge">null</code>. A <code class="language-plaintext highlighter-rouge">bigint</code> arrives as a number.</p>
+<h3 id="lwdb">
+  
+  
+    <a href="#lwdb" class="anchor-heading" aria-labelledby="lwdb"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">lw.db</code>
+  
+  
+</h3>
+    
+
+<p>The plugin’s own SQLite tables, from the page. Exactly the same three
+calls as <code class="language-plaintext highlighter-rouge">ctx.db</code> in <code class="language-plaintext highlighter-rouge">execute</code> and <code class="language-plaintext highlighter-rouge">handle</code>, against the same file - see
+<a href="#the-plugin-database">the plugin database</a>.</p>
+
+<p>Rejects with <em>“This window has no plugin database”</em> when the engine
+could not open its databases at all (run history is then in memory too).</p>
+<h3 id="lwruntarget-params">
+  
+  
+    <a href="#lwruntarget-params" class="anchor-heading" aria-labelledby="lwruntarget-params"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">lw.run(target?, params?)</code>
+  
+  
+</h3>
+    
+
+<p>Starts something, the same way the panel’s own buttons do. Gates still
+gate, params are still asked for. Resolves with <code class="language-plaintext highlighter-rouge">null</code> once the start
+was accepted - it does <strong>not</strong> wait for the run to finish; watch
+<code class="language-plaintext highlighter-rouge">state.running</code> for that.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Panel</th>
+      <th><code class="language-plaintext highlighter-rouge">target</code></th>
+      <th>Means</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>run</td>
+      <td>omitted</td>
+      <td>The <strong>Run</strong> button: the whole definition.</td>
+    </tr>
+    <tr>
+      <td>run</td>
+      <td>a <code class="language-plaintext highlighter-rouge">tasks.yml</code> task id</td>
+      <td>That task, with what it <code class="language-plaintext highlighter-rouge">needs:</code> first - what the tree row’s play icon does.</td>
+    </tr>
+    <tr>
+      <td>run</td>
+      <td>a task id in a staged workflow</td>
+      <td>Rejected: a staged workflow runs as a whole. Use no target.</td>
+    </tr>
+    <tr>
+      <td>spec</td>
+      <td>a phase name (<code class="language-plaintext highlighter-rouge">"design"</code>)</td>
+      <td>Starts that phase.</td>
+    </tr>
+    <tr>
+      <td>spec</td>
+      <td>omitted</td>
+      <td>Rejected: name the phase.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>An unknown task id rejects and lists the ids that exist.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">params</code></strong> answers the workflow’s <code class="language-plaintext highlighter-rouge">params:</code> before the run starts, by
+name - whole definition only, so <code class="language-plaintext highlighter-rouge">lw.run(undefined, { lab: "uat",
+releases: [12, 15] })</code>. This is how a page becomes the picker for a
+run: call <code class="language-plaintext highlighter-rouge">handle</code> for what exists right now, draw the choice, and
+start the run with it already answered. The answers go through the
+same door as the Params tab, so they are checked against the
+declarations (a <code class="language-plaintext highlighter-rouge">type: list</code> param must get a list, an undeclared name
+rejects), remembered for the next prompt, and shown in the tab. A run
+never asks mid-run; the only place it stops is a <code class="language-plaintext highlighter-rouge">trigger: manual</code>
+gate, and by then every param is frozen.</p><hr />
+<h2 id="handlerequest-ctx---the-pages-back-end">
+  
+  
+    <a href="#handlerequest-ctx---the-pages-back-end" class="anchor-heading" aria-labelledby="handlerequest-ctx---the-pages-back-end"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">handle(request, ctx)</code> - the page’s back end
+  
+  
+</h2>
+    
+
+<p>The second export of <code class="language-plaintext highlighter-rouge">index.js</code>, beside <code class="language-plaintext highlighter-rouge">execute</code>. Optional: a page that
+only displays does not need it.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">request.name</code></td>
+      <td>the string the page passed to <code class="language-plaintext highlighter-rouge">lw.call</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">request.payload</code></td>
+      <td>whatever the page passed second; absent if nothing</td>
+    </tr>
+    <tr>
+      <td>return value</td>
+      <td>sent back to the page as JSON. Return plain data.</td>
+    </tr>
+    <tr>
+      <td>throw</td>
+      <td>rejects the page’s promise with the message</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>It runs exactly like <code class="language-plaintext highlighter-rouge">execute</code></strong>: in the sandbox, in a fresh process,
+killed when it returns. It is a function call, not a server. Nothing is
+kept between two calls - no globals, no timers, no connections. Anything
+that has to last goes in <code class="language-plaintext highlighter-rouge">ctx.db</code>.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ctx</code> for a handle</strong> is the part of a task’s context that exists when
+nothing is running:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cwd</code>, <code class="language-plaintext highlighter-rouge">root</code></td>
+      <td>the definition’s folder - the workspace root on a spec panel</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">env</code></td>
+      <td>empty. There is no task, so no task env.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">secret(name)</code></td>
+      <td>as in <code class="language-plaintext highlighter-rouge">execute</code>: only names declared in <code class="language-plaintext highlighter-rouge">plugin.json</code>’s <code class="language-plaintext highlighter-rouge">secrets</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">log(text, stream?)</code></td>
+      <td>goes to the <strong>Local Workflows output channel</strong>, prefixed with the plugin ref. There is no task log to put it in.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">db</code></td>
+      <td>the plugin database, or absent when the engine has none</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Not there, on purpose: <code class="language-plaintext highlighter-rouge">runId</code>, <code class="language-plaintext highlighter-rouge">taskId</code>, <code class="language-plaintext highlighter-rouge">attempt</code>, <code class="language-plaintext highlighter-rouge">reportSession</code>,
+<code class="language-plaintext highlighter-rouge">cancelled</code>, <code class="language-plaintext highlighter-rouge">onCancel</code>. A handle is not a task.</p>
+
+<p class="tip">Dispatch on <code class="language-plaintext highlighter-rouge">request.name</code> and throw for anything unknown. A handler
+that returns <code class="language-plaintext highlighter-rouge">undefined</code> for a name it did not recognise hides a typo in
+the page for a long time.</p><hr />
+<h2 id="the-plugin-database">
+  
+  
+    <a href="#the-plugin-database" class="anchor-heading" aria-labelledby="the-plugin-database"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The plugin database
+  
+  
+</h2>
+    
+
+<p>Every plugin can have SQLite tables of its own. <code class="language-plaintext highlighter-rouge">ctx.db</code> in <code class="language-plaintext highlighter-rouge">execute</code>
+and <code class="language-plaintext highlighter-rouge">handle</code>, <code class="language-plaintext highlighter-rouge">lw.db</code> in the page - the same file.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, text TEXT, at TEXT)</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">lastInsertRowid</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">INSERT INTO notes (text, at) VALUES (?, ?)</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">,</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">().</span><span class="nf">toISOString</span><span class="p">()]);</span>
+<span class="kd">const</span> <span class="nx">one</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">SELECT * FROM notes WHERE id = ?</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="nx">lastInsertRowid</span><span class="p">]);</span>
+<span class="kd">const</span> <span class="nx">all</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="dl">"</span><span class="s2">SELECT * FROM notes ORDER BY id DESC</span><span class="dl">"</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">DELETE FROM notes WHERE id = $id</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">$id</span><span class="p">:</span> <span class="nx">lastInsertRowid</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Call</th>
+      <th>Returns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">run(sql, params?)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">{ changes, lastInsertRowid }</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">get(sql, params?)</code></td>
+      <td>the first row as an object, or <code class="language-plaintext highlighter-rouge">undefined</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">all(sql, params?)</code></td>
+      <td>an array of row objects</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><code class="language-plaintext highlighter-rouge">params</code> is an array for <code class="language-plaintext highlighter-rouge">?</code> placeholders, or an object for <code class="language-plaintext highlighter-rouge">$name</code> /
+<code class="language-plaintext highlighter-rouge">:name</code> / <code class="language-plaintext highlighter-rouge">@name</code> placeholders. Always use placeholders; never build SQL
+from strings the page typed.</p>
+
+<p><strong>Facts to design around</strong></p>
+
+<ul>
+  <li><strong>One file per plugin id</strong>: <code class="language-plaintext highlighter-rouge">~/.local-workflows/db/&lt;workspace&gt;/plugins/&lt;id&gt;.db</code>. Two versions of one plugin (<code class="language-plaintext highlighter-rouge">board@1</code>, <code class="language-plaintext highlighter-rouge">board@2</code>) share it. Two plugins never do.</li>
+  <li><strong>Per workspace</strong>, like run history. The same plugin in two repositories has two databases.</li>
+  <li><strong>Nobody else can read it</strong> - not another plugin, not a task, not a <code class="language-plaintext highlighter-rouge">${{ }}</code> expression. If a later task needs a value, return it from <code class="language-plaintext highlighter-rouge">execute</code> as an artifact.</li>
+  <li><strong>Create your tables in the code that uses them.</strong> <code class="language-plaintext highlighter-rouge">CREATE TABLE IF NOT EXISTS</code> on entry is the migration story. There is no schema file.</li>
+  <li><strong>It is plain SQLite</strong> (Node’s built-in). No extensions, no JSON1 guarantees beyond what the runtime ships.</li>
+  <li><strong>Absent</strong> when the engine has nowhere to write. <code class="language-plaintext highlighter-rouge">ctx.db</code> is then <code class="language-plaintext highlighter-rouge">undefined</code> and <code class="language-plaintext highlighter-rouge">lw.db</code> rejects. Check <code class="language-plaintext highlighter-rouge">ctx.db</code> before using it in <code class="language-plaintext highlighter-rouge">execute</code>, so the task still succeeds.</li>
+</ul><hr />
+<h2 id="look-and-feel">
+  
+  
+    <a href="#look-and-feel" class="anchor-heading" aria-labelledby="look-and-feel"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Look and feel
+  
+  
+</h2>
+    
+
+<p>The page starts out looking like the panel around it without any CSS
+from you:</p>
+
+<ul>
+  <li>Every <code class="language-plaintext highlighter-rouge">--vscode-*</code> CSS variable the editor defines is copied onto the page’s <code class="language-plaintext highlighter-rouge">&lt;html&gt;</code> element, and updated when the theme changes.</li>
+  <li>The body carries the editor’s theme class (<code class="language-plaintext highlighter-rouge">vscode-dark</code>, <code class="language-plaintext highlighter-rouge">vscode-light</code>, <code class="language-plaintext highlighter-rouge">vscode-high-contrast</code>).</li>
+  <li>A base stylesheet styles <code class="language-plaintext highlighter-rouge">body</code>, <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">button</code>, <code class="language-plaintext highlighter-rouge">input</code>, <code class="language-plaintext highlighter-rouge">select</code>, <code class="language-plaintext highlighter-rouge">textarea</code>, <code class="language-plaintext highlighter-rouge">table</code>, <code class="language-plaintext highlighter-rouge">code</code> and <code class="language-plaintext highlighter-rouge">pre</code> from those variables. Your own <code class="language-plaintext highlighter-rouge">&lt;style&gt;</code> or <code class="language-plaintext highlighter-rouge">.css</code> comes after it and wins.</li>
+</ul>
+
+<p>The variables you will reach for most:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--vscode-foreground</code>, <code class="language-plaintext highlighter-rouge">--vscode-font-family</code>, <code class="language-plaintext highlighter-rouge">--vscode-font-size</code></td>
+      <td>text</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--vscode-editor-font-family</code>, <code class="language-plaintext highlighter-rouge">--vscode-editor-font-size</code></td>
+      <td>monospace</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--vscode-textLink-foreground</code></td>
+      <td>links</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--vscode-button-background</code>, <code class="language-plaintext highlighter-rouge">--vscode-button-foreground</code>, <code class="language-plaintext highlighter-rouge">--vscode-button-hoverBackground</code></td>
+      <td>buttons</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--vscode-input-background</code>, <code class="language-plaintext highlighter-rouge">--vscode-input-foreground</code>, <code class="language-plaintext highlighter-rouge">--vscode-input-border</code></td>
+      <td>inputs</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--vscode-widget-border</code></td>
+      <td>dividers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--vscode-errorForeground</code></td>
+      <td>an error line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--vscode-textCodeBlock-background</code></td>
+      <td>a <code class="language-plaintext highlighter-rouge">&lt;pre&gt;</code> block</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--vscode-descriptionForeground</code></td>
+      <td>secondary text</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The page background is transparent, so the panel’s own background shows
+through. Do not paint <code class="language-plaintext highlighter-rouge">body</code> a solid colour unless you mean to.</p>
+
+<p>The tab is the size of the panel’s content area. Make the page scroll
+itself (<code class="language-plaintext highlighter-rouge">overflow: auto</code> on a container) rather than assuming a height.</p><hr />
+<h2 id="errors-and-where-they-show">
+  
+  
+    <a href="#errors-and-where-they-show" class="anchor-heading" aria-labelledby="errors-and-where-they-show"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Errors, and where they show
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>What went wrong</th>
+      <th>Where you see it</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ui</code> in <code class="language-plaintext highlighter-rouge">plugin.json</code> breaks a rule</td>
+      <td>The plugin fails to load: a warning toast naming the file and the rule. No tab.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">entry</code> file missing or unreadable</td>
+      <td>The tab exists and shows one line saying which path could not be read.</td>
+    </tr>
+    <tr>
+      <td>A local script or stylesheet named in the page is missing, or a remote one</td>
+      <td>An HTML comment in the page where the tag was, saying which. The rest of the page draws.</td>
+    </tr>
+    <tr>
+      <td>A script error in your page</td>
+      <td>The page’s own console. Nothing reaches the panel.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">handle</code> throws</td>
+      <td>The page’s <code class="language-plaintext highlighter-rouge">lw.call</code> promise rejects with the message. Also in the output channel.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lw.run</code> refused</td>
+      <td>The promise rejects with the reason (unknown task, staged workflow, no phase named).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lw.db</code> when there is no database</td>
+      <td>The promise rejects saying so.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The panel itself never breaks because of a plugin’s page. The worst a
+page can do is look wrong.</p><hr />
+<h2 id="the-edit-loop">
+  
+  
+    <a href="#the-edit-loop" class="anchor-heading" aria-labelledby="the-edit-loop"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The edit loop
+  
+  
+</h2>
+    
+
+<ol>
+  <li>Edit <code class="language-plaintext highlighter-rouge">ui/app.js</code>, <code class="language-plaintext highlighter-rouge">ui/index.html</code> or <code class="language-plaintext highlighter-rouge">index.js</code>.</li>
+  <li>Run <strong>Local Workflows: Reload Plugins</strong> (command palette).</li>
+  <li>Look at the tab. Every open run panel and spec panel gets the page again.</li>
+</ol>
+
+<p>No window reload. The plugin’s load errors, if any, come up as they do
+at startup.</p>
+<h3 id="debug-true---no-sandbox">
+  
+  
+    <a href="#debug-true---no-sandbox" class="anchor-heading" aria-labelledby="debug-true---no-sandbox"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">debug: true</code> - no sandbox
+  
+  
+</h3>
+    
+
+<p>In your <strong>profile’s</strong> <code class="language-plaintext highlighter-rouge">~/.local-workflows/settings.json</code> (a workspace
+cannot declare it):</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="nl">"debug"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Then, after Reload Plugins:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">execute</code> and <code class="language-plaintext highlighter-rouge">handle</code> run <strong>in-process</strong>, like a bundled plugin. No worker, no permission flags, no module allowlist. <code class="language-plaintext highlighter-rouge">require("fs")</code> works. A throw has a normal stack trace in the output channel.</li>
+  <li>The page’s iframe has <strong>no <code class="language-plaintext highlighter-rouge">sandbox</code> attribute</strong>.</li>
+  <li>The require cache is cleared for the plugin’s folder on every reload, so an edit is picked up.</li>
+</ul>
+
+<p>Take it out when you are done. It is machine-wide, and it also lifts the
+directory limit on agent sessions.</p><hr />
+<h2 id="full-example-greet1">
+  
+  
+    <a href="#full-example-greet1" class="anchor-heading" aria-labelledby="full-example-greet1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Full example: <code class="language-plaintext highlighter-rouge">greet@1</code>
+  
+  
+</h2>
+    
+
+<p><code class="language-plaintext highlighter-rouge">Samples/HelloWorld/.local-workflows/plugins/greetV1/</code> in the repository
+uses every part of this page. Its files:</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">plugin.json</code></strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"greet"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Greet"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"major"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"minor"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">"patch"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"excited"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boolean"</span><span class="p">,</span><span class="w"> </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"artifacts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"greeting"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"secrets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GREET_TOKEN"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"ui"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Greet app"</span><span class="p">,</span><span class="w"> </span><span class="nl">"entry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ui/index.html"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">index.js</code></strong> - the parts that matter here</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="k">async</span> <span class="nf">execute</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="kd">const</span> <span class="nx">greeting</span> <span class="o">=</span> <span class="s2">`Hello, </span><span class="p">${</span><span class="nx">args</span><span class="p">.</span><span class="nx">name</span><span class="p">}${</span><span class="nx">args</span><span class="p">.</span><span class="nx">excited</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">!</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+
+        <span class="nx">ctx</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">greeting</span><span class="p">);</span>
+
+        <span class="c1">// Record every run in the plugin's own table. Guarded: `db` is</span>
+        <span class="c1">// absent when the engine has nowhere to write, and the task</span>
+        <span class="c1">// must still succeed.</span>
+        <span class="k">if </span><span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">db</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">await</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">CREATE TABLE IF NOT EXISTS greetings (id INTEGER PRIMARY KEY, name TEXT, at TEXT)</span><span class="dl">"</span><span class="p">);</span>
+            <span class="k">await</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">INSERT INTO greetings (name, at) VALUES (?, ?)</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="nx">args</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">().</span><span class="nf">toISOString</span><span class="p">()]);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">{</span> <span class="na">success</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">artifacts</span><span class="p">:</span> <span class="p">{</span> <span class="nx">greeting</span> <span class="p">}</span> <span class="p">};</span>
+    <span class="p">},</span>
+
+    <span class="k">async</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">switch </span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="k">case</span> <span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span> <span class="na">text</span><span class="p">:</span> <span class="s2">`Hello, </span><span class="p">${</span><span class="nx">request</span><span class="p">.</span><span class="nx">payload</span><span class="p">?.</span><span class="nx">name</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">stranger</span><span class="dl">"</span><span class="p">}</span><span class="s2">. This came from index.js.`</span> <span class="p">};</span>
+
+            <span class="k">case</span> <span class="dl">"</span><span class="s2">history</span><span class="dl">"</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">db</span> <span class="p">?</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="dl">"</span><span class="s2">SELECT name, at FROM greetings ORDER BY id DESC LIMIT 20</span><span class="dl">"</span><span class="p">)</span> <span class="p">:</span> <span class="p">[];</span>
+
+            <span class="k">case</span> <span class="dl">"</span><span class="s2">clear</span><span class="dl">"</span><span class="p">:</span>
+                <span class="k">if </span><span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">db</span><span class="p">)</span>
+                    <span class="k">await</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">DELETE FROM greetings</span><span class="dl">"</span><span class="p">);</span>
+                <span class="k">return</span> <span class="p">{</span> <span class="na">cleared</span><span class="p">:</span> <span class="kc">true</span> <span class="p">};</span>
+
+            <span class="nl">default</span><span class="p">:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span><span class="s2">`greet@1 has no handler named '</span><span class="p">${</span><span class="nx">request</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="s2">'.`</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ui/index.html</code></strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"app.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Greet app<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>Greet app<span class="nt">&lt;/h2&gt;</span>
+
+    <span class="nt">&lt;section&gt;</span>
+        <span class="nt">&lt;h3&gt;</span>Ask index.js something<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">"hello"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"who"</span> <span class="na">placeholder=</span><span class="s">"Your name"</span> <span class="na">autocomplete=</span><span class="s">"off"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Call handle("hello")<span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;/form&gt;</span>
+        <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">"answer"</span> <span class="na">class=</span><span class="s">"answer"</span><span class="nt">&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+
+    <span class="nt">&lt;section&gt;</span>
+        <span class="nt">&lt;h3&gt;</span>What the panel knows<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;pre</span> <span class="na">id=</span><span class="s">"state"</span><span class="nt">&gt;</span>waiting for state...<span class="nt">&lt;/pre&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+
+    <span class="nt">&lt;section&gt;</span>
+        <span class="nt">&lt;h3&gt;</span>Greetings recorded in this plugin's own database<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"refresh"</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span>Refresh<span class="nt">&lt;/button&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"clear"</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span>Clear<span class="nt">&lt;/button&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"run"</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span>Run the Greet task<span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;table</span> <span class="na">id=</span><span class="s">"history"</span><span class="nt">&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;</span>Name<span class="nt">&lt;/th&gt;&lt;th&gt;</span>When<span class="nt">&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;/tbody&gt;&lt;/table&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"app.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ui/app.js</code></strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">id</span> <span class="o">=&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">show</span> <span class="o">=</span> <span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">isError</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
+    <span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nf">toggle</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nc">Boolean</span><span class="p">(</span><span class="nx">isError</span><span class="p">));</span>
+<span class="p">};</span>
+
+<span class="c1">// lw.call -&gt; handle("hello")</span>
+<span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">).</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span><span class="p">,</span> <span class="k">async</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nf">preventDefault</span><span class="p">();</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">reply</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">lw</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">who</span><span class="dl">"</span><span class="p">).</span><span class="nx">value</span><span class="p">.</span><span class="nf">trim</span><span class="p">()</span> <span class="p">});</span>
+        <span class="nf">show</span><span class="p">(</span><span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">answer</span><span class="dl">"</span><span class="p">),</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">text</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">show</span><span class="p">(</span><span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">answer</span><span class="dl">"</span><span class="p">),</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// lw.onState -&gt; live view of the panel</span>
+<span class="nx">lw</span><span class="p">.</span><span class="nf">onState</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">state</span><span class="dl">"</span><span class="p">).</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// lw.call -&gt; handle("history") -&gt; the plugin's own table</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nf">refresh</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">history</span><span class="dl">"</span><span class="p">).</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">tbody</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">rows</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">lw</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="dl">"</span><span class="s2">history</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">body</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span>
+        <span class="k">for </span><span class="p">(</span><span class="kd">const</span> <span class="nx">row</span> <span class="k">of</span> <span class="nx">rows</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="nx">tr</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">tr</span><span class="dl">"</span><span class="p">);</span>
+            <span class="nx">tr</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;</span><span class="dl">"</span><span class="p">;</span>
+            <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">row</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>   <span class="c1">// textContent, never innerHTML, for data</span>
+            <span class="nx">tr</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">row</span><span class="p">.</span><span class="nx">at</span><span class="p">;</span>
+            <span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">tr</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">rows</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+            <span class="nx">body</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;tr&gt;&lt;td colspan="2"&gt;Nothing yet - run the Greet task.&lt;/td&gt;&lt;/tr&gt;</span><span class="dl">'</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">show</span><span class="p">(</span><span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">answer</span><span class="dl">"</span><span class="p">),</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">refresh</span><span class="dl">"</span><span class="p">).</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">refresh</span><span class="p">);</span>
+
+<span class="c1">// lw.db straight from the page</span>
+<span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">clear</span><span class="dl">"</span><span class="p">).</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nx">lw</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">DELETE FROM greetings</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">await</span> <span class="nf">refresh</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">// lw.run -&gt; the `greet` task in tasks.yml</span>
+<span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">run</span><span class="dl">"</span><span class="p">).</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">await</span> <span class="nx">lw</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">greet</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">show</span><span class="p">(</span><span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">answer</span><span class="dl">"</span><span class="p">),</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nf">refresh</span><span class="p">();</span>
+
+<span class="c1">// Redraw the table when a run ends.</span>
+<span class="kd">let</span> <span class="nx">wasRunning</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="nx">lw</span><span class="p">.</span><span class="nf">onState</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">wasRunning</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">state</span><span class="p">.</span><span class="nx">running</span><span class="p">)</span>
+        <span class="nf">refresh</span><span class="p">();</span>
+    <span class="nx">wasRunning</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">running</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">ui/app.css</code></strong></p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">section</span> <span class="p">{</span> <span class="nl">margin</span><span class="p">:</span> <span class="m">12px</span> <span class="m">0</span> <span class="m">18px</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">h2</span> <span class="p">{</span> <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">4px</span><span class="p">;</span> <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.2em</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">h3</span> <span class="p">{</span> <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">6px</span><span class="p">;</span> <span class="nl">font-size</span><span class="p">:</span> <span class="m">1em</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.row</span> <span class="p">{</span> <span class="nl">display</span><span class="p">:</span> <span class="nb">flex</span><span class="p">;</span> <span class="nl">gap</span><span class="p">:</span> <span class="m">8px</span><span class="p">;</span> <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">8px</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.answer.error</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="l">--vscode-errorForeground</span><span class="p">);</span> <span class="p">}</span>
+<span class="nt">pre</span> <span class="p">{</span> <span class="nl">max-height</span><span class="p">:</span> <span class="m">220px</span><span class="p">;</span> <span class="nl">overflow</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span> <span class="nl">padding</span><span class="p">:</span> <span class="m">8px</span><span class="p">;</span> <span class="nl">background</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="l">--vscode-textCodeBlock-background</span><span class="p">);</span> <span class="p">}</span>
+<span class="nt">table</span> <span class="p">{</span> <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The task that drives it, in the sample’s <code class="language-plaintext highlighter-rouge">tasks.yml</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">tasks</span><span class="pi">:</span>
+  <span class="na">greet</span><span class="pi">:</span>
+    <span class="na">uses</span><span class="pi">:</span> <span class="s">greet@1</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">Santosh</span>
+      <span class="na">excited</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">artifact</span><span class="pi">:</span> <span class="s">GREETING</span>
+</code></pre></div></div><hr />
+<h2 id="checklist-for-writing-one">
+  
+  
+    <a href="#checklist-for-writing-one" class="anchor-heading" aria-labelledby="checklist-for-writing-one"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Checklist for writing one
+  
+  
+</h2>
+    
+
+<p>Use this when generating a plugin app, in order.</p>
+
+<ol>
+  <li><strong>Folder</strong> <code class="language-plaintext highlighter-rouge">&lt;id&gt;V&lt;major&gt;</code> under <code class="language-plaintext highlighter-rouge">.local-workflows/plugins/</code> (repo) or <code class="language-plaintext highlighter-rouge">~/.local-workflows/plugins/</code> (profile).</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">plugin.json</code></strong> with <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">version</code>, and <code class="language-plaintext highlighter-rouge">ui: { label }</code>. <code class="language-plaintext highlighter-rouge">entry</code> only if the page is not <code class="language-plaintext highlighter-rouge">ui/index.html</code>.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">index.js</code></strong> exports <code class="language-plaintext highlighter-rouge">execute</code> (always) and <code class="language-plaintext highlighter-rouge">handle</code> (if the page calls anything). Both <code class="language-plaintext highlighter-rouge">async</code>. <code class="language-plaintext highlighter-rouge">handle</code> switches on <code class="language-plaintext highlighter-rouge">request.name</code> and throws on an unknown name.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">ui/index.html</code></strong> - a full document. Scripts and styles inline or as local files by relative name. No URLs to the web. Images as <code class="language-plaintext highlighter-rouge">data:</code> URIs.</li>
+  <li><strong>Page code</strong> uses only <code class="language-plaintext highlighter-rouge">window.lw</code>. No <code class="language-plaintext highlighter-rouge">fetch</code>, no <code class="language-plaintext highlighter-rouge">localStorage</code>. Every <code class="language-plaintext highlighter-rouge">lw.*</code> call in a <code class="language-plaintext highlighter-rouge">try/catch</code> or <code class="language-plaintext highlighter-rouge">.catch</code>, and the message shown.</li>
+  <li><strong>State</strong> read through <code class="language-plaintext highlighter-rouge">lw.onState</code>; branch on <code class="language-plaintext highlighter-rouge">state.surface</code> if the page is meant for both panels.</li>
+  <li><strong>Persistence</strong> through <code class="language-plaintext highlighter-rouge">lw.db</code> / <code class="language-plaintext highlighter-rouge">ctx.db</code>, tables created with <code class="language-plaintext highlighter-rouge">CREATE TABLE IF NOT EXISTS</code>, placeholders for every value. <code class="language-plaintext highlighter-rouge">ctx.db</code> guarded in <code class="language-plaintext highlighter-rouge">execute</code>.</li>
+  <li><strong>Text from data</strong> put into the DOM with <code class="language-plaintext highlighter-rouge">textContent</code>, never <code class="language-plaintext highlighter-rouge">innerHTML</code>.</li>
+  <li><strong>Styling</strong> from <code class="language-plaintext highlighter-rouge">--vscode-*</code> variables; no solid <code class="language-plaintext highlighter-rouge">body</code> background; the page scrolls itself.</li>
+  <li><strong>Test</strong>: Reload Plugins → open a task → the tab is there → click through every button → run the task → the state and table update. Then the same in a spec panel if the page claims to work there.</li>
+</ol><hr />
+<h2 id="what-this-is-not">
+  
+  
+    <a href="#what-this-is-not" class="anchor-heading" aria-labelledby="what-this-is-not"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What this is not
+  
+  
+</h2>
+    
+
+<ul>
+  <li><strong>Not a way to ship UI to other people.</strong> There is no marketplace and no plugin sharing. The page is for the machine it sits on.</li>
+  <li><strong>Not a live channel from plugin code.</strong> Nothing pushes from <code class="language-plaintext highlighter-rouge">index.js</code> to the page; the page asks, or reads state the panel pushes.</li>
+  <li><strong>Not a place to ask a human mid-task.</strong> <code class="language-plaintext highlighter-rouge">handle</code> runs when nobody is running anything. A task that needs a decision before it continues is two tasks with <code class="language-plaintext highlighter-rouge">trigger: manual</code> between them - see <a href="/getting-started/workflows/">Workflows</a>.</li>
+  <li><strong>Not a VS Code extension.</strong> The page cannot register commands, views, or settings, and cannot call the VS Code API. What it can do is the <code class="language-plaintext highlighter-rouge">lw</code> table above, and that table is the whole contract.</li>
+</ul>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 10-Sep-2026 06:35 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

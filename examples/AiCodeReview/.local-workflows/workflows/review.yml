@@ -1,0 +1,202 @@
+# Review your own branch before anyone else has to.
+#
+# The split this file is built on: **the model proposes, a person
+# approves, a plugin executes.**
+#
+#   1. collect  - write the diff to a file. Plain git, no AI.
+#   2. review   - the agent reads that file and writes review.md, then
+#                 writes a pull request description in the same
+#                 conversation. It writes two files and nothing else.
+#   3. publish  - stops and waits for you, then posts the review as a
+#                 comment on an Azure DevOps work item.
+#
+# Only step 3 touches anything outside this folder, and it is gated. The
+# gate shows you the *resolved* arguments - the real comment text, the
+# real work item number - not the template. Approving a template is
+# approving a promise; approving a resolved call is approving a call.
+#
+# What it needs:
+#   - GitHub Copilot, signed in to the editor. No API key, and nothing
+#     credential-shaped in this file.
+#   - For the optional last step only: `az login` and
+#     `az extension add --name azure-devops`.
+#
+# Leave `workItem` empty and the run stops after step 2 with two files
+# on disk. That is a perfectly good way to use this.
+
+version: 1
+
+name: AI code review
+desc: The agent reviews your branch, you read it, then it posts as a work item comment.
+
+params:
+
+  base:
+    desc: Branch to compare against
+    default: origin/main
+
+  # Empty by default. The publish stage says `if: ${{ params.workItem }}`,
+  # and an empty value is false, so leaving this alone skips the post.
+  workItem:
+    desc: Azure DevOps work item to comment on. Leave empty to skip posting.
+    default: ""
+
+  org:
+    desc: Azure DevOps organization URL
+    default: https://dev.azure.com/contoso
+
+  project:
+    desc: Azure DevOps project
+    default: Contoso
+
+label: Review against ${{ params.base }}
+
+vars:
+  out: .local-workflows/out
+  diffFile: ${{ vars.out }}/diff.patch
+  reviewFile: ${{ vars.out }}/review.md
+  descriptionFile: ${{ vars.out }}/pr-description.md
+
+plugins:
+
+  # Declared once so no task repeats `uses: ai@1`. No `provider:` line,
+  # so it runs on GitHub Copilot - the default.
+  ai:
+    uses: ai@1
+
+stages:
+
+  - name: collect
+    desc: Write the diff to a file. No AI in this stage at all.
+    tasks:
+
+      - name: Make the output folder
+        uses: file@1
+        args:
+          operation: mkdir
+          path: ${{ vars.out }}
+
+      - name: Update the base branch
+        run: git fetch origin --prune
+
+      - name: Write the diff
+        desc: Everything this branch changes, as one patch file.
+        uses: pwsh@1
+        args:
+          script: |
+            git diff ${{ params.base }}...HEAD | Set-Content -Path '${{ vars.diffFile }}' -Encoding utf8
+
+            $size = (Get-Item '${{ vars.diffFile }}').Length
+            if ($size -eq 0) {
+                throw 'Nothing to review - this branch matches ${{ params.base }}.'
+            }
+
+            Write-Output "Wrote ${{ vars.diffFile }} ($size bytes)."
+
+  - name: review
+    desc: Two documents, one conversation. Nothing outside this folder is touched.
+    tasks:
+
+      - name: Review the diff
+        # Two tasks naming the same session share one thread, so the
+        # second one below has already read the diff and already knows
+        # what this review said.
+        session: review
+        uses: ai
+        args:
+          title: Code review of this branch
+          context:
+            diff:
+              file: ${{ vars.diffFile }}
+          target: ${{ vars.reviewFile }}
+          prompt: |
+            The context above is a git diff of one branch.
+
+            Review it. Write your review to ${{ vars.reviewFile }} as
+            markdown, in this shape and nothing else:
+
+              # Review
+
+              **Verdict:** one line - SHIP, SHIP WITH CHANGES, or DO NOT SHIP.
+
+              ## Blocking
+
+              Numbered. Things that are wrong: a bug, a crash, data that
+              can be lost, a check that does not check what it says.
+              Each one names the file and the line, says what breaks, and
+              says what input makes it break. If there are none, write
+              "None."
+
+              ## Worth fixing
+
+              Numbered. Things that are not wrong but will cost someone
+              later. Same format.
+
+              ## Not reviewed
+
+              Anything in the diff you could not judge from the diff
+              alone, and what you would need to see.
+
+            Rules:
+              - Judge only what is in the diff. Do not review code it
+                does not touch.
+              - Do not restate what the code does. A reviewer can read.
+              - No praise, no "consider", no "you might want to". Say the
+                problem or leave it out.
+              - Write that one file. Do not change any source file.
+        artifact: REVIEW
+
+      - name: Write the pull request description
+        desc: Same conversation, so it already knows the diff and its own review.
+        session: review
+        uses: ai
+        args:
+          title: Pull request description
+          target: ${{ vars.descriptionFile }}
+          prompt: |
+            Now write the pull request description for the same branch,
+            to ${{ vars.descriptionFile }}.
+
+              # (one line saying what this does)
+
+              ## What changed
+              (bullets, one per real change - not one per file)
+
+              ## Why
+              (the problem this solves)
+
+              ## How to check it
+              (what a reviewer should actually run or click)
+
+            Written for someone who has not seen the diff. Do not include
+            your review - that is a separate file. Write that one file
+            and change nothing else.
+
+  - name: publish
+    desc: The only stage that leaves this folder. Skipped unless you named a work item.
+    if: ${{ params.workItem }}
+    tasks:
+
+      - name: Read the review back
+        desc: The file as it stands, including anything you edited into it.
+        uses: file@1
+        args:
+          operation: read
+          path: ${{ vars.reviewFile }}
+        artifact: REVIEW_TEXT
+
+      - name: Post it as a work item comment
+        desc: Stops here. What you see is the comment that gets posted.
+        trigger: manual
+        uses: ado-comment@1
+        args:
+          orgUrl: ${{ params.org }}
+          project: ${{ params.project }}
+          workItem: ${{ params.workItem }}
+
+          # The same key always lands on the same comment, so running
+          # this workflow twice updates one comment instead of adding a
+          # second. Change the key to add a new one.
+          key: ai-code-review
+          body: ${{ run.context.REVIEW_TEXT.content }}
+          auth: az

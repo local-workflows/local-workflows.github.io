@@ -1,0 +1,63 @@
+version: 1
+
+name: Build and Publish
+desc: Verifies the build in one stage, then publishes in the next.
+
+env:
+  BUILD_CONFIGURATION: Release
+
+# File-local plugins - same mechanism as tasks.yml's `plugins:` (and as
+# the `ai:` entry in release-pipeline.yml's own `plugins:`): define a
+# plugin call once, reference it by bare name from any task below.
+plugins:
+  celebrate:
+    uses: pwsh@1
+    args:
+      script: "Write-Output 'Published: https://example.com/releases/latest'"
+
+# Stages hold tasks directly, and everything is sequential: the list
+# order IS the execution order, in the file exactly as in the run.
+#
+# A task here is written exactly like a `tasks.yml` task - a bare
+# string (`- git push`), a `run:` command, or `uses:` naming a plugin
+# with its `args:`. The one difference is placement: order comes from
+# the list, so a task-level `needs:` does not exist here.
+
+stages:
+
+  # Stage 1 - everything that must pass before anything is published.
+  - name: verify
+    desc: Compile, lint and test before anything is published.
+    tasks:
+
+      # Bare strings - the tersest form, one command per task,
+      # through the OS-default shell.
+      - echo Compiling sources...
+      - echo Artifact written.
+      - echo Linting source files...
+
+      - name: Unit tests
+        run: echo Running unit tests...
+
+      - name: Integration tests
+        run: echo Running integration tests...
+
+  # Stage 2 - a barrier. Nothing here starts until everything above finished.
+  - name: publish
+    desc: Only reached once the whole verify stage has passed.
+    tasks:
+
+      # Reads $env: syntax, so it names pwsh - the OS default (cmd
+      # on Windows) spells environment variables differently. The
+      # `env:` here is the task's own, over the file's - there is no
+      # level between a task and the file any more.
+      - name: Package the build
+        shell: pwsh
+        env:
+          BUILD_CONFIGURATION: Debug
+        run: Write-Output "Packaging a $env:BUILD_CONFIGURATION build..."
+
+      # A bare name references the `plugins:` entry at the top -
+      # the task runs pwsh@1 with the entry's default args.
+      - name: Announce the release
+        uses: celebrate

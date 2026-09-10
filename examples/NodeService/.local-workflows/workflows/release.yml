@@ -1,0 +1,98 @@
+# Cut a release: verify, set the version, build, and stop for a person
+# before anything is tagged or published.
+#
+# The one idea in this file is the gate. `trigger: manual` on the tag
+# task means the run stops there and shows you the *resolved* command -
+# the real version number, not `${{ params.version }}` - and waits until
+# you click Run. Nothing is executing while it waits, so you can close
+# the tab, look at the build, and come back tomorrow.
+#
+# Approving a template is approving a promise. Approving a resolved
+# command is approving a command.
+
+version: 1
+
+name: Release
+desc: Verify, version, build, then stop for a human before tagging.
+
+params:
+
+  # No default, so the run cannot start without one.
+  version:
+    desc: Version to release, without the v (e.g. 0.2.0)
+
+label: Release ${{ params.version }}
+
+vars:
+  tag: v${{ params.version }}
+
+env:
+  NO_COLOR: "1"
+
+stages:
+
+  - name: verify
+    desc: Nothing is versioned until this passes.
+    tasks:
+      - name: Install dependencies
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Test
+        run: npm test
+      - name: Refuse to release a dirty tree
+        desc: A release built from uncommitted changes is not reproducible.
+        shell: pwsh
+        run: |
+          $dirty = git status --porcelain
+          if ($dirty) {
+              Write-Output $dirty
+              throw "There are uncommitted changes. Commit or stash them first."
+          }
+          Write-Output "Working tree is clean."
+
+  - name: version
+    desc: Write the version, then build from it.
+    tasks:
+      - name: Set the version in package.json
+        desc: --no-git-tag-version, because the tag is the gated task below.
+        run: npm version ${{ params.version }} --no-git-tag-version --allow-same-version
+      - name: Build
+        run: npm run build
+      - name: What is going out
+        shell: pwsh
+        run: |
+          Write-Output "version : ${{ params.version }}"
+          Write-Output "tag     : ${{ vars.tag }}"
+          Write-Output "files   :"
+          Get-ChildItem dist -Recurse -File | ForEach-Object { "  " + $_.Name }
+        artifact: MANIFEST
+
+  - name: tag
+    desc: The only stage that writes to git history. It waits for you.
+    tasks:
+
+      - name: Commit and tag
+        desc: Stops here. Read the manifest above, then click Run.
+        trigger: manual
+        shell: pwsh
+        env:
+          MANIFEST: ${{ run.context.MANIFEST.stdout }}
+        run: |
+          Write-Output "About to tag:"
+          Write-Output $env:MANIFEST
+
+          git add package.json
+          git commit -m "Release ${{ vars.tag }}"
+          git tag -a ${{ vars.tag }} -m "Release ${{ vars.tag }}"
+
+          Write-Output "Tagged ${{ vars.tag }} locally. Nothing has been pushed."
+
+      - name: Push it
+        desc: A second gate, because pushing a tag is the step you cannot take back.
+        trigger: manual
+        shell: pwsh
+        run: |
+          git push origin HEAD
+          git push origin ${{ vars.tag }}
+          Write-Output "Pushed ${{ vars.tag }}."

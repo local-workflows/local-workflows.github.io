@@ -1,0 +1,79 @@
+version: 1
+
+name: Hello Logs
+desc: Every stage exists to produce a different kind of log line, not to build anything - run it and open each task's Logs tab.
+
+stages:
+
+  - name: greet
+    tasks:
+
+      # Three lines, one after another, all on stdout. The Logs tab
+      # groups a run of same-stream lines under one timestamp/[stdout]
+      # tag rather than repeating it on every line - this is what that
+      # grouping looks like.
+      - name: Say hello
+        uses: pwsh@1
+        args:
+          script: |
+            Write-Output "Hello from Local Workflows!"
+            Write-Output "This line lands right after the one above -"
+            Write-Output "so the tab groups the three of us under one timestamp."
+
+      # PowerShell's `Write-Warning` is still just stdout as far as the
+      # engine is concerned - there is no 'warning'-level log line here,
+      # only the two stream colours the Logs tab actually knows about.
+      - name: A PowerShell warning
+        uses: pwsh@1
+        args:
+          script: |
+            Write-Warning "PowerShell's own warning stream - plain stdout to the engine."
+            Write-Output "Ordinary output resumes here."
+
+      # A line whose whole text is a JSON object. The Logs tab notices
+      # and shows it collapsed - click it to expand the actual tree
+      # instead of reading one long escaped line.
+      - name: Log a structured object
+        uses: pwsh@1
+        args:
+          script: Write-Output '{"user":"alice","role":"admin","permissions":["read","write","deploy"]}'
+
+  - name: trouble
+    tasks:
+
+      # The point of this one is the transition, not the line itself:
+      # stdout, then stderr, then stdout again - three tag changes in
+      # one task's log.
+      - name: Write to stderr
+        uses: pwsh@1
+        args:
+          script: |
+            Write-Output "About to write a line on stderr..."
+            [Console]::Error.WriteLine("This one is stderr - watch the colour and the [stderr] tag change.")
+            Write-Output "Back to stdout right after."
+
+  - name: approval
+    tasks:
+
+      # The gate. Open this task's log after clicking Approve and the
+      # 'Waiting for approval' / 'Approved' lines are there too - the
+      # engine's own system-stream reporting, not something the script
+      # printed. See approve-a-deploy.yml for a gate on its own.
+      - name: Needs a human
+        uses: pwsh@1
+        trigger: manual
+        args:
+          script: Write-Output "Thanks for approving - this only ran because you clicked Approve."
+
+  # Last on purpose: a stage that fails skips everything after it, so
+  # every task above has to run - and be worth looking at in its own
+  # tab - before this one ends the run.
+  - name: failure
+    tasks:
+
+      - name: A task that fails on purpose
+        uses: pwsh@1
+        args:
+          script: |
+            Write-Output "This task is about to fail on purpose - check the Problems tab after."
+            exit 1

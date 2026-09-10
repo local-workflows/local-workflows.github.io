@@ -1,0 +1,767 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    .site-nav > ul.nav-list:first-child > li > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li:not(:nth-child(5)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(6) > ul > li:nth-child(5) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(6) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(6) > ul > li:nth-child(5) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(6) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(6) > ul.nav-list > li.nav-list-item:nth-child(5) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>How the tasks parser reads tasks.md | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="How the tasks parser reads tasks.md" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<meta name="twitter:description" property="og:description" content="Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar." />
+<link rel="canonical" href="https://local-workflows.github.io/getting-started/sdd/tasks-parser/" />
+<meta property="og:url" content="https://local-workflows.github.io/getting-started/sdd/tasks-parser/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="How the tasks parser reads tasks.md" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-10T18:33:21+00:00","description":"Local dev pipelines and spec-driven development, in VS Code. Define it once in YAML next to your code, run it from a sidebar.","headline":"How the tasks parser reads tasks.md","url":"https://local-workflows.github.io/getting-started/sdd/tasks-parser/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/custom-prompts/" class="nav-list-link">Custom instructions</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Instructions</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Instructions</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li><li class="nav-list-item"><a href="/getting-started/sdd/tasks-parser/" class="nav-list-link">How the tasks parser reads tasks.md</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/plugin-apps/" class="nav-list-link">Plugin apps</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/examples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Examples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 10-Sep-2026 06:35 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/">Getting started</a></li>
+    <li class="breadcrumb-nav-list-item"><a href="/getting-started/sdd/">Spec-driven development</a></li>
+    <li class="breadcrumb-nav-list-item"><span>How the tasks parser reads tasks.md</span></li>
+  </ol>
+</nav>
+
+
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="how-the-tasks-parser-reads-tasksmd">
+  
+  
+    <a href="#how-the-tasks-parser-reads-tasksmd" class="anchor-heading" aria-labelledby="how-the-tasks-parser-reads-tasksmd"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How the tasks parser reads tasks.md
+  
+  
+</h1>
+    
+
+<p>This page is about one file: <code class="language-plaintext highlighter-rouge">src/sdd/documents/parsePlan.ts</code>. It reads
+<code class="language-plaintext highlighter-rouge">tasks.md</code> and turns it into rows the implement phase can run.
+If a plan is written in a shape this parser does not match, the
+implement phase does not see the task. Not “sees it wrong” — does not
+see it at all.</p>
+
+<p>Use this page to check a style’s prompts against what the parser
+actually accepts, line by line.</p>
+
+<ol id="markdown-toc">
+  <li><a href="#why-order-matters-tasks-before-implement" id="markdown-toc-why-order-matters-tasks-before-implement">Why order matters: tasks before implement</a></li>
+  <li><a href="#step-1-pick-the-dialect" id="markdown-toc-step-1-pick-the-dialect">Step 1: pick the dialect</a></li>
+  <li><a href="#step-2-the-exact-line-shapes" id="markdown-toc-step-2-the-exact-line-shapes">Step 2: the exact line shapes</a>    <ol>
+      <li><a href="#hierarchical" id="markdown-toc-hierarchical">Hierarchical</a></li>
+      <li><a href="#flat" id="markdown-toc-flat">Flat</a></li>
+      <li><a href="#the-checkbox-state" id="markdown-toc-the-checkbox-state">The checkbox state</a></li>
+    </ol>
+  </li>
+  <li><a href="#step-3-citations" id="markdown-toc-step-3-citations">Step 3: citations</a></li>
+  <li><a href="#step-4-the-wave-graph-parallel-tasks" id="markdown-toc-step-4-the-wave-graph-parallel-tasks">Step 4: the wave graph (parallel tasks)</a></li>
+  <li><a href="#problems-the-parser-reports" id="markdown-toc-problems-the-parser-reports">Problems the parser reports</a></li>
+  <li><a href="#what-this-means-for-a-styles-prompts" id="markdown-toc-what-this-means-for-a-styles-prompts">What this means for a style’s prompts</a></li>
+</ol><hr />
+<h2 id="why-order-matters-tasks-before-implement">
+  
+  
+    <a href="#why-order-matters-tasks-before-implement" class="anchor-heading" aria-labelledby="why-order-matters-tasks-before-implement"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why order matters: tasks before implement
+  
+  
+</h2>
+    
+
+<p>Every spec pipeline ends the same way: a <code class="language-plaintext highlighter-rouge">tasks</code> phase writes
+<code class="language-plaintext highlighter-rouge">tasks.md</code>, then the <code class="language-plaintext highlighter-rouge">implement</code> phase reads it. <code class="language-plaintext highlighter-rouge">implement</code> never
+writes a document and never runs a model of its own — it hands rows
+from <code class="language-plaintext highlighter-rouge">tasks.md</code> to a coding session, one task or one wave at a time.</p>
+
+<p>So <code class="language-plaintext highlighter-rouge">implement</code> has nothing to do until <code class="language-plaintext highlighter-rouge">tasks.md</code> exists and this
+parser can read it. There is no separate check that “tasks” ran before
+“implement” — the pipeline just does not offer <code class="language-plaintext highlighter-rouge">implement</code> as the next
+phase until <code class="language-plaintext highlighter-rouge">tasks.md</code> is on disk (see <code class="language-plaintext highlighter-rouge">src/sdd/walk/walk.ts</code>). But
+having the file is not enough. A <code class="language-plaintext highlighter-rouge">tasks.md</code> that exists but does not
+match the shapes below still produces <code class="language-plaintext highlighter-rouge">problems</code>, and any task the
+parser could not read is a task the implement phase will never run,
+even though it is sitting right there in the file.</p>
+
+<p>This is why a style’s <code class="language-plaintext highlighter-rouge">tasks</code> prompt has to match this parser exactly,
+not just look like a task list to a person reading it.</p><hr />
+<h2 id="step-1-pick-the-dialect">
+  
+  
+    <a href="#step-1-pick-the-dialect" class="anchor-heading" aria-labelledby="step-1-pick-the-dialect"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Step 1: pick the dialect
+  
+  
+</h2>
+    
+
+<p>The parser reads the whole file and picks one of two dialects. It never
+mixes them.</p>
+
+<ul>
+  <li>If any line matches the <strong>flat</strong> pattern (<code class="language-plaintext highlighter-rouge">- [ ] T001 ...</code>), the whole
+file is read as <strong>flat</strong>.</li>
+  <li>Otherwise the whole file is read as <strong>hierarchical</strong> (<code class="language-plaintext highlighter-rouge">- [ ] 1. ...</code>
+with <code class="language-plaintext highlighter-rouge">- [ ] 1.1 ...</code> under it).</li>
+</ul>
+
+<p>There is no per-line dialect and no declared dialect in frontmatter.
+One matching flat line flips the entire document to flat rules, so
+never write a stray <code class="language-plaintext highlighter-rouge">T001</code>-style line inside an otherwise hierarchical
+plan.</p>
+
+<p>Text inside a fenced code block (three backticks) is ignored for this
+and for everything else below. An example task shown inside a fence in
+your prompt is safe — it will never be read as a real task.</p><hr />
+<h2 id="step-2-the-exact-line-shapes">
+  
+  
+    <a href="#step-2-the-exact-line-shapes" class="anchor-heading" aria-labelledby="step-2-the-exact-line-shapes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Step 2: the exact line shapes
+  
+  
+</h2>
+    
+<h3 id="hierarchical">
+  
+  
+    <a href="#hierarchical" class="anchor-heading" aria-labelledby="hierarchical"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Hierarchical
+  
+  
+</h3>
+    
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- [ ] 1. Group title
+  - [ ] 1.1 An actionable, single-concern task
+    - an implementation detail
+    - [Requirements : 1.2, 3.1](requirements.md)
+</code></pre></div></div>
+
+<p>The exact rule, as a regex: <code class="language-plaintext highlighter-rouge">^(\s*)-\s\[(state)\]\\?(\*?)\s+(\d+(\.\d+)?)\.?\s+(.*)$</code></p>
+
+<p>Read in plain words:</p>
+
+<ul>
+  <li>Any leading spaces, then <code class="language-plaintext highlighter-rouge">- [</code>, one state character, <code class="language-plaintext highlighter-rouge">]</code>.</li>
+  <li>An optional literal backslash right after the <code class="language-plaintext highlighter-rouge">]</code> is allowed and
+silently thrown away — so <code class="language-plaintext highlighter-rouge">- [x]\* 1.2 Title</code> (a markdown-escaped
+asterisk) reads exactly the same as <code class="language-plaintext highlighter-rouge">- [x]* 1.2 Title</code>. Don’t rely on
+this on purpose; it exists because some tools escape <code class="language-plaintext highlighter-rouge">*</code> and the
+parser shouldn’t lose the task over it.</li>
+  <li>An optional <code class="language-plaintext highlighter-rouge">*</code> right after that, no space before it — this marks
+an optional task.</li>
+  <li>One or more spaces, then the number: either <code class="language-plaintext highlighter-rouge">1</code> (a group) or <code class="language-plaintext highlighter-rouge">1.1</code>
+(a task inside group <code class="language-plaintext highlighter-rouge">1</code>). Never a third level like <code class="language-plaintext highlighter-rouge">1.1.1</code>.</li>
+  <li>An optional <code class="language-plaintext highlighter-rouge">.</code> after the number, then a space, then the title —
+everything else on the line.</li>
+</ul>
+
+<p>A number with no dot (<code class="language-plaintext highlighter-rouge">1</code>) is a <strong>group</strong>. A number with one dot (<code class="language-plaintext highlighter-rouge">1.1</code>)
+is a <strong>task</strong>, and it must belong to a group with that first number —
+<code class="language-plaintext highlighter-rouge">1.1</code> needs a <code class="language-plaintext highlighter-rouge">1.</code> line somewhere in the file, or the parser reports a
+missing group.</p>
+
+<p>A group line that is indented is flagged as a problem: a top-level task
+starts at column 1; only its sub-tasks are indented.</p>
+
+<p>Detail lines — the plain bullets under a task, including the citation —
+carry no checkbox at all: `    - some detail`. A detail line that
+somehow grows a checkbox looks like a broken task to the parser (see
+<a href="#problems-the-parser-reports">Problems</a> below), not like a detail.</p>
+<h3 id="flat">
+  
+  
+    <a href="#flat" class="anchor-heading" aria-labelledby="flat"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Flat
+  
+  
+</h3>
+    
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Phase 1: Setup
+
+- [ ] T001 Add the module skeleton in `src/thing/index.ts`
+- [ ] T002 [P] Add the config type in `src/thing/config.ts`
+</code></pre></div></div>
+
+<p>The exact rule: <code class="language-plaintext highlighter-rouge">^(\s*)-\s\[(state)\]\s+(T\d+)\.?\s*(\[P\])?\s+(.*)$</code></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">- [ ] T</code> then digits — <code class="language-plaintext highlighter-rouge">T001</code>, <code class="language-plaintext highlighter-rouge">T042</code>, any number of digits.</li>
+  <li>An optional <code class="language-plaintext highlighter-rouge">[P]</code> right after the id (with normal spacing) marks a
+task that may run alongside the other <code class="language-plaintext highlighter-rouge">[P]</code> tasks under the same <code class="language-plaintext highlighter-rouge">##</code>
+heading.</li>
+  <li>Whatever <code class="language-plaintext highlighter-rouge">##</code> heading appears above a task in the file becomes that
+task’s <code class="language-plaintext highlighter-rouge">phase</code>. A task with no <code class="language-plaintext highlighter-rouge">##</code> above it has no phase.</li>
+  <li>No hierarchy here. <code class="language-plaintext highlighter-rouge">T001</code>, <code class="language-plaintext highlighter-rouge">T002</code>, <code class="language-plaintext highlighter-rouge">T003</code> are all independent — there
+is no <code class="language-plaintext highlighter-rouge">T001.1</code>.</li>
+</ul>
+<h3 id="the-checkbox-state">
+  
+  
+    <a href="#the-checkbox-state" class="anchor-heading" aria-labelledby="the-checkbox-state"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The checkbox state
+  
+  
+</h3>
+    
+
+<p>Both dialects accept four characters inside the brackets: space, <code class="language-plaintext highlighter-rouge">x</code>,
+<code class="language-plaintext highlighter-rouge">X</code>, <code class="language-plaintext highlighter-rouge">~</code>, and <code class="language-plaintext highlighter-rouge">-</code>. Only <code class="language-plaintext highlighter-rouge">x</code> or <code class="language-plaintext highlighter-rouge">X</code> means <strong>done</strong>. <code class="language-plaintext highlighter-rouge">~</code> and <code class="language-plaintext highlighter-rouge">-</code> both mean
+<strong>not done</strong> — they exist because Kiro’s own tools write those marks
+for “in progress” or “abandoned”, and this parser has to read a plan
+Kiro wrote without losing rows. Anything else inside the brackets does
+not match at all, and the line is not read as a task.</p><hr />
+<h2 id="step-3-citations">
+  
+  
+    <a href="#step-3-citations" class="anchor-heading" aria-labelledby="step-3-citations"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Step 3: citations
+  
+  
+</h2>
+    
+
+<p>A task’s last detail line can cite the requirements it satisfies. Two
+spellings are accepted, and both can appear in the same file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- [Requirements : 1.2, 3.1](requirements.md)
+</code></pre></div></div>
+
+<p>or, Kiro’s own italic form:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_Requirements: 1.2, 3.1_
+</code></pre></div></div>
+
+<p>Either way, whatever ids are listed (comma-separated) get attached to
+the <strong>task above the citation line</strong> — the parser walks backwards from
+the citation to the nearest task it already read. The path inside the
+link and the word before the colon are not checked here at all; only
+the ids are pulled out. Write the link form for new plans — the italic
+form is read-only compatibility, never written by this parser’s own
+callers.</p><hr />
+<h2 id="step-4-the-wave-graph-parallel-tasks">
+  
+  
+    <a href="#step-4-the-wave-graph-parallel-tasks" class="anchor-heading" aria-labelledby="step-4-the-wave-graph-parallel-tasks"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Step 4: the wave graph (parallel tasks)
+  
+  
+</h2>
+    
+
+<p>The parser always produces a list of <strong>waves</strong> — groups of task ids
+that may run at the same time — but it gets them from different places
+depending on dialect.</p>
+
+<p><strong>Flat plans:</strong> waves are <em>derived</em>, never declared. The parser walks
+the task list in order. Consecutive tasks marked <code class="language-plaintext highlighter-rouge">[P]</code> and sharing the
+same <code class="language-plaintext highlighter-rouge">##</code> phase become one wave. A task without <code class="language-plaintext highlighter-rouge">[P]</code>, or a <code class="language-plaintext highlighter-rouge">[P]</code> task
+whose phase differs from the run before it, starts a new wave of its
+own. So the <code class="language-plaintext highlighter-rouge">[P]</code> marks and the phase headings <em>are</em> the whole
+schedule — there is no separate graph to write for a flat plan.</p>
+
+<p><strong>Hierarchical plans:</strong> waves come from a fenced JSON block at the end
+of the file, under a heading written exactly like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Task Dependency Graph
+</code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"waves"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1.1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"1.3"</span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1.2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"3.1"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Rules the parser enforces:</p>
+
+<ul>
+  <li>If there are several fenced <code class="language-plaintext highlighter-rouge">json</code> blocks in the file, the
+<strong>last one</strong> is read as the graph.</li>
+  <li>The block must parse as JSON and have a <code class="language-plaintext highlighter-rouge">waves</code> array, or it is a
+problem, not a silently-empty schedule.</li>
+  <li>Every id inside <code class="language-plaintext highlighter-rouge">waves</code> must be a real task id in the file (not a
+group id). An id that does not exist, or that names a group instead
+of a task, is reported.</li>
+  <li>Every real task must appear in exactly one wave. A task in no wave is
+reported — the plan would never reach it.</li>
+  <li>The parser does not check that two tasks in the same wave actually
+touch different files. That judgment call has to be made when the
+plan is written, not when it is read.</li>
+</ul>
+
+<p>A hierarchical plan with no such heading at all is fine — it just has
+no wave graph, and the implement lens then runs the tasks one at a
+time, in list order.</p><hr />
+<h2 id="problems-the-parser-reports">
+  
+  
+    <a href="#problems-the-parser-reports" class="anchor-heading" aria-labelledby="problems-the-parser-reports"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Problems the parser reports
+  
+  
+</h2>
+    
+
+<p>The parser never throws away the whole document over one bad line. It
+keeps reading, and collects a list of <code class="language-plaintext highlighter-rouge">problems</code> (line number plus
+message) that the panel shows. Here is exactly what triggers one:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>What’s wrong</th>
+      <th>When it’s reported</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A checkbox line the grammar could not match at all</td>
+      <td>The line has <code class="language-plaintext highlighter-rouge">- [</code> + a valid state + <code class="language-plaintext highlighter-rouge">]</code>, but nothing after it fits the id/title shape — usually a detail line that grew a checkbox, or nesting past <code class="language-plaintext highlighter-rouge">1.1</code></td>
+    </tr>
+    <tr>
+      <td>A group line that is indented</td>
+      <td><code class="language-plaintext highlighter-rouge">1.</code> (no dot) written with leading spaces</td>
+    </tr>
+    <tr>
+      <td>A task whose group doesn’t exist</td>
+      <td><code class="language-plaintext highlighter-rouge">1.1</code> with no <code class="language-plaintext highlighter-rouge">1.</code> line anywhere (hierarchical only)</td>
+    </tr>
+    <tr>
+      <td>Two tasks with the same id</td>
+      <td>Same <code class="language-plaintext highlighter-rouge">1.1</code> or <code class="language-plaintext highlighter-rouge">T001</code> appears twice</td>
+    </tr>
+    <tr>
+      <td>The JSON dependency graph is not valid JSON</td>
+      <td>Parse error in the fenced block</td>
+    </tr>
+    <tr>
+      <td>The JSON has no <code class="language-plaintext highlighter-rouge">waves</code> array</td>
+      <td>Block parses, but wrong shape</td>
+    </tr>
+    <tr>
+      <td>A wave names a ghost id</td>
+      <td>Id in <code class="language-plaintext highlighter-rouge">waves</code> is not a real task</td>
+    </tr>
+    <tr>
+      <td>A wave names a group</td>
+      <td>Id in <code class="language-plaintext highlighter-rouge">waves</code> is a group heading, not a task</td>
+    </tr>
+    <tr>
+      <td>A task is in no wave</td>
+      <td>Real task id missing from every wave (hierarchical only, and only when a graph exists)</td>
+    </tr>
+    <tr>
+      <td>No tasks at all</td>
+      <td>The whole file matched neither dialect anywhere</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>None of these stop the implement phase from running the tasks it
+<em>could</em> read. They only mean the tasks with a problem attached will not
+run, or the file’s schedule cannot be trusted, until the problem is
+fixed.</p><hr />
+<h2 id="what-this-means-for-a-styles-prompts">
+  
+  
+    <a href="#what-this-means-for-a-styles-prompts" class="anchor-heading" aria-labelledby="what-this-means-for-a-styles-prompts"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What this means for a style’s prompts
+  
+  
+</h2>
+    
+
+<p>If you are writing or fixing a <code class="language-plaintext highlighter-rouge">tasks</code> prompt so an AI reads it
+correctly, check it against this list:</p>
+
+<ol>
+  <li><strong>Pick one dialect and hold it everywhere in the prompt’s own
+examples.</strong> One stray flat-style example line in an otherwise
+hierarchical prompt (even inside a fence — check the fence is
+closed) risks flipping detection for a plan the AI drafts loosely.</li>
+  <li><strong>Spacing is exact, not “close enough.”</strong> <code class="language-plaintext highlighter-rouge">- [ ] 1.1 Title</code> — one
+space after the dash-bracket, no period after <code class="language-plaintext highlighter-rouge">1.1</code>, four leading
+spaces (not two, not a tab) for a detail line.</li>
+  <li><strong>Numbers are permanent and never restart.</strong> <code class="language-plaintext highlighter-rouge">T001, T002, ...</code>
+across the whole file; <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">1.1</code>, <code class="language-plaintext highlighter-rouge">1.2</code>, <code class="language-plaintext highlighter-rouge">2</code>, <code class="language-plaintext highlighter-rouge">2.1</code> — never
+renumbered on a revise, or every existing citation to that id goes
+stale.</li>
+  <li><strong>Every citation is on its own last detail line</strong>, one of the two
+exact spellings above, with a real, existing id from
+<code class="language-plaintext highlighter-rouge">requirements.md</code>.</li>
+  <li><strong>The wave graph heading is spelled exactly</strong> <code class="language-plaintext highlighter-rouge">## Task Dependency
+Graph</code>, and every id inside it matches a task id character for
+character — the parser does no fuzzy matching.</li>
+  <li><strong>Every task ends up in exactly one wave</strong> (hierarchical) or is
+marked <code class="language-plaintext highlighter-rouge">[P]</code> correctly under the right <code class="language-plaintext highlighter-rouge">##</code> phase (flat). A task the
+prompt forgets to schedule is a task nobody will run.</li>
+</ol>
+
+<p>The full prose version of these rules — written for the AI drafting
+the document, not for reading the parser’s code — ships as the
+<code class="language-plaintext highlighter-rouge">grammar</code> attachment every phase gets:
+<code class="language-plaintext highlighter-rouge">resources/styles/custom/grammar.md</code>. This page is the
+parser’s side of the same contract; when the two disagree on the shape
+of a line, the parser (this page) is what actually runs.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 10-Sep-2026 06:35 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

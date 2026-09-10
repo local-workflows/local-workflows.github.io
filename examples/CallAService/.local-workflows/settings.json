@@ -1,0 +1,18 @@
+{
+    "ai": {
+        "mcpServers": {
+            "demo": {
+                "command": "npx",
+                "args": ["-y", "@modelcontextprotocol/server-everything"]
+            },
+            "files": {
+                "command": "npx",
+                "args": ["-y", "@modelcontextprotocol/server-filesystem", "REPLACE-WITH-AN-ABSOLUTE-PATH"],
+                "disabled": true
+            }
+        }
+    },
+    "env": {
+        "allowed": []
+    }
+}

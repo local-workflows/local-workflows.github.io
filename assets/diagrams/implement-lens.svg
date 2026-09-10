@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" font-family="ui-sans-serif,-apple-system,'Segoe UI',sans-serif">
+  <rect width="760" height="360" rx="12" fill="#f4f2ee"/>
+  <rect x="14" y="14" width="732" height="304" rx="8" fill="#ffffff" stroke="#d8d6d0"/>
+
+  <!-- action zone -->
+  <rect x="32" y="28" width="700" height="40" rx="8" fill="#f4f2ee" stroke="#d8d6d0"/>
+  <text x="46" y="52" font-size="12" fill="#5f5e5a">2 done · 1 running · 4 queued</text>
+  <text x="230" y="52" font-size="10.5" fill="#8a8983">▶ opens a fresh Copilot agent session for that one task</text>
+  <rect x="548" y="36" width="66" height="24" rx="7" fill="#ffffff" stroke="#d8d6d0"/>
+  <text x="581" y="52" font-size="11.5" fill="#1a1a18" text-anchor="middle">Start all</text>
+  <rect x="620" y="36" width="56" height="24" rx="7" fill="#ffffff" stroke="#d8d6d0"/>
+  <text x="648" y="52" font-size="11.5" fill="#1a1a18" text-anchor="middle">Pause</text>
+
+  <!-- doc bar -->
+  <text x="34" y="90" font-size="11" fill="#5f5e5a" font-family="ui-monospace,Consolas,monospace">tasks.md</text>
+  <text x="732" y="90" font-size="10.5" fill="#8a8983" text-anchor="end">execution view — edit via Revise</text>
+
+  <!-- task rows -->
+  <g font-size="12.5">
+    <rect x="32" y="100" width="700" height="30" rx="7" fill="#ffffff" stroke="#d8d6d0"/>
+    <text x="46" y="120" fill="#3B6D11">☑</text><text x="68" y="120" fill="#8a8983" font-family="ui-monospace,Consolas,monospace" font-size="11">1.</text>
+    <text x="90" y="120" fill="#1a1a18">Add Stale status to step model</text>
+    <text x="718" y="120" fill="#8a8983" font-size="10.5" text-anchor="end">done</text>
+
+    <rect x="32" y="136" width="700" height="30" rx="7" fill="#ffffff" stroke="#d8d6d0"/>
+    <text x="46" y="156" fill="#3B6D11">☑</text><text x="68" y="156" fill="#8a8983" font-family="ui-monospace,Consolas,monospace" font-size="11">2.</text>
+    <text x="90" y="156" fill="#1a1a18">Persist reopen decision in RunStore</text>
+    <text x="718" y="156" fill="#8a8983" font-size="10.5" text-anchor="end">done</text>
+
+    <rect x="32" y="172" width="700" height="30" rx="7" fill="#E6F1FB" stroke="#85B7EB"/>
+    <text x="46" y="192" fill="#185FA5">◐</text><text x="68" y="192" fill="#8a8983" font-family="ui-monospace,Consolas,monospace" font-size="11">3.</text>
+    <text x="90" y="192" fill="#1a1a18">Invalidate downstream steps on reopen</text>
+    <text x="718" y="192" fill="#185FA5" font-size="10.5" text-anchor="end">running · Copilot session</text>
+
+    <rect x="60" y="208" width="672" height="30" rx="7" fill="#ffffff" stroke="#d8d6d0"/>
+    <text x="74" y="228" fill="#8a8983">☐</text><text x="96" y="228" fill="#8a8983" font-family="ui-monospace,Consolas,monospace" font-size="11">3.1</text>
+    <text x="124" y="228" fill="#1a1a18">Cascade to expanded task nodes</text>
+    <text x="718" y="228" fill="#5f5e5a" font-size="10.5" text-anchor="end">▶ start</text>
+
+    <rect x="32" y="244" width="700" height="30" rx="7" fill="#ffffff" stroke="#d8d6d0"/>
+    <text x="46" y="264" fill="#8a8983">☐</text><text x="68" y="264" fill="#8a8983" font-family="ui-monospace,Consolas,monospace" font-size="11">4.</text>
+    <text x="90" y="264" fill="#1a1a18">Re-arm gate on reopened phase</text>
+    <text x="718" y="264" fill="#5f5e5a" font-size="10.5" text-anchor="end">▶ start</text>
+  </g>
+
+  <text x="46" y="296" font-size="11" fill="#8a8983">· touches RunStore, DefaultRunner &#160;&#160;_Requirements: 1.1, 1.2_ &#160;&#160;(a plain bullet is detail, not a task)</text>
+
+  <text x="380" y="340" font-size="10.5" fill="#8a8983" text-anchor="middle">the checkbox is the completion signal: agent ticks [x] as its final act (definition of done) · watcher flips the row and launches the next queued task · a human tick counts the same</text>
+</svg>

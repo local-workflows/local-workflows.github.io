@@ -1,0 +1,169 @@
+# Turn the commits since your last tag into a changelog entry.
+#
+#   1. collect  - work out the range and write the log to a file. Plain
+#                 git, no AI.
+#   2. draft    - the agent reads that file and writes one changelog
+#                 section. It writes one file and nothing else.
+#   3. publish  - stops and waits for you, then writes CHANGELOG.md.
+#
+# The last task is the interesting one. It is `file@1` with the whole
+# new file already worked out, so the gate shows you the exact text that
+# is about to be on disk. Nothing is composed after you approve.
+#
+# What it needs: GitHub Copilot, signed in to the editor. Nothing else.
+
+version: 1
+
+name: Release notes
+desc: Draft a changelog entry from your commits, read it, then write it.
+
+params:
+
+  version:
+    desc: Version this entry is for, without the v (e.g. 0.2.0)
+
+  # Empty means "since the newest tag". The collect stage works that out.
+  since:
+    desc: Tag or commit to start from. Leave empty for the newest tag.
+    default: ""
+
+label: Notes for ${{ params.version }}
+
+vars:
+  out: .local-workflows/out
+  logFile: ${{ vars.out }}/commits.txt
+  notesFile: ${{ vars.out }}/notes.md
+  changelog: CHANGELOG.md
+
+plugins:
+
+  # No `provider:` line, so this runs on GitHub Copilot - the default.
+  ai:
+    uses: ai@1
+
+stages:
+
+  - name: collect
+    desc: Work out the range and write the commits to a file.
+    tasks:
+
+      - name: Make the output folder
+        uses: file@1
+        args:
+          operation: mkdir
+          path: ${{ vars.out }}
+
+      - name: Write the commit log
+        uses: pwsh@1
+        args:
+          script: |
+            $since = '${{ params.since }}'.Trim()
+
+            if (-not $since) {
+                # `git tag --list` exits 0 even in a repository with no
+                # tags, so there is no error case to handle here - an
+                # empty result just means "log everything".
+                $since = (git tag --list --sort=-creatordate | Select-Object -First 1)
+            }
+
+            $range = if ($since) { "$since..HEAD" } else { 'HEAD' }
+            Write-Output "Range: $range"
+
+            git log --no-merges --pretty=format:"%h %s (%an)" $range |
+                Set-Content -Path '${{ vars.logFile }}' -Encoding utf8
+
+            $count = @(Get-Content -Path '${{ vars.logFile }}').Count
+            if ($count -eq 0) {
+                throw "No commits in $range. Nothing to write notes about."
+            }
+
+            Write-Output "$count commit(s) written to ${{ vars.logFile }}."
+
+  - name: draft
+    desc: One document. Nothing outside the output folder is touched.
+    tasks:
+
+      - name: Draft the changelog entry
+        # Generous, because a long log takes the agent a while and a
+        # timeout here would throw away work that was nearly done.
+        timeout: 5m
+        uses: ai
+        args:
+          title: Changelog entry for ${{ params.version }}
+          context:
+            commits:
+              file: ${{ vars.logFile }}
+          target: ${{ vars.notesFile }}
+          prompt: |
+            The context above is a list of commits, one per line, as
+            `hash subject (author)`.
+
+            Write one changelog section for version ${{ params.version }}
+            to ${{ vars.notesFile }}, in this shape and nothing else:
+
+              ## ${{ params.version }}
+
+              ### Added
+              ### Changed
+              ### Fixed
+
+            Rules:
+              - Write for someone who uses this project and has not read
+                the code. Say what changed for them.
+              - One bullet per real change, not one per commit. Five
+                commits fixing one bug are one bullet.
+              - Drop anything a user cannot see: refactors, test-only
+                changes, formatting, dependency bumps with no effect.
+              - Delete any of the three headings that would be empty.
+              - No commit hashes, no author names, no "various fixes".
+              - Write that one file. Change nothing else.
+
+  - name: publish
+    desc: Read both files, then wait for a person before writing anything.
+    tasks:
+
+      - name: Make sure the changelog exists
+        desc: A first run has no CHANGELOG.md, and reading a missing file is an error.
+        uses: pwsh@1
+        args:
+          script: |
+            if (-not (Test-Path '${{ vars.changelog }}')) {
+                New-Item -ItemType File -Path '${{ vars.changelog }}' | Out-Null
+                Write-Output 'Created an empty ${{ vars.changelog }}.'
+            } else {
+                Write-Output '${{ vars.changelog }} is already there.'
+            }
+
+      - name: Read the drafted entry
+        desc: The file as it stands, including anything you edited into it.
+        uses: file@1
+        args:
+          operation: read
+          path: ${{ vars.notesFile }}
+        artifact: NOTES
+
+      - name: Read the current changelog
+        uses: file@1
+        args:
+          operation: read
+          path: ${{ vars.changelog }}
+        artifact: OLD
+
+      - name: Write the changelog
+        desc: Stops here. What the panel shows is exactly what lands on disk.
+        trigger: manual
+        uses: file@1
+        args:
+          operation: write
+          path: ${{ vars.changelog }}
+
+          # The whole new file, worked out before the gate rather than
+          # after it. Newest entry first, so a reader sees the current
+          # version without scrolling.
+          content: |
+            ${{ run.context.NOTES.content }}
+
+            ${{ run.context.OLD.content }}
+
+      - name: Say what happened
+        run: echo Wrote ${{ vars.changelog }}. Review it and commit it yourself.
