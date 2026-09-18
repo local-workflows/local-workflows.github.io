@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--
+        A plugin's own tab. Plain HTML, CSS and JS in the plugin's folder.
+
+        The host puts this page in an iframe inside the run panel and the
+        spec panel, and puts `window.lw` in front of it - the only way
+        this page reaches anything outside itself:
+
+          lw.state / lw.onState(cb)   what the panel knows (run status, steps, artifacts)
+          lw.call(name, payload)      runs handle(request, ctx) in index.js
+          lw.db.run/get/all(sql)      this plugin's own SQLite tables
+          lw.run(target, params)      starts a task (run panel) or a phase (spec panel); params answer a workflow's params: first
+
+        A script or stylesheet next to the page is pulled in by name -
+        `<script src="app.js">` works. A URL to the web does not.
+    -->
+    <link rel="stylesheet" href="app.css">
+    <title>Greet app</title>
+</head>
+
+<body>
+
+    <h2>Greet app</h2>
+
+    <p class="muted">A page shipped by <code>greet@1</code>, drawn inside the panel.</p>
+
+    <section>
+        <h3>Ask index.js something</h3>
+        <form id="hello">
+            <input id="who" placeholder="Your name" autocomplete="off">
+            <button type="submit">Call handle("hello")</button>
+        </form>
+        <p id="answer" class="answer"></p>
+    </section>
+
+    <section>
+        <h3>What the panel knows</h3>
+        <p class="muted">Live, from <code>lw.onState</code>.</p>
+        <pre id="state">waiting for state...</pre>
+    </section>
+
+    <section>
+        <h3>Greetings recorded in this plugin's own database</h3>
+        <p class="muted">Every run of the <em>Greet</em> task inserts a row. <code>lw.db</code> reads them here.</p>
+        <div class="row">
+            <button id="refresh" type="button">Refresh</button>
+            <button id="clear" type="button">Clear</button>
+            <button id="run" type="button">Run the Greet task</button>
+        </div>
+        <table id="history"><thead><tr><th>Name</th><th>When</th></tr></thead><tbody></tbody></table>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

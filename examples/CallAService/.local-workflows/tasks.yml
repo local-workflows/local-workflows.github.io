@@ -1,0 +1,173 @@
+# Calling something that is not your machine, without a shell.
+#
+# Two plugins do all of this:
+#
+#   http@1  one HTTP request. In-process fetch - no curl, no quoting
+#           that breaks on someone else's OS, no "works on mine".
+#   mcp@1   one tool call on one MCP server. The same servers an AI
+#           session gets, reached directly when the work needs no model.
+#
+# Everything here runs as written. The status endpoint is GitHub's real
+# public one, and the MCP server is downloaded by npx the first time.
+#
+# The one task that sends data somewhere - `notify` - is off until you
+# fill in a webhook, and it waits for you even then.
+
+version: 1
+
+vars:
+
+  # GitHub's public status page. No key, no sign-in.
+  statusUrl: https://www.githubstatus.com/api/v2/status.json
+
+  # Left empty on purpose. `notify` says `if: ${{ vars.webhook }}`, and
+  # an empty value is false, so nothing is sent until you put a URL here.
+  webhook: ""
+
+tasks:
+
+  # ---------------------------------------------------------------
+  # http@1 - one request, and what came back
+  # ---------------------------------------------------------------
+
+  status:
+    name: Is GitHub up
+    desc: One GET. The response is stored for the next task to read.
+    uses: http@1
+    args:
+      url: ${{ vars.statusUrl }}
+    artifact: STATUS
+
+  read-status:
+    name: Read the answer
+    desc: Reads the run variable the task above stored.
+    needs: status
+    shell: pwsh
+    # Passed through the environment rather than pasted into the script.
+    # A response body is somebody else's text, and somebody else's text
+    # inside your quotes is how a quote ends up closing early.
+    env:
+      BODY: ${{ run.context.STATUS.body }}
+    run: |
+      Write-Output "HTTP ${{ run.context.STATUS.status }}"
+      $answer = $env:BODY | ConvertFrom-Json
+      Write-Output "GitHub says: $($answer.status.description)"
+
+  poll:
+    name: Check without failing
+    desc: failOnHttpError false, so a 500 is data instead of a dead run.
+    uses: http@1
+    args:
+      url: ${{ vars.statusUrl }}
+
+      # The default is true - a 4xx or 5xx fails the task. Turned off
+      # here so the status code becomes something a later `if:` reads.
+      failOnHttpError: false
+
+      # A dead endpoint should fail this task, not hang it.
+      timeoutMs: 10000
+    retries: 2
+    artifact: POLL
+
+  on-failure:
+    name: Only when the check did not return 200
+    desc: A false condition is a skip, not a failure - the run carries on.
+    needs: poll
+    if: ${{ run.context.POLL.status }} != 200
+    run: echo The status endpoint answered ${{ run.context.POLL.status }}.
+
+  notify:
+    name: Post to a webhook
+    desc: Skipped until you set vars.webhook. Waits for you even then.
+    needs: status
+    if: ${{ vars.webhook }}
+    trigger: manual
+    uses: http@1
+    args:
+      url: ${{ vars.webhook }}
+      method: POST
+
+      # Never put a token here. `authEnv` names the environment variable
+      # holding it, the plugin reads it under the declaration, and the
+      # value is registered as a secret - so it cannot land in a log or
+      # in the run record. A token typed into `headers:` would.
+      authEnv: WEBHOOK_TOKEN
+
+      body: |
+        {"text": "GitHub status is ${{ run.context.STATUS.status }}"}
+
+  # ---------------------------------------------------------------
+  # mcp@1 - one tool call, no model in the room
+  #
+  # Every tool below is on the `demo` server declared in settings.json.
+  # A task chooses among the machine's servers; it cannot declare one.
+  # ---------------------------------------------------------------
+
+  mcp-echo:
+    name: Call a tool over MCP
+    desc: The simplest possible call - one string in, one string back.
+    uses: mcp@1
+    args:
+      server: demo
+
+      # The tool's bare name, exactly as the MCP view lists it.
+      tool: echo
+      arguments:
+        message: hello from mcp@1
+
+      # Higher than an HTTP call's default because a stdio server is an
+      # npx download before it is a server, the first time.
+      timeoutMs: 120000
+    artifact: ECHO
+
+  read-echo:
+    name: Read what the server said
+    needs: mcp-echo
+    run: echo ${{ run.context.ECHO.text }}
+
+  mcp-sum:
+    name: Pass real arguments
+    desc: Numbers, not strings. The shape belongs to the server, not to this file.
+    uses: mcp@1
+    args:
+      server: demo
+      tool: get-sum
+      arguments:
+        a: 2
+        b: 3
+      timeoutMs: 120000
+    artifact: SUM
+
+  mcp-structured:
+    name: A tool that answers with structured data
+    desc: Some tools return an object as well as text. Both are stored.
+    uses: mcp@1
+    args:
+      server: demo
+      tool: get-structured-content
+      arguments:
+        location: New York
+      timeoutMs: 120000
+    artifact: WEATHER
+
+  read-structured:
+    name: Read both shapes of answer
+    desc: text is the whole answer as a string; structured is the object.
+    needs: [mcp-sum, mcp-structured]
+    shell: pwsh
+    # A template reaches exactly one key into a stored result -
+    # `run.context.NAME.key` and no further. `structured` is an object,
+    # so it arrives here as JSON and this task picks the fields out
+    # itself. Writing `.structured.temperature` in a template would not
+    # resolve, and an expression that does not resolve fails the run.
+    env:
+      WEATHER: ${{ run.context.WEATHER.structured }}
+    run: |
+      Write-Output "${{ run.context.SUM.text }}"
+      $weather = $env:WEATHER | ConvertFrom-Json
+      Write-Output "It is $($weather.temperature) degrees and $($weather.conditions)."
+
+  everything:
+    name: Run all of it
+    desc: Every task in this file.
+    needs: [read-status, on-failure, notify, read-echo, read-structured]

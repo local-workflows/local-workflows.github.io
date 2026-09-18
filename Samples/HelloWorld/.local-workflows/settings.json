@@ -1,0 +1,26 @@
+{
+    "ai": {
+        "ai@1": {
+            "model": "claude-sonnet-5",
+            "provider": "claude"
+        },
+        "mcpServers": {
+            "ado": {
+                "command": "npx",
+                "args": [
+                    "-y",
+                    "@azure-devops/mcp@2.9.0",
+                    "Splitx",
+                    "--authentication",
+                    "azcli"
+                ],
+                "env": {
+                    "ado_mcp_project":"Core"
+                }
+            }
+        }
+    },
+    "env": {
+        "allowed": []
+    }
+}
