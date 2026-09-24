@@ -1,0 +1,174 @@
+# Git chores you do every week, as tasks you can press play on.
+#
+# Copy this file into any repository's `.local-workflows/` folder and it
+# works. There is nothing to install and nothing to configure - every
+# task here runs `git`, which you already have.
+#
+# Two kinds of task live in this file:
+#
+#   Read-only ones - status, changed, outgoing, incoming, branches,
+#   merged, stale, authors, clean-preview. Press play on any of them at
+#   any time. None of them change a single thing.
+#
+#   Ones that change your repository - prune-merged, sync, undo-commit,
+#   clean. Every one of these is `trigger: manual`, so the run stops and
+#   shows you the real command before anything happens. You click Run to
+#   let it through.
+#
+# Everything is written to run on Windows, macOS and Linux without
+# changes. Plain `run:` tasks use double quotes only, because `cmd` on
+# Windows does not understand single ones. The four tasks that need real
+# logic say `shell: pwsh`.
+
+version: 1
+
+# Change these once, here, instead of editing tasks.
+vars:
+
+  # Your repository's main branch. Older repositories use `master`.
+  main: main
+
+  # The remote you compare against.
+  remote: origin
+
+  # Branch names `prune-merged` will never delete, whatever git says.
+  # Your current branch is protected on top of this list.
+  protected: main master develop release
+
+tasks:
+
+  # ---------------------------------------------------------------
+  # Read-only. Safe to run at any time.
+  # ---------------------------------------------------------------
+
+  status:
+    name: Status
+    desc: What has changed, and which branch you are on.
+    run: git status --short --branch
+
+  fetch:
+    name: Fetch
+    desc: Update your copy of the remote, and drop branches deleted there.
+    run: git fetch ${{ vars.remote }} --prune
+
+  changed:
+    name: What I changed
+    desc: Files this branch touches compared with main.
+    needs: fetch
+    run: git --no-pager diff --stat ${{ vars.remote }}/${{ vars.main }}...HEAD
+
+  outgoing:
+    name: What I am about to push
+    desc: Commits on this branch that main does not have yet.
+    needs: fetch
+    run: git --no-pager log --oneline ${{ vars.remote }}/${{ vars.main }}..HEAD
+
+  incoming:
+    name: What I have not pulled
+    desc: Commits on main that this branch does not have yet.
+    needs: fetch
+    run: git --no-pager log --oneline HEAD..${{ vars.remote }}/${{ vars.main }}
+
+  branches:
+    name: My branches, newest first
+    desc: Every local branch with the date of its last commit.
+    run: git --no-pager branch --sort=-committerdate --format="%(committerdate:relative)%09%(refname:short)"
+
+  merged:
+    name: Branches already merged
+    desc: Local branches whose work is already in main. What prune-merged would delete.
+    needs: fetch
+    run: git --no-pager branch --merged ${{ vars.remote }}/${{ vars.main }} --format="%(refname:short)"
+
+  stale:
+    name: Branches nobody has touched
+    desc: Every local branch, oldest first. The top of this list is what to clean up.
+    run: git --no-pager branch --sort=committerdate --format="%(committerdate:short)%09%(refname:short)"
+
+  authors:
+    name: Who wrote this
+    desc: Commit counts per person, biggest first.
+    run: git --no-pager shortlog --summary --numbered --no-merges HEAD
+
+  clean-preview:
+    name: What clean would delete
+    desc: A dry run. Lists untracked files and folders and deletes nothing.
+    run: git clean --dry-run -d
+
+  # A task with no `run:` and no `uses:` runs nothing itself. It exists
+  # to run the tasks it needs, in order - press play here before you
+  # push and you get all three checks in one click.
+  pre-push:
+    name: Check before I push
+    desc: Status, what changed, and what is about to go up.
+    needs: [status, changed, outgoing]
+
+  # ---------------------------------------------------------------
+  # These change your repository. Every one waits for you.
+  # ---------------------------------------------------------------
+
+  sync:
+    name: Sync with main
+    desc: Rebase this branch onto the latest main. Stops if there is a conflict.
+    needs: fetch
+    trigger: manual
+    shell: pwsh
+    run: |
+      git rebase ${{ vars.remote }}/${{ vars.main }}
+      if ($LASTEXITCODE -ne 0) {
+          throw "Rebase stopped. Fix the conflict, then run: git rebase --continue"
+      }
+      Write-Output "This branch is now on top of ${{ vars.remote }}/${{ vars.main }}."
+
+  wip:
+    name: Stash work in progress
+    desc: Puts everything aside, untracked files included. Bring it back with git stash pop.
+    trigger: manual
+    shell: pwsh
+    run: |
+      git stash push --include-untracked --message "wip $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+      git --no-pager stash list
+
+  prune-merged:
+    name: Delete merged branches
+    desc: Deletes local branches whose work is already in main. Run "merged" first to see the list.
+    needs: fetch
+    trigger: manual
+    shell: pwsh
+    run: |
+      $current   = (git rev-parse --abbrev-ref HEAD).Trim()
+      $protected = "${{ vars.protected }}".Split(" ") + $current
+
+      $gone = git branch --merged "${{ vars.remote }}/${{ vars.main }}" --format="%(refname:short)" |
+          Where-Object { $_ -and $protected -notcontains $_ }
+
+      if (-not $gone) {
+          Write-Output "Nothing to delete - no merged branches outside the protected list."
+          exit 0
+      }
+
+      foreach ($branch in $gone) {
+          # -d, never -D. It refuses a branch whose work is not merged,
+          # which is the whole safety net of this task.
+          git branch -d $branch
+          if ($LASTEXITCODE -ne 0) { throw "Could not delete $branch." }
+      }
+
+      Write-Output "Deleted $($gone.Count) branch(es)."
+
+  undo-commit:
+    name: Undo my last commit
+    desc: Removes the commit and keeps every change staged. Nothing is lost.
+    trigger: manual
+    shell: pwsh
+    run: |
+      Write-Output "Undoing:"
+      git --no-pager log -1 --oneline
+      git reset --soft HEAD~1
+      git status --short
+
+  clean:
+    name: Delete untracked files
+    desc: Deletes everything git is not tracking. Run "clean-preview" first - this cannot be undone.
+    trigger: manual
+    run: git clean --force -d

@@ -1,0 +1,1246 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+    
+    .site-nav > ul.nav-list:first-child > li:not(:nth-child(2)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
+
+    .site-nav > ul.nav-list:first-child > li:nth-child(2) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(2) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list {
+      display: block;
+    }
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+
+
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>What spec-driven development solves | Local Workflows</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="What spec-driven development solves" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Twelve problems teams hit with AI-written specs, and how Local Workflows, Kiro and Spec Kit each handle them - compared on the same terms, with a winner per row, the cost, and when it is worth it." />
+<meta name="twitter:description" property="og:description" content="Twelve problems teams hit with AI-written specs, and how Local Workflows, Kiro and Spec Kit each handle them - compared on the same terms, with a winner per row, the cost, and when it is worth it." />
+<link rel="canonical" href="https://local-workflows.github.io/sdd-solves/" />
+<meta property="og:url" content="https://local-workflows.github.io/sdd-solves/" />
+<meta property="og:site_name" content="Local Workflows" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="What spec-driven development solves" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-09-24T18:06:44+00:00","description":"Twelve problems teams hit with AI-written specs, and how Local Workflows, Kiro and Spec Kit each handle them - compared on the same terms, with a winner per row, the cost, and when it is worth it.","headline":"What spec-driven development solves","url":"https://local-workflows.github.io/sdd-solves/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <header class="side-bar">
+  <div class="site-header">
+    <a href="/" class="site-title lh-tight">
+  Local Workflows
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  <nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/sdd-solves/" class="nav-list-link">What spec-driven development solves</a></li><li class="nav-list-item"><a href="/ai-problems/" class="nav-list-link">AI problems and solutions</a></li><li class="nav-list-item"><a href="/why/" class="nav-list-link">Compared with alternatives</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Getting started submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/" class="nav-list-link">Getting started</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/install/" class="nav-list-link">Install</a></li><li class="nav-list-item"><a href="/getting-started/agent-sdks/" class="nav-list-link">Agent SDKs</a></li><li class="nav-list-item"><a href="/getting-started/tasks/" class="nav-list-link">Tasks</a></li><li class="nav-list-item"><a href="/getting-started/workflows/" class="nav-list-link">Workflows</a></li><li class="nav-list-item"><a href="/getting-started/variables/" class="nav-list-link">Variables</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec-driven development submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/" class="nav-list-link">Spec-driven development</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/custom-prompts/" class="nav-list-link">Custom instructions</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Kiro submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/kiro/" class="nav-list-link">Kiro</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/kiro-prompts/" class="nav-list-link">Instructions</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Spec Kit submenu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/getting-started/sdd/spec-kit/" class="nav-list-link">Spec Kit</a><ul class="nav-list"><li class="nav-list-item"><a href="/getting-started/sdd/spec-kit-prompts/" class="nav-list-link">Instructions</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/sdd/custom-style/" class="nav-list-link">Writing your own style</a></li><li class="nav-list-item"><a href="/getting-started/sdd/tasks-parser/" class="nav-list-link">How the tasks parser reads tasks.md</a></li></ul></li><li class="nav-list-item"><a href="/getting-started/plugins/" class="nav-list-link">Plugins</a></li><li class="nav-list-item"><a href="/getting-started/plugin-apps/" class="nav-list-link">Plugin apps</a></li><li class="nav-list-item"><a href="/getting-started/scripts/" class="nav-list-link">package.json scripts</a></li><li class="nav-list-item"><a href="/getting-started/settings/" class="nav-list-link">settings.json</a></li><li class="nav-list-item"><a href="/getting-started/acp/" class="nav-list-link">Agent Client Protocol (ACP)</a></li><li class="nav-list-item"><a href="/getting-started/workspaces/" class="nav-list-link">Workspaces</a></li></ul></li><li class="nav-list-item"><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a></li></ul>
+  <ul class="nav-list"><li class="nav-list-item external">
+          <a href="https://github.com/local-workflows/local-workflows.github.io/tree/main/examples" class="nav-list-link external"
+            
+              target="_blank" rel="noopener noreferrer"
+            
+          >
+            Examples
+            <svg viewBox="0 0 24 24" aria-labelledby="svg-external-link-title"><use xlink:href="#svg-external-link"></use></svg>
+          </a>
+        </li></ul>
+</nav>
+
+
+<div class="d-md-block d-none site-footer">
+  
+  
+    <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 24-Sep-2026 06:07 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+  
+  </div>
+</header>
+
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Local Workflows" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Local Workflows</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://github.com/local-workflows" class="site-button"
+          
+          target="_blank" rel="noopener noreferrer"
+          
+        >
+          GitHub
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="what-spec-driven-development-solves">
+  
+  
+    <a href="#what-spec-driven-development-solves" class="anchor-heading" aria-labelledby="what-spec-driven-development-solves"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What spec-driven development solves
+  
+  
+</h1>
+    
+
+<p class="fs-6 fw-300">AI writes the spec. People check it. Then AI builds it.
+Here is what goes wrong, and who handles it best.</p>
+
+<p class="note">Kiro and Spec Kit facts are from their own docs, checked on
+<strong>2026-09-23</strong>, except where a cell says <em>our use</em>: that is what we saw
+running Kiro ourselves. <a href="#sources">Sources</a> at the bottom.</p><hr />
+<h2 id="at-a-glance">
+  
+  
+    <a href="#at-a-glance" class="anchor-heading" aria-labelledby="at-a-glance"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> At a glance
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Problem</th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+      <th>Winner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><a href="#1-long-chats-get-worse">Long chats get worse</a></td>
+      <td>New chat per phase; one per wave</td>
+      <td>One session for all phases; own context per task</td>
+      <td>Your open chat for everything</td>
+      <td><strong>Local Workflows</strong> for phases, <strong>Kiro</strong> for tasks</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><a href="#2-specs-approved-unread">Specs approved unread</a></td>
+      <td>Stops after each phase</td>
+      <td>Stops after each phase</td>
+      <td>Stops only in its workflow runner</td>
+      <td><strong>Local Workflows, Kiro</strong></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><a href="#3-ai-decides-silently">AI decides silently</a></td>
+      <td>Open question blocks the next phase</td>
+      <td>No block found</td>
+      <td>Told to stop; not checked</td>
+      <td><strong>Local Workflows</strong></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><a href="#4-cant-see-what-a-revise-changed">Can’t see what a revise changed</a></td>
+      <td>Red/green diff, review notes</td>
+      <td>Updates later docs for you</td>
+      <td>Report only</td>
+      <td><strong>Local Workflows</strong> to review, <strong>Kiro</strong> to update</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><a href="#5-everyone-runs-a-different-prompt">Everyone runs a different prompt</a></td>
+      <td>Phases and prompts are files</td>
+      <td>Steering files only</td>
+      <td>Templates can be overridden</td>
+      <td><strong>Local Workflows, Spec Kit</strong></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><a href="#6-docs-fall-out-of-step">Docs fall out of step</a></td>
+      <td>Broken citations struck through</td>
+      <td>Links, no check found</td>
+      <td>AI-made report</td>
+      <td><strong>Local Workflows</strong></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><a href="#7-parallel-agents-collide">Parallel agents collide</a></td>
+      <td>One by one; same-file wave refused by code</td>
+      <td>In parallel; same-file kept apart</td>
+      <td><code class="language-plaintext highlighter-rouge">[P]</code> mark, not checked</td>
+      <td><strong>Kiro</strong> for speed, <strong>Local Workflows</strong> for safety</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><a href="#8-progress-lives-in-a-chat">Progress lives in a chat</a></td>
+      <td>Checkboxes in git</td>
+      <td>Checkboxes in git</td>
+      <td>Checkboxes in git</td>
+      <td><strong>Tie</strong></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><a href="#9-agent-stops-half-way">Agent stops half-way</a></td>
+      <td>Notifies when a chat stops; resumes</td>
+      <td>Alerts</td>
+      <td>Resumes a workflow step</td>
+      <td><strong>Tie</strong></td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><a href="#10-small-changes-get-the-full-process">Small changes get the full process</a></td>
+      <td>Define your own lighter types</td>
+      <td>Quick Spec, plain chat</td>
+      <td>Bug-fix flow, no spec</td>
+      <td><strong>Kiro</strong> built in, <strong>Local Workflows</strong> by config</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><a href="#11-spec-and-code-get-out-of-sync">Spec and code get out of sync</a></td>
+      <td>No check</td>
+      <td>Ticks tasks from code</td>
+      <td>Adds tasks from code</td>
+      <td><strong>Kiro, Spec Kit</strong></td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><a href="#12-locked-to-one-agent-or-editor">Locked to one agent or editor</a></td>
+      <td>Copilot, Claude, OpenCode, Gemini CLI, Codex…; VS Code and Open VSX editors</td>
+      <td>Own agent, own IDE</td>
+      <td>~40 agents, any editor</td>
+      <td><strong>Spec Kit</strong></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Local Workflows runs Kiro’s and Spec Kit’s processes as
+<a href="/getting-started/sdd/#choosing-a-style">styles</a>, and
+runs unchanged inside the Kiro IDE. This is not a “switch tools” page.</p><hr />
+<h2 id="who-does-it">
+  
+  
+    <a href="#who-does-it" class="anchor-heading" aria-labelledby="who-does-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Who does it
+  
+  
+</h2>
+    
+
+<p>Every cell below ends with a tag:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Tag</th>
+      <th>Means</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><em>tool</em></td>
+      <td>The tool itself does it.</td>
+    </tr>
+    <tr>
+      <td><em>prompt</em></td>
+      <td>The AI is told to do it. It usually does. Nothing checks it.</td>
+    </tr>
+    <tr>
+      <td><em>not in docs</em></td>
+      <td>Their docs don’t say.</td>
+    </tr>
+    <tr>
+      <td><em>our use</em></td>
+      <td>Not in their docs. What we saw using it.</td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="1-long-chats-get-worse">
+  
+  
+    <a href="#1-long-chats-get-worse" class="anchor-heading" aria-labelledby="1-long-chats-get-worse"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. Long chats get worse
+  
+  
+</h2>
+    
+
+<p>Every failed attempt stays in the chat. Answers get worse as it grows.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Spec phases</strong> (requirements, design, plan)</td>
+      <td>A new chat for each phase. Only files cross over. <em>tool</em></td>
+      <td>One session for every phase, unless you delete it. <em>our use</em></td>
+      <td>Whatever chat you have open. <em>tool</em></td>
+    </tr>
+    <tr>
+      <td><strong>Implementation</strong></td>
+      <td>One chat per wave of tasks. <em>tool</em></td>
+      <td>Own context for each task. <em>tool</em></td>
+      <td>Whatever chat you have open. <em>tool</em></td>
+    </tr>
+    <tr>
+      <td><strong>Shows how full the context is</strong></td>
+      <td>Yes, in every chat. <em>tool</em></td>
+      <td>Yes, and compacts near the limit. <em>tool</em></td>
+      <td>Up to your agent.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Spec Kit’s <code class="language-plaintext highlighter-rouge">specify workflow run</code> starts a new session per step, if you
+use it instead of the chat commands.</p>
+
+<p><strong>Winner: Local Workflows for phases. Kiro for tasks</strong> — its unit is
+smaller than a wave.</p><hr />
+<h2 id="2-specs-approved-unread">
+  
+  
+    <a href="#2-specs-approved-unread" class="anchor-heading" aria-labelledby="2-specs-approved-unread"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2. Specs approved unread
+  
+  
+</h2>
+    
+
+<p>Hundreds of lines arrive at once. People scroll and approve.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>One document per phase</strong></td>
+      <td>Yes. <em>tool</em></td>
+      <td>Yes. <em>tool</em></td>
+      <td>No. <code class="language-plaintext highlighter-rouge">/plan</code> writes several. <em>prompt</em></td>
+    </tr>
+    <tr>
+      <td><strong>Stops before the next phase</strong></td>
+      <td>Yes. Pressing Start on the next phase is the approval. <em>tool</em></td>
+      <td>Yes. You approve in chat. Quick Spec does not stop. <em>tool</em></td>
+      <td>Chat commands: no, you run the next one. Its workflow runner: yes, with review gates. <em>tool</em></td>
+    </tr>
+    <tr>
+      <td><strong>Stops before implementation</strong></td>
+      <td>Yes. Starting a task is the approval. <em>tool</em></td>
+      <td>Yes. You click <strong>Start Task</strong> or <strong>Run all Tasks</strong>. <em>tool</em></td>
+      <td>Only if a checklist is unticked. <em>prompt</em></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: Local Workflows and Kiro.</strong> Spec Kit stops only if you run it
+through its workflow runner.</p><hr />
+<h2 id="3-ai-decides-silently">
+  
+  
+    <a href="#3-ai-decides-silently" class="anchor-heading" aria-labelledby="3-ai-decides-silently"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3. AI decides silently
+  
+  
+</h2>
+    
+
+<p>The ask didn’t say. The AI picks something. Nobody knows.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Asks you while drafting</strong></td>
+      <td>Yes, with “keep open” as the default. <em>prompt</em></td>
+      <td>Quick Spec asks up front. Requirements analysis asks after. <em>tool</em></td>
+      <td>Up to 3 in <code class="language-plaintext highlighter-rouge">/specify</code>, up to 5 in <code class="language-plaintext highlighter-rouge">/clarify</code>. <em>prompt</em></td>
+    </tr>
+    <tr>
+      <td><strong>Where the answer goes</strong></td>
+      <td>In the document, with your name and time. <em>prompt</em></td>
+      <td><em>not in docs</em></td>
+      <td>A Clarifications section in the spec. <em>prompt</em></td>
+    </tr>
+    <tr>
+      <td><strong>AI’s own guesses</strong></td>
+      <td>Listed under Assumptions, marked as guesses. <em>prompt</em></td>
+      <td><em>not in docs</em></td>
+      <td><em>not in docs</em></td>
+    </tr>
+    <tr>
+      <td><strong>An open question blocks the next phase</strong></td>
+      <td>Yes. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+      <td><code class="language-plaintext highlighter-rouge">/plan</code> is told to stop. Skipping <code class="language-plaintext highlighter-rouge">/clarify</code> only warns. <em>prompt</em></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: Local Workflows.</strong> The only one where an open question
+actually blocks.</p><hr />
+<h2 id="4-cant-see-what-a-revise-changed">
+  
+  
+    <a href="#4-cant-see-what-a-revise-changed" class="anchor-heading" aria-labelledby="4-cant-see-what-a-revise-changed"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. Can’t see what a revise changed
+  
+  
+</h2>
+    
+
+<p>Nobody can tell what moved. Reviewers re-read it all, or stop reading.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>See what changed</strong></td>
+      <td>Removed in red, added in green, changed words picked out. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+      <td><em>not in docs</em></td>
+    </tr>
+    <tr>
+      <td><strong>Review comments</strong></td>
+      <td>Notes stay on their text and are committed. One click puts them all in the chat box. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+      <td>Community extensions only.</td>
+    </tr>
+    <tr>
+      <td><strong>Update the later documents</strong></td>
+      <td>You revise each one. A ready “previous doc changed” sentence helps. <em>tool</em></td>
+      <td><strong>Refine</strong> / <strong>Sync Files</strong> updates the ones affected. <em>tool</em></td>
+      <td>You update them. <code class="language-plaintext highlighter-rouge">/analyze</code> reports where docs disagree. <em>prompt</em></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: Local Workflows to review a change. Kiro to carry it into later
+documents.</strong></p><hr />
+<h2 id="5-everyone-runs-a-different-prompt">
+  
+  
+    <a href="#5-everyone-runs-a-different-prompt" class="anchor-heading" aria-labelledby="5-everyone-runs-a-different-prompt"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5. Everyone runs a different prompt
+  
+  
+</h2>
+    
+
+<p>Same kind of work, different prompt per person, different result.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Prompts shared through the repo</strong></td>
+      <td>Yes. <em>tool</em></td>
+      <td>Steering files only. <em>tool</em></td>
+      <td>Yes. <em>tool</em></td>
+    </tr>
+    <tr>
+      <td><strong>Change one phase’s prompt</strong></td>
+      <td>Drop one file in your repo. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+      <td>Override its template. <em>tool</em></td>
+    </tr>
+    <tr>
+      <td><strong>Change the phases themselves</strong></td>
+      <td>Yes, one YAML file. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+      <td>Yes, a workflow YAML file: your own steps, gates, even shell steps. <em>tool</em></td>
+    </tr>
+    <tr>
+      <td><strong>Read every prompt it sends</strong></td>
+      <td><a href="/getting-started/sdd/custom-prompts/">Published word for word</a>.</td>
+      <td><em>not in docs</em></td>
+      <td>In your repo.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: Local Workflows and Spec Kit.</strong> Spec Kit’s workflow file can
+do more kinds of step. Local Workflows publishes every prompt it sends.</p><hr />
+<h2 id="6-docs-fall-out-of-step">
+  
+  
+    <a href="#6-docs-fall-out-of-step" class="anchor-heading" aria-labelledby="6-docs-fall-out-of-step"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6. Docs fall out of step
+  
+  
+</h2>
+    
+
+<p>Requirements get renumbered. The plan still points at the old numbers.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Tasks cite requirements</strong></td>
+      <td>Yes. <em>prompt</em></td>
+      <td>Yes. <em>tool</em></td>
+      <td>No. Tasks cite user stories. <em>prompt</em></td>
+    </tr>
+    <tr>
+      <td><strong>Read a cited requirement in place</strong></td>
+      <td>Hover to read, click to jump. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+      <td><em>not in docs</em></td>
+    </tr>
+    <tr>
+      <td><strong>Broken citations flagged</strong></td>
+      <td>Struck through. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+      <td><code class="language-plaintext highlighter-rouge">/analyze</code> reports gaps. <em>prompt</em></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: Local Workflows.</strong></p><hr />
+<h2 id="7-parallel-agents-collide">
+  
+  
+    <a href="#7-parallel-agents-collide" class="anchor-heading" aria-labelledby="7-parallel-agents-collide"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 7. Parallel agents collide
+  
+  
+</h2>
+    
+
+<p>Two agents edit the same file. One overwrites the other.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Tasks in one wave run at the same time</strong></td>
+      <td>No. One chat works through them. <em>tool</em></td>
+      <td>Yes. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+    </tr>
+    <tr>
+      <td><strong>Same-file tasks kept apart</strong></td>
+      <td>A wave with a shared file won’t start. <em>tool</em></td>
+      <td>Kiro says they never run together. <em>tool</em></td>
+      <td><code class="language-plaintext highlighter-rouge">[P]</code> marks tasks on different files. <em>prompt</em></td>
+    </tr>
+    <tr>
+      <td><strong>Waves in different repositories</strong></td>
+      <td>Run side by side. The tool reads the first folder of each file path as the repository, so this is meant for a workspace with one folder per repository. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+      <td><em>not in docs</em></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: Kiro for speed.</strong> It runs a wave’s tasks at the same time.
+Local Workflows does them one after another.</p>
+
+<p><strong>Winner: Local Workflows for safety.</strong> Its same-file check is code.
+Kiro’s docs don’t say how theirs is checked, and a
+<a href="https://github.com/kirodotdev/Kiro/issues/8402">public bug report</a> says
+parallel builds and tests can clash. It was closed as “not planned”.</p><hr />
+<h2 id="8-progress-lives-in-a-chat">
+  
+  
+    <a href="#8-progress-lives-in-a-chat" class="anchor-heading" aria-labelledby="8-progress-lives-in-a-chat"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 8. Progress lives in a chat
+  
+  
+</h2>
+    
+
+<p>How far the work got is in one person’s chat window.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Where progress is kept</strong></td>
+      <td>Checkboxes in <code class="language-plaintext highlighter-rouge">tasks.md</code>. <em>tool</em></td>
+      <td>Checkboxes in <code class="language-plaintext highlighter-rouge">tasks.md</code>. <em>tool</em></td>
+      <td>Checkboxes in <code class="language-plaintext highlighter-rouge">tasks.md</code>. <em>prompt</em></td>
+    </tr>
+    <tr>
+      <td><strong>How a box gets ticked</strong></td>
+      <td>The agent calls a tool that changes only that box. <em>tool</em></td>
+      <td>Kiro ticks it when the task finishes. <em>tool</em></td>
+      <td>The agent edits the file. <em>prompt</em></td>
+    </tr>
+    <tr>
+      <td><strong>A teammate carries on</strong></td>
+      <td>Pull the folder. Chats stay on your machine. <em>tool</em></td>
+      <td>Pull <code class="language-plaintext highlighter-rouge">.kiro/specs/</code>. <em>tool</em></td>
+      <td>Pull the folder. <em>tool</em></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: tie.</strong></p><hr />
+<h2 id="9-agent-stops-half-way">
+  
+  
+    <a href="#9-agent-stops-half-way" class="anchor-heading" aria-labelledby="9-agent-stops-half-way"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 9. Agent stops half-way
+  
+  
+</h2>
+    
+
+<p>The agent stops without saying so. Someone finds out later.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Tells you it stopped</strong></td>
+      <td>A notification when a document phase fails, and when a task chat stops — naming any unticked task. If an agent’s process crashes, it may not notify. <em>tool</em></td>
+      <td>Alerts on failure, input needed, task done. <em>tool</em></td>
+      <td><code class="language-plaintext highlighter-rouge">/implement</code> stops and reports. <em>prompt</em></td>
+    </tr>
+    <tr>
+      <td><strong>Resume</strong></td>
+      <td>Press ▶. Starts from the first unticked box. <em>tool</em></td>
+      <td>Roll back to a checkpoint. <em>tool</em></td>
+      <td><code class="language-plaintext highlighter-rouge">specify workflow resume</code> restarts the failed step. <em>tool</em></td>
+    </tr>
+    <tr>
+      <td><strong>Retry on errors</strong></td>
+      <td>AI service errors retried twice while writing a document. Not in implementation. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+      <td><em>not in docs</em></td>
+    </tr>
+    <tr>
+      <td><strong>Stall timer</strong></td>
+      <td>No.</td>
+      <td><em>not in docs</em></td>
+      <td><em>not in docs</em></td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: tie.</strong></p><hr />
+<h2 id="10-small-changes-get-the-full-process">
+  
+  
+    <a href="#10-small-changes-get-the-full-process" class="anchor-heading" aria-labelledby="10-small-changes-get-the-full-process"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 10. Small changes get the full process
+  
+  
+</h2>
+    
+
+<p>A three-line fix gets requirements, a design and a plan.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Lighter flow</strong></td>
+      <td>Define your own types, with only the phases you need. The built-in Bug fix type skips the design. <em>tool</em></td>
+      <td>Bugfix flow, and Quick Spec writes all three docs in one go. <em>tool</em></td>
+      <td>Bug-fix flow: assess, fix, test. <em>tool</em></td>
+    </tr>
+    <tr>
+      <td><strong>No spec at all</strong></td>
+      <td>No.</td>
+      <td>Plain chat. <em>tool</em></td>
+      <td>The bug-fix flow writes no spec. <em>tool</em></td>
+    </tr>
+    <tr>
+      <td><strong>All docs in one go, no stops</strong></td>
+      <td>No.</td>
+      <td>Quick Spec. <em>tool</em></td>
+      <td><em>not in docs</em></td>
+    </tr>
+    <tr>
+      <td><strong>Who picks the flow</strong></td>
+      <td>A person.</td>
+      <td>A person.</td>
+      <td>A person.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: Kiro built in. Local Workflows by config</strong> — you write the
+lighter type once in the style file, and the whole team gets it.</p><hr />
+<h2 id="11-spec-and-code-get-out-of-sync">
+  
+  
+    <a href="#11-spec-and-code-get-out-of-sync" class="anchor-heading" aria-labelledby="11-spec-and-code-get-out-of-sync"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 11. Spec and code get out of sync
+  
+  
+</h2>
+    
+
+<p>The plan is done, every box ticked. Weeks later someone changes the code
+by hand. The spec no longer says what the code does. Can the tool
+compare the two and tell you?</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Compare code with the tasks</strong></td>
+      <td>No.</td>
+      <td><strong>Sync Files</strong> ticks tasks already done. <em>tool</em></td>
+      <td><code class="language-plaintext highlighter-rouge">/converge</code> adds tasks for what’s missing. <em>prompt</em></td>
+    </tr>
+    <tr>
+      <td><strong>Update the spec from the code</strong></td>
+      <td>No.</td>
+      <td><em>not in docs</em></td>
+      <td>No. It never edits the spec.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: Kiro and Spec Kit.</strong></p><hr />
+<h2 id="12-locked-to-one-agent-or-editor">
+  
+  
+    <a href="#12-locked-to-one-agent-or-editor" class="anchor-heading" aria-labelledby="12-locked-to-one-agent-or-editor"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 12. Locked to one agent or editor
+  
+  
+</h2>
+    
+
+<p>Part of the team can’t use it.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Local Workflows</th>
+      <th>Kiro</th>
+      <th>Spec Kit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Agents</strong></td>
+      <td>Copilot (default), Claude, and <a href="/getting-started/acp/">Agent Client Protocol</a> agents: OpenCode, Gemini CLI, Codex, Cursor, Kiro and more.</td>
+      <td>Its own agent, with many models.</td>
+      <td>About 40 agents.</td>
+    </tr>
+    <tr>
+      <td><strong>Editors</strong></td>
+      <td>VS Code, and editors that install from <a href="/getting-started/install/#kiro-vscodium-and-other-code-oss-builds">Open VSX</a> — Kiro, VSCodium, Cursor, Windsurf. Tested in Kiro.</td>
+      <td>Kiro IDE, command line, web.</td>
+      <td>Any, through a command line tool.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Winner: Spec Kit.</strong> It runs from a terminal beside any editor,
+JetBrains included. Local Workflows needs a VS Code-family editor.</p><hr />
+<h2 id="what-it-costs-you">
+  
+  
+    <a href="#what-it-costs-you" class="anchor-heading" aria-labelledby="what-it-costs-you"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What it costs you
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Cost</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AI sign-in</td>
+      <td>Copilot by default, or Claude, or an ACP agent.</td>
+    </tr>
+    <tr>
+      <td>A person starts every phase</td>
+      <td>Slower than one prompt. On purpose.</td>
+    </tr>
+    <tr>
+      <td>Editor</td>
+      <td>VS Code, or an editor that installs from Open VSX.</td>
+    </tr>
+    <tr>
+      <td>No server</td>
+      <td>Runs while your editor is open. Not otherwise.</td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="is-it-worth-it">
+  
+  
+    <a href="#is-it-worth-it" class="anchor-heading" aria-labelledby="is-it-worth-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Is it worth it?
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>Worth it</th>
+      <th>Not worth it</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Work takes more than a day</td>
+      <td>A one-line change — use a chat</td>
+    </tr>
+    <tr>
+      <td>More than one developer</td>
+      <td>Solo, throwaway work</td>
+    </tr>
+    <tr>
+      <td>Specs are reviewed before code</td>
+      <td>You want ask-to-merge with nobody reading</td>
+    </tr>
+    <tr>
+      <td>Team wants the same prompts</td>
+      <td>Your team is not on a VS Code-family editor</td>
+    </tr>
+    <tr>
+      <td>Decisions must live in files</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="where-to-go-next">
+  
+  
+    <a href="#where-to-go-next" class="anchor-heading" aria-labelledby="where-to-go-next"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Where to go next
+  
+  
+</h2>
+    
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Try it</strong></td>
+      <td><a href="/getting-started/sdd/">Spec-driven development</a> — your first spec</td>
+    </tr>
+    <tr>
+      <td><strong>Change the process</strong></td>
+      <td><a href="/getting-started/sdd/custom-style/">Writing your own style</a></td>
+    </tr>
+    <tr>
+      <td><strong>Read the prompts</strong></td>
+      <td><a href="/getting-started/sdd/custom-prompts/">The built-in prompts</a></td>
+    </tr>
+    <tr>
+      <td><strong>Compare the products</strong></td>
+      <td><a href="/why/">Compared with alternatives</a></td>
+    </tr>
+  </tbody>
+</table></div><hr />
+<h2 id="sources">
+  
+  
+    <a href="#sources" class="anchor-heading" aria-labelledby="sources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sources
+  
+  
+</h2>
+    
+
+<p>Checked on 2026-09-23.</p>
+
+<p><strong>Kiro:</strong>
+<a href="https://kiro.dev/docs/specs/">Specs</a>,
+<a href="https://kiro.dev/docs/specs/quick-spec/">Quick Spec</a>,
+<a href="https://kiro.dev/docs/specs/best-practices/">Best practices</a>,
+<a href="https://kiro.dev/docs/specs/analyze-requirements/">Analyze requirements</a>,
+<a href="https://kiro.dev/docs/guides/learn-by-playing/05-using-specs-for-complex-work/">Using specs</a>,
+<a href="https://kiro.dev/docs/steering/">Steering</a>,
+<a href="https://kiro.dev/docs/models/">Models</a>,
+<a href="https://kiro.dev/docs/compaction/">Compaction</a>,
+<a href="https://kiro.dev/docs/ide/chat/notifications/">Notifications</a>,
+<a href="https://kiro.dev/docs/checkpoints/">Checkpoints</a>,
+<a href="https://kiro.dev/blog/run-all-tasks/">Run all tasks</a>,
+<a href="https://kiro.dev/blog/faster-smarter-specs/">Faster, smarter specs</a>,
+<a href="https://kiro.dev/blog/introducing-kiro/">Introducing Kiro</a>.</p>
+
+<p><strong>Spec Kit:</strong>
+<a href="https://github.com/github/spec-kit">README</a>,
+<a href="https://github.github.io/spec-kit/guides/customization.html">Customization</a>,
+<a href="https://github.github.io/spec-kit/reference/integrations.html">Integrations</a>,
+<a href="https://github.com/github/spec-kit/blob/main/docs/guides/bugfix.md">Bug-fix guide</a>,
+<a href="https://github.github.io/spec-kit/reference/workflows.html">Workflows</a>,
+<a href="https://github.com/github/spec-kit/tree/main/templates/commands">command prompts</a>.</p>
+
+          
+
+          
+            
+          
+        </main>
+        
+<hr>
+<footer>
+  
+    <p><a href="#top" id="back-to-top">Back to top</a></p>
+  
+
+  <p class="text-small mb-0">Local Workflows is a VS Code extension. Everything it does is declared in a YAML file you own.</p>
+
+  
+    <div class="d-flex mt-2">
+      
+      
+    </div>
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <div style="padding: .75rem 1rem;">
+  <button class="btn js-lw-theme-toggle" type="button">Switch to light</button>
+  <br/>
+  <span> - 24-Sep-2026 06:07 PM +0000</span>
+</div>
+<script>
+  /* just-the-docs renders the nav (and this include) twice, so this
+     script appears twice per page. The guard makes only the first copy
+     act; it binds every rendered button. */
+  (function () {
+    if (window.lwThemeToggleInit) { return; }
+    window.lwThemeToggleInit = true;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.jtd) { return; }
+
+      /* Must match color_scheme in _config.yml: the stylesheet the page
+         loads first is the compiled default, and jtd.getTheme() reports
+         it as "default" rather than by name. */
+      var DEFAULT_SCHEME = 'dark';
+      var STORAGE_KEY = 'lw-color-scheme';
+      var buttons = Array.prototype.slice.call(
+        document.querySelectorAll('.js-lw-theme-toggle'));
+
+      function readStored() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      }
+
+      function writeStored(scheme) {
+        try { localStorage.setItem(STORAGE_KEY, scheme); } catch (e) { /* private mode: toggle still works per page */ }
+      }
+
+      function currentScheme() {
+        var theme = jtd.getTheme();
+        return theme === 'default' ? DEFAULT_SCHEME : theme;
+      }
+
+      function applyScheme(scheme) {
+        if (scheme !== currentScheme()) { jtd.setTheme(scheme); }
+        buttons.forEach(function (button) {
+          button.textContent = scheme === 'dark' ? 'Switch to light' : 'Switch to dark';
+        });
+      }
+
+      applyScheme(readStored() || DEFAULT_SCHEME);
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var next = currentScheme() === 'dark' ? 'light' : 'dark';
+          writeStored(next);
+          applyScheme(next);
+        });
+      });
+    });
+  })();
+</script>
+
+    
+  </div>
+</footer>
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

@@ -1,0 +1,60 @@
+# Everything CI would run, run locally before you open the pull request.
+#
+# The point of a workflow file rather than a `tasks.yml` is the order.
+# A `tasks.yml` is a library of things you press play on one at a time;
+# this is one pipeline with a start and an end, and a stage only begins
+# when the whole stage before it has passed.
+#
+# So a failing test stops the run before anything is built, and you see
+# it on the stage that failed instead of hunting for it.
+
+version: 1
+
+name: PR check
+desc: Install, verify, build, and show what you are about to push.
+
+params:
+
+  # The branch you are comparing against. Defaults so you are never
+  # asked twice; change it in the run panel's Params tab.
+  base:
+    desc: Branch this pull request targets
+    default: origin/main
+
+label: PR check against ${{ params.base }}
+
+env:
+  NO_COLOR: "1"
+
+stages:
+
+  - name: install
+    desc: Exactly what the lockfile says.
+    tasks:
+      - name: Install dependencies
+        run: npm ci
+
+  - name: verify
+    desc: Both checks run here. Neither can pass while the other fails.
+    tasks:
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Test
+        run: npm test
+
+  - name: build
+    desc: Only reached once the whole verify stage has passed.
+    tasks:
+      - name: Compile
+        run: npm run build
+      - name: Show what was written
+        shell: pwsh
+        run: Get-ChildItem dist -Recurse -File | Select-Object -ExpandProperty Name
+
+  - name: review
+    desc: What a reviewer is going to see.
+    tasks:
+      - name: Files this branch touches
+        run: git --no-pager diff --stat ${{ params.base }}...HEAD
+      - name: Commits this branch adds
+        run: git --no-pager log --oneline ${{ params.base }}..HEAD

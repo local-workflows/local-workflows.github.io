@@ -1,0 +1,37 @@
+version: 1
+
+name: Plugins Demo
+desc: Runs a bundled plugin and a user-written one, passing data between them.
+
+stages:
+
+  - name: run-plugins
+    tasks:
+
+      # Inline PowerShell through the bundled pwsh@1.
+      - name: Inline script
+        uses: pwsh@1
+        args:
+          script: Write-Output 'Ran an inline script via pwsh@1.'
+
+      # A real .ps1 file on disk, with arguments.
+      - name: Run a .ps1 file
+        uses: pwsh@1
+        args:
+          file: scripts/hello.ps1
+          additionalArgs: -Name "Local Workflows"
+        artifact: SCRIPT
+
+      # Loaded from .local-workflows/plugins/greetV1 - plain JS, no build step.
+      - name: Greet
+        uses: greet@1
+        args:
+          name: Santosh
+          excited: true
+        artifact: GREETING
+
+      # greet@1 declares exactly one output, so `${{ run.context.GREETING }}`
+      # is that value directly rather than an object. A plain `run:`
+      # task reads run variables exactly like a plugin's args do.
+      - name: Read both run variables
+        run: echo greet said ${{ run.context.GREETING }} / script said ${{ run.context.SCRIPT.stdout }}

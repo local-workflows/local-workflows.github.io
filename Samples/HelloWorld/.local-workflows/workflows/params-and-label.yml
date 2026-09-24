@@ -1,0 +1,71 @@
+# Run identity: what a run is *asked for*, and what it is *called*.
+#
+# Click Run and the panel asks for `ticket` before anything starts - a
+# workflow can now take input. The run is then listed as `AB#1234 build`
+# rather than as this file's name, which is what makes six runs of one
+# workflow tellable apart.
+#
+# What to look at:
+#
+#   [1] `params:` - values the run is asked for before it starts
+#   [2] a bare name is required; a `default:` makes it optional
+#   [3] `label:` - what this run is called, resolved once at start
+#   [4] `${{ params.NAME }}` readable in `vars:`, which resolve first
+#   [5] ...and in any task - a plain `run:` resolves them the same way
+#       a plugin's `args:` do
+#   [6] `options:` closes the set, so the panel offers a menu instead of
+#       a text box
+#
+# Run it a second time and it does NOT ask again: a run only prompts for
+# what it has no answer for. To change an answer, open the run panel's
+# Params tab - every declared param with the answer it currently holds.
+# Clearing a box un-answers it, so the next run asks for it again.
+#
+# Answers are also remembered per workspace, so the first prompt in a new
+# window offers what you gave last time.
+
+version: 1
+name: Params and label
+desc: A run that is asked for a ticket number, and named after it.
+
+params:                                            # [1]
+
+  ticket:                                          # [2] no default, so required
+    desc: Ticket number this run is for (e.g. 1234)
+
+  area:
+    desc: Which part of the product
+    default: build                                 # [2] a default makes it optional
+    options: [build, docs, infra]                  # [6] the only values accepted
+
+label: "AB#${{ params.ticket }} ${{ params.area }}" # [3]
+
+vars:
+  # Params are known before anything runs, so unlike `run.context.*` they are
+  # readable even here - `vars:` resolve first and can still see them.
+  branch: feature/${{ params.ticket }}-${{ params.area }}   # [4]
+
+stages:
+
+  - name: report
+    desc: Prove the values arrived, and that the run is named after them.
+    tasks:
+
+      # Multi-line, so it says `shell: pwsh` - a multi-line script
+      # is the one thing the OS-default cmd cannot take verbatim.
+      - name: Show what the run was asked for
+        shell: pwsh
+        run: |                                 # [5]
+          Write-Output "ticket : ${{ params.ticket }}"
+          Write-Output "area   : ${{ params.area }}"
+          Write-Output "branch : ${{ vars.branch }}"
+
+      - name: Prove a param survives into a later stage
+        run: echo still ${{ params.ticket }}
+
+  - name: confirm
+    desc: A second stage, to show params are not scoped to the first.
+    tasks:
+
+      - name: Read it again
+        run: echo AB#${{ params.ticket }} done

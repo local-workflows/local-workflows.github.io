@@ -1,0 +1,79 @@
+# Everything you do to this project, as tasks you can press play on.
+#
+# These are real commands. `npm ci` really installs, `vitest` really
+# runs the 25 tests in `src/`, and `tsc` really writes `dist/`.
+#
+# Order comes from `needs:` and nothing else. Pressing play on `verify`
+# installs first, because `verify` needs `typecheck` and `test`, and both
+# of those need `install`. You never have to remember the order.
+
+version: 1
+
+env:
+
+  # Node prints coloured output only when it thinks it is talking to a
+  # terminal. It is not - it is talking to the run panel - so the colour
+  # codes arrive as unreadable characters. This turns them off.
+  NO_COLOR: "1"
+
+tasks:
+
+  install:
+    name: Install
+    desc: Installs exactly what package-lock.json says. Faster than npm install and it cannot drift.
+    run: npm ci
+
+  typecheck:
+    name: Typecheck
+    desc: Runs the TypeScript compiler without writing anything.
+    needs: install
+    run: npm run typecheck
+
+  test:
+    name: Test
+    desc: Runs every test in src/ once and exits.
+    needs: install
+    run: npm test
+
+  build:
+    name: Build
+    desc: Compiles src/ into dist/.
+    needs: [typecheck, test]
+    run: npm run build
+
+  # No `run:` and no `uses:`. It exists to run the two tasks it needs,
+  # which is what makes it one click instead of two.
+  verify:
+    name: Verify
+    desc: Typecheck and test. What you run before pushing.
+    needs: [typecheck, test]
+
+  demo:
+    name: Try the CLI
+    desc: Adds two todos, completes one, and shows the list. Writes demo-todos.json.
+    needs: build
+    shell: pwsh
+    env:
+      TODO_FILE: demo-todos.json
+    run: |
+      Remove-Item $env:TODO_FILE -ErrorAction SilentlyContinue
+      node dist/cli.js add "Buy milk"
+      node dist/cli.js add "Write the README"
+      node dist/cli.js done 1
+      node dist/cli.js list
+
+  watch:
+    name: Test in watch mode
+    desc: Keeps running. Stop it with the Stop button in the panel.
+    needs: install
+    run: npm run test:watch
+
+  clean:
+    name: Clean
+    desc: Deletes dist/ and the demo file. Leaves node_modules alone.
+    trigger: manual
+    shell: pwsh
+    run: |
+      Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue
+      Remove-Item -Force demo-todos.json -ErrorAction SilentlyContinue
+      Write-Output "Cleaned."

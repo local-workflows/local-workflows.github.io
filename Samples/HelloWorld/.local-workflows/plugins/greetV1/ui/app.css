@@ -1,0 +1,9 @@
+section { margin: 12px 0 18px; }
+h2 { margin: 0 0 4px; font-size: 1.2em; }
+h3 { margin: 0 0 6px; font-size: 1em; }
+.muted { opacity: .7; margin: 0 0 8px; }
+.row { display: flex; gap: 8px; margin-bottom: 8px; }
+.answer { min-height: 1.2em; }
+.answer.error { color: var(--vscode-errorForeground); }
+pre { max-height: 220px; overflow: auto; padding: 8px; background: var(--vscode-textCodeBlock-background); }
+table { width: 100%; }
